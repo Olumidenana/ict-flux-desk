@@ -2797,7 +2797,7 @@ html_content = r'''<!DOCTYPE html>
         obj.cur = isBuy ? (stopNum - (1.5 * obj.pipScale)) : (stopNum + (1.5 * obj.pipScale));
         obj.cur = parseFloat(obj.cur.toFixed(obj.decimals));
         updateLiveHud();
-        showToast('⚠️ Simulated Market Breach: Price swept Stop Level! Card updated dynamically.');
+        showToast('⚠️ Previous trade swept! Card instantly transitions forward to show what is forming next.');
       } else if (mode === 'profit') {
         simulatedState = 'profit';
         // Force price into +1.2R profit
@@ -3853,50 +3853,61 @@ html_content = r'''<!DOCTYPE html>
         if (radarStop) radarStop.textContent = h.stop;
 
         if (isStopBreached) {
-          // LIVE STATE 1: SETUP INVALIDATED
-          if (dirCard) dirCard.classList.add('standaside');
+          // LIVE STATE 1: SETUP INVALIDATED -> PROACTIVELY PREPARE NEXT FORMING SETUP
+          const isBull = obj.isUp !== undefined ? obj.isUp : true;
+          const pipOffset = curHorizon === 'scalp' ? 5.0 : (curHorizon === 'day' ? 10.0 : 30.0);
+          const slOffset = curHorizon === 'scalp' ? 4.5 : (curHorizon === 'day' ? 8.0 : 25.0);
+          const tpOffset = curHorizon === 'scalp' ? 18.0 : (curHorizon === 'day' ? 38.0 : 90.0);
+
+          const prospectiveEntry = (isBull ? curPrice - (pipOffset * 0.3 * obj.pipScale) : curPrice + (pipOffset * 0.3 * obj.pipScale)).toFixed(obj.decimals);
+          const prospectiveTarget = (isBull ? parseFloat(prospectiveEntry) + (tpOffset * obj.pipScale) : parseFloat(prospectiveEntry) - (tpOffset * obj.pipScale)).toFixed(obj.decimals);
+
+          if (dirCard) dirCard.classList.remove('standaside');
           if (ribbon) {
             ribbon.className = 'state-ribbon invalidated';
-            if (ribbonDot) ribbonDot.className = 'pulse-dot red';
-            if (ribbonTxt) ribbonTxt.textContent = '🛑 SETUP INVALIDATED • SURGICAL STOP SWEPT';
-            if (ribbonSub) ribbonSub.textContent = 'PRESERVE CAPITAL';
+            if (ribbonDot) ribbonDot.className = 'pulse-dot gold';
+            if (ribbonTxt) ribbonTxt.textContent = `🔄 PREVIOUS LEVEL SWEPT @ ${h.stop} • NOW FORMING NEXT SETUP`;
+            if (ribbonSub) ribbonSub.textContent = 'FORWARD FLOW';
           }
-          if (radarBox) radarBox.className = 'invalidation-radar-box breached';
+          if (radarBox) radarBox.className = 'invalidation-radar-box';
           if (radarDist) {
-            radarDist.textContent = '🛑 SWEPT & BREACHED';
-            radarDist.style.color = 'var(--bear)';
+            radarDist.textContent = `🔄 FORMING NEXT CHOKEPOINT`;
+            radarDist.style.color = 'var(--accent)';
           }
           if (radarState) {
-            radarState.textContent = 'Structure Broken (Stand Aside)';
-            radarState.style.color = 'var(--bear)';
+            radarState.textContent = `Awaiting M5 displacement at ${prospectiveEntry}`;
+            radarState.style.color = 'var(--accent)';
           }
 
           if (dirHl) {
-            dirHl.textContent = '🛑 SETUP INVALIDATED (STOP LEVEL SWEPT)';
-            dirHl.className = 'directive-headline sell';
+            dirHl.textContent = `⚡ NEXT SETUP FORMING: ${isBull ? 'BUY' : 'SELL'} LIMIT @ ${prospectiveEntry}`;
+            dirHl.className = isBull ? 'directive-headline buy' : 'directive-headline sell';
           }
           if (stateEl) {
-            stateEl.textContent = '⚠️ INVALIDATED • STOP SWEPT';
-            stateEl.style.color = 'var(--bear)';
+            stateEl.textContent = `🔄 PREPARING NEXT SETUP (${prospectiveEntry})`;
+            stateEl.style.color = 'var(--accent)';
           }
           if (distEl) {
-            distEl.textContent = '🛑 STAND ASIDE • 0 REVENGE TRADING';
-            distEl.style.color = 'var(--bear)';
+            distEl.textContent = `📍 Monitoring ${curPrice.toFixed(obj.decimals)} Equilibrium`;
+            distEl.style.color = 'var(--text)';
           }
           if (badge) {
-            badge.textContent = 'SETUP INVALIDATED';
-            badge.className = 'status-badge standaside';
+            badge.textContent = 'FORMING NEXT SETUP';
+            badge.className = 'status-badge active';
           }
           if (dirBadge) {
-            dirBadge.textContent = 'INVALIDATED';
-            dirBadge.className = 'status-badge standaside';
+            dirBadge.textContent = 'FORMING';
+            dirBadge.className = 'status-badge active';
           }
           if (guideDo) {
-            guideDo.innerHTML = `<strong style="color:var(--bear)">Setup Invalidated:</strong> Price swept surgical stop (${h.stop}). Liquidity pool absorbed. Do NOT chase. Click <b>⚡ SCAN FRESH SETUP</b> above to recalibrate for current price.`;
+            guideDo.innerHTML = `<strong style="color:var(--accent)">Next Setup Forming:</strong> Previous level at ${h.stop} was swept. Market has reset. Currently preparing for <b>${isBull ? 'Bullish' : 'Bearish'} Displacement</b>. Target liquidity pool at <b>${prospectiveTarget}</b>. Click <b>⚡ ACTIVATE NEXT SETUP</b> to trade this formation.`;
           }
           if (btnExec) {
-            btnExec.classList.add('disabled');
-            btnExec.textContent = '🛑 Setup Invalidated (Preserve Capital)';
+            btnExec.classList.remove('disabled');
+            btnExec.textContent = `⚡ Activate Next Setup @ ${prospectiveEntry}`;
+            btnExec.onclick = () => {
+              regenerateLiveSetupForCurrentPrice();
+            };
           }
         } else if (isTargetReached) {
           // LIVE STATE 2: TARGET ACHIEVED

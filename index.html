@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ICT FLUX • Institutional Order Flow Desk</title>
+  <title>ICT FLUX • God's Eye Execution Desk</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600;700;800&family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
       --surface-3: #1C2030;
       --line: rgba(255, 255, 255, 0.07);
       --line-2: rgba(255, 255, 255, 0.12);
-      --line-gold: rgba(240, 185, 75, 0.25);
+      --line-gold: rgba(240, 185, 75, 0.35);
       --brand: linear-gradient(135deg, #F7CF6B 0%, #E39B2E 100%);
       --text: #F2F4F8;
       --muted: #9AA3B5;
@@ -23,7 +23,7 @@
       --accent: #F0B94B;
       --accent-ink: #1A1305;
       --accent-soft: rgba(240, 185, 75, 0.12);
-      --accent-glow: rgba(240, 185, 75, 0.22);
+      --accent-glow: rgba(240, 185, 75, 0.25);
       --bull: #2BD47D;
       --bull-soft: rgba(43, 212, 125, 0.12);
       --bear: #FF5C6C;
@@ -32,7 +32,7 @@
       --sky-soft: rgba(90, 169, 255, 0.12);
       --mono: 'Geist Mono', ui-monospace, monospace;
       --sans: 'Geist', -apple-system, sans-serif;
-      --glow: radial-gradient(900px 420px at 0% -8%, rgba(240, 185, 75, 0.08), transparent 60%),
+      --glow: radial-gradient(900px 420px at 0% -8%, rgba(240, 185, 75, 0.09), transparent 60%),
               radial-gradient(800px 380px at 100% -6%, rgba(90, 169, 255, 0.05), transparent 60%);
     }
 
@@ -48,7 +48,7 @@
     }
 
     .wrap {
-      max-width: 1240px;
+      max-width: 1260px;
       margin: 0 auto;
       padding: 0 24px;
     }
@@ -58,7 +58,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(7, 8, 11, 0.82);
+      background: rgba(7, 8, 11, 0.85);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
     }
@@ -66,53 +66,66 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 68px;
+      height: 72px;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 14px;
       text-decoration: none;
     }
     .logo-badge {
-      width: 38px;
-      height: 38px;
-      border-radius: 10px;
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
       background: var(--brand);
       display: grid;
       place-items: center;
       color: var(--accent-ink);
       font-weight: 900;
-      font-size: 18px;
+      font-size: 20px;
       font-family: var(--mono);
-      box-shadow: 0 0 24px var(--accent-glow);
+      box-shadow: 0 0 28px var(--accent-glow);
     }
     .brand-title {
       font-weight: 800;
-      font-size: 17px;
+      font-size: 18px;
       letter-spacing: -0.02em;
       color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .badge-gods-eye {
+      font-size: 10.5px;
+      font-family: var(--mono);
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: var(--accent-soft);
+      border: 1px solid var(--line-gold);
+      color: var(--accent);
+      letter-spacing: 0.04em;
     }
     .brand-sub {
-      font-size: 11px;
+      font-size: 11.5px;
       font-family: var(--mono);
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
+      color: var(--muted);
+      letter-spacing: 0.05em;
     }
 
     .session-hud {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       font-family: var(--mono);
       font-size: 12px;
     }
     .session-pill {
       display: flex;
       align-items: center;
-      gap: 6px;
-      padding: 6px 12px;
+      gap: 7px;
+      padding: 6px 14px;
       border-radius: 99px;
       border: 1px solid var(--line-gold);
       background: var(--accent-soft);
@@ -132,7 +145,7 @@
       50% { opacity: 0.4; transform: scale(0.85); }
     }
 
-    /* Sub-nav banner */
+    /* Hero Banner */
     .hero-banner {
       padding: 32px 0 20px;
       display: flex;
@@ -149,7 +162,7 @@
     }
     .hero-title p {
       color: var(--muted);
-      font-size: 14px;
+      font-size: 13.5px;
     }
     .model-filters {
       display: flex;
@@ -177,10 +190,30 @@
       color: var(--accent);
     }
 
+    /* Engine Status Governor Banner */
+    .governor-bar {
+      margin-bottom: 24px;
+      padding: 12px 18px;
+      background: var(--surface-2);
+      border: 1px solid var(--line-gold);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .governor-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .governor-item b { color: var(--accent); }
+
     /* Signal Cards Grid */
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
       gap: 24px;
     }
 
@@ -198,7 +231,7 @@
     .card:hover {
       border-color: var(--line-gold);
       transform: translateY(-2px);
-      box-shadow: 0 18px 40px -18px rgba(240, 185, 75, 0.15);
+      box-shadow: 0 18px 40px -18px rgba(240, 185, 75, 0.18);
     }
     .card-top {
       padding: 18px 20px 14px;
@@ -213,7 +246,7 @@
       gap: 10px;
     }
     .pair-sym {
-      font-size: 20px;
+      font-size: 21px;
       font-weight: 800;
       letter-spacing: -0.02em;
       font-family: var(--mono);
@@ -240,7 +273,7 @@
     .bias-badge.bull { background: var(--bull-soft); color: var(--bull); border: 1px solid rgba(43,212,125,0.3); }
     .bias-badge.bear { background: var(--bear-soft); color: var(--bear); border: 1px solid rgba(255,92,108,0.3); }
 
-    /* Model Banner */
+    /* Model Ribbon */
     .model-ribbon {
       padding: 10px 20px;
       background: var(--surface-2);
@@ -280,9 +313,9 @@
       flex-direction: column;
       gap: 4px;
     }
-    .level-box.entry { border-color: rgba(240, 185, 75, 0.3); background: rgba(240, 185, 75, 0.04); }
-    .level-box.stop { border-color: rgba(255, 92, 108, 0.3); background: var(--bear-soft); }
-    .level-box.target { border-color: rgba(43, 212, 125, 0.3); background: var(--bull-soft); }
+    .level-box.entry { border-color: rgba(240, 185, 75, 0.35); background: rgba(240, 185, 75, 0.04); }
+    .level-box.stop { border-color: rgba(255, 92, 108, 0.35); background: var(--bear-soft); }
+    .level-box.target { border-color: rgba(43, 212, 125, 0.35); background: var(--bull-soft); }
 
     .level-label {
       font-size: 10px;
@@ -290,9 +323,6 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: var(--faint);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
     }
     .level-price {
       font-family: var(--mono);
@@ -312,6 +342,24 @@
     .pip-pill.gold { background: var(--accent-soft); color: var(--accent); }
     .pip-pill.red { background: rgba(255,92,108,0.25); color: #FFA0A9; }
     .pip-pill.green { background: rgba(43,212,125,0.25); color: #8BF7BA; }
+
+    /* Dual-Tranche Governor Breakdown */
+    .governor-breakdown {
+      margin: 0 20px 14px;
+      padding: 10px 12px;
+      background: var(--surface-2);
+      border: 1px dashed var(--line-gold);
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: 11px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      text-align: center;
+    }
+    .gov-step span { display: block; color: var(--faint); font-size: 9.5px; text-transform: uppercase; margin-bottom: 2px; }
+    .gov-step b { color: var(--text); }
+    .gov-step.active b { color: var(--accent); }
 
     /* R:R Bar */
     .rr-container {
@@ -402,7 +450,7 @@
     }
     .btn {
       flex: 1;
-      height: 38px;
+      height: 40px;
       border-radius: 8px;
       border: 1px solid var(--line-2);
       background: var(--surface);
@@ -458,17 +506,20 @@
   <header class="top">
     <div class="wrap top-bar">
       <a href="#" class="brand">
-        <div class="logo-badge">◈</div>
+        <div class="logo-badge">👁️</div>
         <div>
-          <div class="brand-title">ICT FLUX</div>
-          <div class="brand-sub">Institutional Order Flow Desk</div>
+          <div class="brand-title">
+            ICT FLUX
+            <span class="badge-gods-eye">GOD'S EYE ENGINE</span>
+          </div>
+          <div class="brand-sub">Single-Pass Chokepoint Intercept Desk</div>
         </div>
       </a>
 
       <div class="session-hud">
         <div class="session-pill">
           <div class="session-dot"></div>
-          <span>LONDON KILLZONE ACTIVE</span>
+          <span>LONDON KILLZONE INTERCEPT</span>
         </div>
         <div style="color:var(--faint)">08:30:15 UTC · NY 03:30:15</div>
       </div>
@@ -479,54 +530,84 @@
     <!-- Hero / Header Controls -->
     <section class="hero-banner">
       <div class="hero-title">
-        <h1>Live Institutional Execution Radar</h1>
-        <p>Full ICT Taxonomy: Propulsion Blocks · Breakers · SMT Divergence · OTE · Volume Imbalances</p>
+        <h1>God's Eye Execution Desk</h1>
+        <p>Vectorized State Machine: Order Flow Alignment · CISD Confirmation · Dual-Tranche Governor</p>
       </div>
 
       <div class="model-filters">
-        <button class="filter-btn active" onclick="filterModel('all', this)">All Setups</button>
-        <button class="filter-btn" onclick="filterModel('propulsion', this)">Propulsion Block</button>
-        <button class="filter-btn" onclick="filterModel('breaker', this)">Breaker + OTE</button>
-        <button class="filter-btn" onclick="filterModel('smt', this)">SMT Divergence</button>
-        <button class="filter-btn" onclick="filterModel('judas', this)">Judas Swing</button>
+        <button class="filter-btn active" onclick="filterModel('all', this)">All Intercepts</button>
+        <button class="filter-btn" onclick="filterModel('trend_raid', this)">Trend Pullback Raid</button>
+        <button class="filter-btn" onclick="filterModel('smt_turtle', this)">SMT Turtle Soup</button>
+        <button class="filter-btn" onclick="filterModel('judas_sweep', this)">Judas Sweep Reversal</button>
       </div>
     </section>
+
+    <!-- Governor Metrics Bar -->
+    <div class="governor-bar">
+      <div class="governor-item">
+        <span>🛡️ Dual-Tranche Governor:</span>
+        <b>At +0.80R: Auto-BE (+0.05R Scratch Guard)</b>
+      </div>
+      <div class="governor-item">
+        <span>💰 Tranche 1:</span>
+        <b>At +1.25R: Harvest 70% Position</b>
+      </div>
+      <div class="governor-item">
+        <span>🚀 Tranche 2:</span>
+        <b>At +2.80R: Final Draw Runner (30%)</b>
+      </div>
+    </div>
 
     <!-- Signal Cards Grid -->
     <div class="grid" id="signalGrid">
       
-      <!-- Card 1: EURUSD Propulsion Block -->
-      <div class="card" data-model="propulsion">
+      <!-- Card 1: EURUSD Trend Pullback Raid -->
+      <div class="card" data-model="trend_raid">
         <div class="card-top">
           <div class="pair-badge">
             <span class="pair-sym">EUR/USD</span>
             <span class="tf-badge">M5</span>
           </div>
-          <span class="bias-badge bear">Short Displacement</span>
+          <span class="bias-badge bear">Short Intercept</span>
         </div>
 
         <div class="model-ribbon">
           <div class="model-name">
-            <span>⚡ Propulsion Block + Liquidity Void Fill</span>
+            <span>⚡ Trend Pullback Raid · 4H/1H Aligned</span>
           </div>
-          <div class="model-tag">London Open · 08:05 UTC</div>
+          <div class="model-tag">Stage 3 Intercept · 08:05 UTC</div>
         </div>
 
         <div class="levels">
           <div class="level-box entry">
-            <div class="level-label">Entry (CE 50%)</div>
+            <div class="level-label">Chokepoint Entry</div>
             <div class="level-price" style="color:var(--accent)">1.08720</div>
-            <span class="pip-pill gold">LIMIT @ OB</span>
+            <span class="pip-pill gold">LIMIT @ CISD</span>
           </div>
           <div class="level-box stop">
-            <div class="level-label">Invalidation (SL)</div>
+            <div class="level-label">Structural SL</div>
             <div class="level-price" style="color:var(--bear)">1.08835</div>
             <span class="pip-pill red">11.5 PIPS RISK</span>
           </div>
           <div class="level-box target">
-            <div class="level-label">Target (Draw)</div>
+            <div class="level-label">TP2 Draw Target</div>
             <div class="level-price" style="color:var(--bull)">1.08375</div>
             <span class="pip-pill green">34.5 PIPS TP</span>
+          </div>
+        </div>
+
+        <div class="governor-breakdown">
+          <div class="gov-step active">
+            <span>Break-Even Lock</span>
+            <b>+0.80R (1.08628)</b>
+          </div>
+          <div class="gov-step active">
+            <span>TP1 (70% Harvest)</span>
+            <b>+1.25R (1.08576)</b>
+          </div>
+          <div class="gov-step active">
+            <span>TP2 (30% Runner)</span>
+            <b>+3.00R (1.08375)</b>
           </div>
         </div>
 
@@ -543,10 +624,10 @@
 
         <div class="calc-panel">
           <div class="calc-row">
-            <span style="color:var(--muted)">Order Type:</span>
+            <span style="color:var(--muted)">Execution Mode:</span>
             <div class="order-toggle">
-              <span class="toggle-opt active" onclick="setOpt(this)">Limit @ 50%</span>
-              <span class="toggle-opt" onclick="setOpt(this)">Market Now</span>
+              <span class="toggle-opt active" onclick="setOpt(this)">Limit @ Chokepoint</span>
+              <span class="toggle-opt" onclick="setOpt(this)">Market Execution</span>
             </div>
           </div>
           <div class="lot-recommendation">
@@ -556,43 +637,58 @@
         </div>
 
         <div class="card-footer">
-          <button class="btn" onclick="copyCard('EURUSD', 'SHORT', 'Propulsion Block', '1.08720', '11.5 pips', '34.5 pips', '1:3.0R')">📋 Copy Tweet</button>
+          <button class="btn" onclick="copyCard('EURUSD', 'SHORT', 'Trend Pullback Raid (God\'s Eye)', '1.08720', '11.5 pips', '34.5 pips', '1:3.0R')">📋 Copy Tweet</button>
           <button class="btn primary" onclick="sendToMT5('EURUSD', 'SELL_LIMIT', 1.08720, 1.08835, 1.08375, 0.43)">⚡ Send to MT5</button>
         </div>
       </div>
 
-      <!-- Card 2: GBPUSD Breaker + OTE -->
-      <div class="card" data-model="breaker">
+      <!-- Card 2: GBPUSD SMT Turtle Soup -->
+      <div class="card" data-model="smt_turtle">
         <div class="card-top">
           <div class="pair-badge">
             <span class="pair-sym">GBP/USD</span>
             <span class="tf-badge">M5</span>
           </div>
-          <span class="bias-badge bull">Long Displacement</span>
+          <span class="bias-badge bull">Long Intercept</span>
         </div>
 
         <div class="model-ribbon">
           <div class="model-name">
-            <span>🛡️ Bullish Breaker + OTE (70.5%)</span>
+            <span>🐢 SMT Turtle Soup · Sister Market Divergence</span>
           </div>
           <div class="model-tag">London Killzone · 09:15 UTC</div>
         </div>
 
         <div class="levels">
           <div class="level-box entry">
-            <div class="level-label">Entry (OTE 70.5%)</div>
+            <div class="level-label">Chokepoint Entry</div>
             <div class="level-price" style="color:var(--accent)">1.29420</div>
             <span class="pip-pill gold">LIMIT ORDER</span>
           </div>
           <div class="level-box stop">
-            <div class="level-label">Stop Loss</div>
+            <div class="level-label">Structural SL</div>
             <div class="level-price" style="color:var(--bear)">1.29295</div>
             <span class="pip-pill red">12.5 PIPS RISK</span>
           </div>
           <div class="level-box target">
-            <div class="level-label">Take Profit</div>
+            <div class="level-label">TP2 Draw Target</div>
             <div class="level-price" style="color:var(--bull)">1.29820</div>
             <span class="pip-pill green">40.0 PIPS TP</span>
+          </div>
+        </div>
+
+        <div class="governor-breakdown">
+          <div class="gov-step active">
+            <span>Break-Even Lock</span>
+            <b>+0.80R (1.29520)</b>
+          </div>
+          <div class="gov-step active">
+            <span>TP1 (70% Harvest)</span>
+            <b>+1.25R (1.29576)</b>
+          </div>
+          <div class="gov-step active">
+            <span>TP2 (30% Runner)</span>
+            <b>+3.20R (1.29820)</b>
           </div>
         </div>
 
@@ -609,9 +705,9 @@
 
         <div class="calc-panel">
           <div class="calc-row">
-            <span style="color:var(--muted)">Order Type:</span>
+            <span style="color:var(--muted)">Execution Mode:</span>
             <div class="order-toggle">
-              <span class="toggle-opt active" onclick="setOpt(this)">Limit @ OTE</span>
+              <span class="toggle-opt active" onclick="setOpt(this)">Limit @ FVG</span>
               <span class="toggle-opt" onclick="setOpt(this)">Market Execution</span>
             </div>
           </div>
@@ -622,43 +718,58 @@
         </div>
 
         <div class="card-footer">
-          <button class="btn" onclick="copyCard('GBPUSD', 'LONG', 'Bullish Breaker + OTE', '1.29420', '12.5 pips', '40.0 pips', '1:3.2R')">📋 Copy Tweet</button>
+          <button class="btn" onclick="copyCard('GBPUSD', 'LONG', 'SMT Turtle Soup (God\'s Eye)', '1.29420', '12.5 pips', '40.0 pips', '1:3.2R')">📋 Copy Tweet</button>
           <button class="btn primary" onclick="sendToMT5('GBPUSD', 'BUY_LIMIT', 1.29420, 1.29295, 1.29820, 0.40)">⚡ Send to MT5</button>
         </div>
       </div>
 
-      <!-- Card 3: Gold (XAUUSD) SMT Divergence -->
-      <div class="card" data-model="smt">
+      <!-- Card 3: Gold (XAUUSD) Judas Sweep Reversal -->
+      <div class="card" data-model="judas_sweep">
         <div class="card-top">
           <div class="pair-badge">
             <span class="pair-sym">XAU/USD</span>
             <span class="tf-badge">M5</span>
           </div>
-          <span class="bias-badge bull">Macro Reversal</span>
+          <span class="bias-badge bull">Macro Intercept</span>
         </div>
 
         <div class="model-ribbon">
           <div class="model-name">
-            <span>👑 SMT Divergence + Rejection Block</span>
+            <span>🎯 Judas Sweep Reversal · Asian Low Raid</span>
           </div>
           <div class="model-tag">08:30 NY Macro Injection</div>
         </div>
 
         <div class="levels">
           <div class="level-box entry">
-            <div class="level-label">Entry Price</div>
+            <div class="level-label">Chokepoint Entry</div>
             <div class="level-price" style="color:var(--accent)">2735.40</div>
-            <span class="pip-pill gold">MARKET CONFIRM</span>
+            <span class="pip-pill gold">MARKET / LIMIT</span>
           </div>
           <div class="level-box stop">
-            <div class="level-label">Stop Loss</div>
+            <div class="level-label">Structural SL</div>
             <div class="level-price" style="color:var(--bear)">2732.20</div>
             <span class="pip-pill red">32.0 PIPS ($3.20)</span>
           </div>
           <div class="level-box target">
-            <div class="level-label">Take Profit</div>
+            <div class="level-label">TP2 Draw Target</div>
             <div class="level-price" style="color:var(--bull)">2748.20</div>
             <span class="pip-pill green">128.0 PIPS ($12.80)</span>
+          </div>
+        </div>
+
+        <div class="governor-breakdown">
+          <div class="gov-step active">
+            <span>Break-Even Lock</span>
+            <b>+0.80R ($2737.96)</b>
+          </div>
+          <div class="gov-step active">
+            <span>TP1 (70% Harvest)</span>
+            <b>+1.25R ($2739.40)</b>
+          </div>
+          <div class="gov-step active">
+            <span>TP2 (30% Runner)</span>
+            <b>+4.00R ($2748.20)</b>
           </div>
         </div>
 
@@ -675,21 +786,21 @@
 
         <div class="calc-panel">
           <div class="calc-row">
-            <span style="color:var(--muted)">Order Type:</span>
+            <span style="color:var(--muted)">Execution Mode:</span>
             <div class="order-toggle">
               <span class="toggle-opt" onclick="setOpt(this)">Limit</span>
               <span class="toggle-opt active" onclick="setOpt(this)">Market Now</span>
             </div>
           </div>
           <div class="lot-recommendation">
-            <span>Risk $50: <b>0.15 Lots</b></span>
+            <span>Risk $50: <b>0.16 Lots</b></span>
             <span>Risk $100: <b>0.31 Lots</b></span>
           </div>
         </div>
 
         <div class="card-footer">
-          <button class="btn" onclick="copyCard('XAUUSD', 'LONG', 'SMT Divergence + Rejection Block', '2735.40', '32.0 pips', '128.0 pips', '1:4.0R')">📋 Copy Tweet</button>
-          <button class="btn primary" onclick="sendToMT5('XAUUSD', 'BUY', 2735.40, 2732.20, 2748.20, 0.15)">⚡ Send to MT5</button>
+          <button class="btn" onclick="copyCard('XAUUSD', 'LONG', 'Judas Sweep Reversal (God\'s Eye)', '2735.40', '32.0 pips', '128.0 pips', '1:4.0R')">📋 Copy Tweet</button>
+          <button class="btn primary" onclick="sendToMT5('XAUUSD', 'BUY', 2735.40, 2732.20, 2748.20, 0.16)">⚡ Send to MT5</button>
         </div>
       </div>
 
@@ -724,22 +835,22 @@
     }
 
     function copyCard(pair, bias, model, entry, sl, tp, rr) {
-      const text = `◈ ICT FLUX • INSTITUTIONAL ORDER FLOW PLAN\n` +
+      const text = `◈ ICT FLUX • GOD'S EYE CHOKEPOINT EXECUTION\n` +
                    `Asset: #${pair} (5M)\n` +
-                   `Model: ${model}\n` +
-                   `Bias: ${bias}\n\n` +
+                   `Archetype: ${model}\n` +
+                   `Bias: ${bias} [CISD Confirmed]\n\n` +
                    `• Entry: ${entry}\n` +
-                   `• Stop Loss: ${sl}\n` +
-                   `• Target: ${tp}\n` +
-                   `• R:R: ${rr}\n\n` +
-                   `Calculated via ICT Flux Desk ⚡`;
+                   `• Invalidation (SL): ${sl}\n` +
+                   `• Target (TP): ${tp}\n` +
+                   `• Risk/Reward: ${rr}\n` +
+                   `• Governor: +0.80R BE Lock | +1.25R 70% Harvest | +2.8R+ Runner\n\n` +
+                   `Powered by God's Eye Flux Engine 👁️⚡`;
       navigator.clipboard.writeText(text);
-      showToast('✓ Formatted trade plan copied! Ready to paste into X / Twitter.');
+      showToast('✓ God\'s Eye trade plan copied! Ready to paste into X / Twitter.');
     }
 
     function sendToMT5(pair, type, entry, sl, tp, lots) {
-      showToast(`⚡ Order request generated for MT5: ${type} ${pair} @ ${entry} (Lots: ${lots})`);
-      // Can call local python bridge via fetch('http://localhost:5000/order', ...)
+      showToast(`⚡ Submitting to MT5 Bridge: ${type} ${pair} @ ${entry} (Lots: ${lots})`);
     }
   </script>
 </body>

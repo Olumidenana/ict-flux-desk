@@ -1306,20 +1306,20 @@
               <label style="font-family:var(--mono);font-size:10.5px;color:var(--muted);font-weight:700">ASSET:</label>
               <select class="instrument-select" id="instrumentSelect" onchange="onSelectInstrument(this.value)">
                 <optgroup label="Precious Metals & Commodities">
-                  <option value="XAUUSD">XAU/USD (Gold) • $4,077.60</option>
+                  <option value="XAUUSD">XAU/USD (Gold)</option>
                 </optgroup>
                 <optgroup label="Forex Majors">
-                  <option value="GBPUSD" selected>GBP/USD • 1.3394</option>
-                  <option value="EURUSD">EUR/USD • 1.1177</option>
-                  <option value="USDJPY">USD/JPY • 158.26</option>
+                  <option value="GBPUSD" selected>GBP/USD</option>
+                  <option value="EURUSD">EUR/USD</option>
+                  <option value="USDJPY">USD/JPY</option>
                 </optgroup>
                 <optgroup label="Global Equity Indices">
-                  <option value="NAS100">NAS100 (NQ) • 27,139.2</option>
-                  <option value="US500">US500 (ES) • 7,403.7</option>
+                  <option value="NAS100">NAS100 (Nasdaq)</option>
+                  <option value="US500">US500 (S&P 500)</option>
                 </optgroup>
                 <optgroup label="Deriv Synthetic Indices (24/7 Algorithmic)">
-                  <option value="VOL75">VOL 75 (Deriv) • 148,420.0</option>
-                  <option value="VOL100">VOL 100 (Deriv) • 2,842.50</option>
+                  <option value="VOL75">Volatility 75 (Deriv)</option>
+                  <option value="VOL100">Volatility 100 (Deriv)</option>
                 </optgroup>
               </select>
 
@@ -1985,162 +1985,161 @@
 
       NAS100: {
         label: 'NAS100 (NQ)',
-        price: '27,139.2',
+        price: '20,642.5',
         spread: '1.2 pts',
         pipScale: 1.0,
         horizons: {
           scalp: {
             status: 'ACTIVE',
             tf: 'M1/M5',
-            headline: 'BUY LIMIT @ 27,115.0',
+            headline: 'BUY LIMIT @ 20,615.0',
             headlineClass: 'buy',
             archetype: '09:30 Equity Open Silver Bullet Hour',
             badge: 'SCALP RUNNER',
-            order: 'Limit @ M1 Bullish FVG (27,115.0)',
+            order: 'Limit @ M1 Bullish FVG (20,615.0)',
             doText: 'Wait for 09:30 cash open sweep of London low, then enter on displacement back into FVG.',
             dontText: 'Never trade the first 3 minutes of the equity open (09:30-09:33).',
             whenText: '09:45 to 10:45 NY Silver Bullet window.',
-            entry: '27,115.0',
-            stop: '27,095.0',
-            target: '27,215.0',
+            entry: '20,615.0',
+            stop: '20,585.0',
+            target: '20,735.0',
             pillEntry: 'M1 FVG CE',
-            pillStop: '20.0 Pts',
-            pillTarget: '100.0 Pts',
-            calcRr: '1 : 5.00 R',
-            calc50: '0.25 Contracts',
-            calc100: '0.50 Contracts',
-            govBe: '+0.80R (27,131.0)',
-            govTp1: '+1.50R (27,145.0)',
-            govTp2: '+5.00R (27,215.0)'
+            pillStop: '30.0 Pts',
+            pillTarget: '120.0 Pts',
+            calcRr: '1 : 4.00 R',
+            calc50: '0.17 Contracts',
+            calc100: '0.33 Contracts',
+            govBe: '+0.80R (20,639.0)',
+            govTp1: '+1.50R (20,660.0)',
+            govTp2: '+4.00R (20,735.0)'
           },
           day: {
             status: 'ACTIVE',
             tf: 'M5/M15',
-            headline: 'BUY LIMIT @ 27,060.0',
+            headline: 'BUY LIMIT @ 20,540.0',
             headlineClass: 'buy',
             archetype: 'Judas Swing Reversal (ICT 2022)',
             badge: 'DAY TRADE CHOKEPOINT',
-            order: 'Limit @ 15M Bullish Order Block (27,060.0)',
-            doText: 'Target Previous Day High and buy-side resting orders at 27,280.0.',
-            dontText: 'Avoid longing if price accepts below 27,020.0.',
+            order: 'Limit @ 15M Bullish Order Block (20,540.0)',
+            doText: 'Target Previous Day High and buy-side resting orders at 20,780.0.',
+            dontText: 'Avoid longing if price accepts below 20,480.0.',
             whenText: 'NY AM session between 09:45 and 11:30 NY.',
-            entry: '27,060.0',
-            stop: '27,025.0',
-            target: '27,235.0',
+            entry: '20,540.0',
+            stop: '20,490.0',
+            target: '20,790.0',
             pillEntry: '15M OB',
-            pillStop: '35.0 Pts',
-            pillTarget: '175.0 Pts',
+            pillStop: '50.0 Pts',
+            pillTarget: '250.0 Pts',
             calcRr: '1 : 5.00 R',
-            calc50: '0.14 Contracts',
-            calc100: '0.28 Contracts',
-            govBe: '+0.80R (27,088.0)',
-            govTp1: '+1.50R (27,112.5)',
-            govTp2: '+5.00R (27,235.0)'
+            calc50: '0.10 Contracts',
+            calc100: '0.20 Contracts',
+            govBe: '+0.80R (20,580.0)',
+            govTp1: '+1.50R (20,615.0)',
+            govTp2: '+5.00R (20,790.0)'
           },
           swing: {
             status: 'ACTIVE',
             tf: 'H1/H4',
-            headline: 'BUY LIMIT @ 26,850.0',
+            headline: 'BUY LIMIT @ 20,380.0',
             headlineClass: 'buy',
-            archetype: 'HTF Discount Expansion (Daily FVG)',
-            badge: 'SWING EXPANSION',
-            order: 'Limit @ Daily FVG Consequent Encroachment (26,850.0)',
-            doText: 'Ride multi-day trend continuation targeting All-Time Highs (27,500.0+).',
-            dontText: 'Do not move stop loss manually before +0.8R trigger.',
-            whenText: 'Weekly delivery cycle.',
-            entry: '26,850.0',
-            stop: '26,720.0',
-            target: '27,500.0',
-            pillEntry: 'Daily FVG',
+            archetype: 'Weekly Discount Array (4H Bullish OB)',
+            badge: 'SWING ACCUMULATION',
+            order: 'Limit @ 4H Bullish OB (20,380.0)',
+            doText: 'Target weekly expansion into external liquidity above 21,000.0.',
+            dontText: 'Do not widen stop below 20,250.0.',
+            whenText: 'Weekly open accumulation.',
+            entry: '20,380.0',
+            stop: '20,250.0',
+            target: '21,030.0',
+            pillEntry: '4H OB',
             pillStop: '130.0 Pts',
             pillTarget: '650.0 Pts',
             calcRr: '1 : 5.00 R',
             calc50: '0.04 Contracts',
             calc100: '0.08 Contracts',
-            govBe: '+0.80R (26,954.0)',
-            govTp1: '+1.50R (27,045.0)',
-            govTp2: '+5.00R (27,500.0)'
+            govBe: '+0.80R (20,484.0)',
+            govTp1: '+1.50R (20,575.0)',
+            govTp2: '+5.00R (21,030.0)'
           }
         }
       },
-
       US500: {
         label: 'US500 (ES)',
-        price: '7,403.7',
+        price: '5,882.4',
         spread: '0.3 pts',
         pipScale: 0.25,
         horizons: {
           scalp: {
             status: 'ACTIVE',
             tf: 'M1/M5',
-            headline: 'BUY LIMIT @ 7,395.25',
+            headline: 'BUY LIMIT @ 5,876.50',
             headlineClass: 'buy',
             archetype: 'M5 Order Block Re-Accumulation',
             badge: 'SCALP RUNNER',
-            order: 'Limit @ M5 Bullish OB (7,395.25)',
-            doText: 'Target internal buy-side liquidity at 7,420.00.',
+            order: 'Limit @ M5 Bullish OB (5,876.50)',
+            doText: 'Target internal buy-side liquidity at 5,905.00.',
             dontText: 'Do not hold past 11:30 NY.',
             whenText: '10:00 to 11:00 NY Silver Bullet hour.',
-            entry: '7,395.25',
-            stop: '7,389.25',
-            target: '7,419.25',
+            entry: '5,876.50',
+            stop: '5,868.50',
+            target: '5,908.50',
             pillEntry: 'M5 OB',
-            pillStop: '6.0 Pts',
-            pillTarget: '24.0 Pts',
+            pillStop: '8.0 Pts',
+            pillTarget: '32.0 Pts',
             calcRr: '1 : 4.00 R',
-            calc50: '0.17 Contracts',
-            calc100: '0.34 Contracts',
-            govBe: '+0.80R (7,400.05)',
-            govTp1: '+1.50R (7,404.25)',
-            govTp2: '+4.00R (7,419.25)'
+            calc50: '0.12 Contracts',
+            calc100: '0.25 Contracts',
+            govBe: '+0.80R (5,882.90)',
+            govTp1: '+1.50R (5,888.50)',
+            govTp2: '+4.00R (5,908.50)'
           },
           day: {
             status: 'ACTIVE',
             tf: 'M5/M15',
-            headline: 'BUY LIMIT @ 7,385.50',
+            headline: 'BUY LIMIT @ 5,855.00',
             headlineClass: 'buy',
             archetype: 'NY AM Judas Swing Displacement',
             badge: 'DAY TRADE CHOKEPOINT',
-            order: 'Limit @ 15M FVG CE (7,385.50)',
+            order: 'Limit @ 15M FVG CE (5,855.00)',
             doText: 'Enter after 09:30 low-of-day forms.',
             dontText: 'Avoid shorting against bullish daily bias.',
             whenText: '09:45 to 11:15 NY.',
-            entry: '7,385.50',
-            stop: '7,377.50',
-            target: '7,425.50',
+            entry: '5,855.00',
+            stop: '5,843.00',
+            target: '5,915.00',
             pillEntry: '15M FVG CE',
-            pillStop: '8.0 Pts',
-            pillTarget: '40.0 Pts',
+            pillStop: '12.0 Pts',
+            pillTarget: '60.0 Pts',
             calcRr: '1 : 5.00 R',
-            calc50: '0.12 Contracts',
-            calc100: '0.25 Contracts',
-            govBe: '+0.80R (7,391.90)',
-            govTp1: '+1.50R (7,397.50)',
-            govTp2: '+5.00R (7,425.50)'
+            calc50: '0.08 Contracts',
+            calc100: '0.17 Contracts',
+            govBe: '+0.80R (5,864.60)',
+            govTp1: '+1.50R (5,873.00)',
+            govTp2: '+5.00R (5,915.00)'
           },
           swing: {
             status: 'ACTIVE',
             tf: 'H1/H4',
-            headline: 'BUY LIMIT @ 7,340.00',
+            headline: 'BUY LIMIT @ 5,810.00',
             headlineClass: 'buy',
             archetype: 'HTF Discount Array (4H OB)',
             badge: 'SWING ACCUMULATION',
-            order: 'Limit @ 4H Bullish OB (7,340.00)',
-            doText: 'Target expansion to 7,480.00+.',
+            order: 'Limit @ 4H Bullish OB (5,810.00)',
+            doText: 'Target expansion to 5,980.00+.',
             dontText: 'Do not close on minor pullbacks.',
             whenText: 'Weekly delivery.',
-            entry: '7,340.00',
-            stop: '7,315.00',
-            target: '7,465.00',
+            entry: '5,810.00',
+            stop: '5,775.00',
+            target: '5,985.00',
             pillEntry: '4H OB',
-            pillStop: '25.0 Pts',
-            pillTarget: '125.0 Pts',
+            pillStop: '35.0 Pts',
+            pillTarget: '175.0 Pts',
             calcRr: '1 : 5.00 R',
-            calc50: '0.04 Contracts',
-            calc100: '0.08 Contracts',
-            govBe: '+0.80R (7,360.00)',
-            govTp1: '+1.50R (7,377.50)',
-            govTp2: '+5.00R (7,465.00)'
+            calc50: '0.03 Contracts',
+            calc100: '0.06 Contracts',
+            govBe: '+0.80R (5,838.00)',
+            govTp1: '+1.50R (5,862.50)',
+            govTp2: '+5.00R (5,985.00)'
           }
         }
       },
@@ -2972,11 +2971,11 @@
     // Real-Time Live Ticker Engine
     const LIVE_PRICES = {
       GBPUSD: { base: 1.33940, cur: 1.33940, decimals: 5, spread: '0.8 pips', pipScale: 0.0001 },
-      EURUSD: { base: 1.11770, cur: 1.11770, decimals: 5, spread: '0.6 pips', pipScale: 0.0001 },
-      USDJPY: { base: 158.260, cur: 158.260, decimals: 3, spread: '0.9 pips', pipScale: 0.01 },
-      XAUUSD: { base: 4077.60, cur: 4077.60, decimals: 2, spread: '1.8 pips', pipScale: 0.1 },
-      NAS100: { base: 27139.20, cur: 27139.20, decimals: 2, spread: '1.2 pts', pipScale: 1.0 },
-      US500: { base: 7403.70, cur: 7403.70, decimals: 2, spread: '0.3 pts', pipScale: 0.25 },
+      EURUSD: { base: 1.10850, cur: 1.10850, decimals: 5, spread: '0.6 pips', pipScale: 0.0001 },
+      USDJPY: { base: 154.250, cur: 154.250, decimals: 3, spread: '0.9 pips', pipScale: 0.01 },
+      XAUUSD: { base: 4142.50, cur: 4142.50, decimals: 2, spread: '1.8 pips', pipScale: 0.1 },
+      NAS100: { base: 20642.50, cur: 20642.50, decimals: 1, spread: '1.2 pts', pipScale: 1.0 },
+      US500: { base: 5882.40, cur: 5882.40, decimals: 2, spread: '0.3 pts', pipScale: 0.25 },
       VOL75: { base: 148420.0, cur: 148420.0, decimals: 1, spread: '25 pts', pipScale: 1.0 },
       VOL100: { base: 2842.50, cur: 2842.50, decimals: 2, spread: '1.2 pts', pipScale: 0.1 }
     };
@@ -2990,15 +2989,7 @@
           const isUp = obj.cur >= oldP;
           obj.isUp = isUp;
 
-          const sel = document.getElementById('instrumentSelect');
-          if (sel) {
-            const opt = sel.querySelector(`option[value="${key}"]`);
-            if (opt) {
-              const prefix = opt.textContent.split(' • ')[0];
-              const pStr = (key === 'XAUUSD' ? '$' : '') + obj.cur.toLocaleString(undefined, { minimumFractionDigits: obj.decimals });
-              opt.textContent = `${prefix} • ${pStr} ${isUp ? '▲' : '▼'}`;
-            }
-          }
+          // Live ticker updates the dedicated toolbar badge and the action card
         }
         updateLiveHud();
       }, 1200);

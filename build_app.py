@@ -3743,8 +3743,54 @@ html_content = r'''<!DOCTYPE html>
       }
     }
 
+    // Direct Synchronization Engine Tethered to TradingView's Chart Feed
+    const TV_SCANNER_MAP = {
+      GBPUSD: 'FX:GBPUSD',
+      EURUSD: 'FX:EURUSD',
+      USDJPY: 'FX:USDJPY',
+      XAUUSD: 'OANDA:XAUUSD'
+    };
+
+    async function syncWithTradingViewPrices() {
+      try {
+        const res = await fetch('https://scanner.tradingview.com/global/scan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            symbols: { tickers: Object.values(TV_SCANNER_MAP) },
+            columns: ['close', 'bid', 'ask']
+          })
+        });
+        if (!res.ok) return;
+        const json = await res.json();
+        if (json && json.data) {
+          json.data.forEach(item => {
+            const symKey = Object.keys(TV_SCANNER_MAP).find(k => TV_SCANNER_MAP[k] === item.s);
+            if (symKey && LIVE_PRICES[symKey]) {
+              // item.d[0] is the exact candle close / last traded quote on TradingView
+              const rawPrice = parseFloat(item.d[0]);
+              const oldP = LIVE_PRICES[symKey].cur;
+              LIVE_PRICES[symKey].cur = rawPrice;
+              LIVE_PRICES[symKey].base = rawPrice;
+              LIVE_PRICES[symKey].isUp = rawPrice >= oldP;
+              LIVE_PRICES[symKey].hasLiveFeed = true;
+              if (symKey === curKey) {
+                updateLiveHud();
+              }
+            }
+          });
+        }
+      } catch (e) {
+        // Fallback silently to Deriv WebSocket if network is offline
+      }
+    }
+
     function startLiveTicker() {
-      // Connect to genuine live market WebSocket
+      // 1. Direct live synchronization with TradingView's own data servers (Every 1.2 seconds)
+      syncWithTradingViewPrices();
+      setInterval(syncWithTradingViewPrices, 1200);
+
+      // 2. Connect to genuine live market WebSocket for sub-second tick interpolation & synthetics
       connectLiveDerivFeed();
 
       // Only perform micro-smoothing for assets that have NOT received real ticks yet

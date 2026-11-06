@@ -1440,7 +1440,7 @@ html_content = r'''<!DOCTYPE html>
               <!-- Dedicated Live Price Ticker in Selector Bar -->
               <div class="toolbar-live-badge" id="toolbarLiveBadge" title="Real-Time Streaming Price (Synchronized to TradingView)">
                 <span class="tlb-label">LIVE:</span>
-                <span class="tlb-val" id="tlbPriceVal">1.33923</span>
+                <span class="tlb-val" id="tlbPriceVal">1.33652</span>
                 <span class="tlb-arrow" id="tlbArrow">▲</span>
               </div>
 
@@ -1538,7 +1538,7 @@ html_content = r'''<!DOCTYPE html>
             <div class="lph-left">
               <span class="lph-label" id="lphSymbolLabel">LIVE MARKET QUOTE</span>
               <span class="lph-price" id="lphLivePrice">
-                <span id="lphPriceVal">1.33923</span>
+                <span id="lphPriceVal">1.33652</span>
                 <span id="lphTickArrow" style="font-size:10px">▲</span>
               </span>
             </div>
@@ -1631,6 +1631,10 @@ html_content = r'''<!DOCTYPE html>
             <div class="guide-row">
               <span class="guide-badge dont">INVALIDATION RULE</span>
               <span class="guide-text" id="guideDont">Do NOT market chase past Entry. Cut immediately if surgical stop is breached.</span>
+            </div>
+            <div class="guide-row" id="guideWhenRow">
+              <span class="guide-badge do" style="background:rgba(245,186,65,0.15);color:var(--accent);border:1px solid rgba(245,186,65,0.3);">TIME / KILLZONE</span>
+              <span class="guide-text" id="guideWhen">Peak execution window: 02:45 to 04:15 NY London Open Killzone.</span>
             </div>
           </div>
 
@@ -1989,7 +1993,7 @@ html_content = r'''<!DOCTYPE html>
     const DATA = {
       GBPUSD: {
         label: 'GBP/USD',
-        price: '1.33923',
+        price: '1.33652',
         spread: '0.8 pips',
         pipScale: 0.0001,
         horizons: {
@@ -2678,30 +2682,18 @@ html_content = r'''<!DOCTYPE html>
       }
 
       const targetFrame = document.getElementById(`tvFrame_${curKey}`);
+      const targetSrc = `https://s.tradingview.com/widgetembed/?symbol=${encodeURIComponent(tvSym)}&interval=${tfVal}&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en`;
+
       if (targetFrame) {
-        if (targetFrame.dataset && targetFrame.dataset.src) {
-          if (!targetFrame.src || targetFrame.src === '' || targetFrame.src.indexOf('about:blank') !== -1) {
-            targetFrame.src = targetFrame.dataset.src;
-          }
+        if (!targetFrame.src || targetFrame.src === '' || targetFrame.src.indexOf('about:blank') !== -1 || targetFrame.dataset.loadedTf !== tfVal) {
+          targetFrame.src = targetSrc;
+          targetFrame.dataset.loadedTf = tfVal;
         }
         targetFrame.style.display = 'block';
       } else {
-        // Fallback for custom symbols
         const container = document.getElementById('tv_chart_container');
         if (container) {
-          const q = new URLSearchParams({
-            symbol: tvSym,
-            interval: tfVal,
-            hidesidetoolbar: '0',
-            symboledit: '1',
-            saveimage: '0',
-            theme: 'dark',
-            style: '1',
-            timezone: 'America/New_York',
-            withdateranges: '1',
-            locale: 'en'
-          });
-          container.innerHTML = `<iframe class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:block;" src="https://s.tradingview.com/widgetembed/?${q.toString()}" allowfullscreen></iframe>`;
+          container.innerHTML = `<iframe class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:block;" src="${targetSrc}" allowfullscreen></iframe>`;
         }
       }
 
@@ -2713,11 +2705,11 @@ html_content = r'''<!DOCTYPE html>
 
     function onSelectInstrument(key) {
       curKey = key;
-      updateDesk();
-      updateLiveHud(); // Instant price synchronization at the exact moment of switching!
-      updateTradingViewFrame(); // Instant zero-lag chart switch!
+      try { updateDesk(); } catch (e) { console.error('Error in updateDesk:', e); }
+      try { updateLiveHud(); } catch (e) { console.error('Error in updateLiveHud:', e); }
+      try { updateTradingViewFrame(); } catch (e) { console.error('Error in updateTradingViewFrame:', e); }
       if (typeof subscribeToActiveSymbol === 'function') {
-        subscribeToActiveSymbol();
+        try { subscribeToActiveSymbol(); } catch (e) {}
       }
     }
 
@@ -2725,8 +2717,9 @@ html_content = r'''<!DOCTYPE html>
       curHorizon = hz;
       document.querySelectorAll('.hz-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      updateDesk();
-      updateTradingViewFrame();
+      try { updateDesk(); } catch (e) { console.error('Error in updateDesk:', e); }
+      try { updateLiveHud(); } catch (e) { console.error('Error in updateLiveHud:', e); }
+      try { updateTradingViewFrame(); } catch (e) { console.error('Error in updateTradingViewFrame:', e); }
     }
 
     function toggleEnlargeDesk() {
@@ -2926,6 +2919,14 @@ html_content = r'''<!DOCTYPE html>
       const drPointer = document.getElementById('drPointer');
       const drLabel = document.getElementById('drPctLabel');
 
+      if (isNaN(entryNum) || isNaN(stopNum) || isNaN(targetNum)) {
+        if (drPointer) drPointer.style.left = '50%';
+        if (drLabel) drLabel.textContent = 'EQUILIBRIUM 50% (CONSOLIDATION)';
+        if (bslEl) bslEl.textContent = (curPrice + (15 * obj.pipScale)).toFixed(obj.decimals);
+        if (sslEl) sslEl.textContent = (curPrice - (15 * obj.pipScale)).toFixed(obj.decimals);
+        return;
+      }
+
       const highRef = Math.max(entryNum, targetNum, curPrice);
       const lowRef = Math.min(entryNum, stopNum, curPrice);
       const span = (highRef - lowRef) || 1;
@@ -3022,9 +3023,9 @@ html_content = r'''<!DOCTYPE html>
       document.getElementById('dirOrder').textContent = h.order;
 
       // 4. Guidance Triad
-      document.getElementById('guideDo').innerHTML = h.doText;
-      document.getElementById('guideDont').innerHTML = h.dontText;
-      document.getElementById('guideWhen').innerHTML = h.whenText;
+      const gd = document.getElementById('guideDo'); if (gd) gd.innerHTML = h.doText;
+      const gdn = document.getElementById('guideDont'); if (gdn) gdn.innerHTML = h.dontText;
+      const gw = document.getElementById('guideWhen'); if (gw && h.whenText) gw.innerHTML = h.whenText;
 
       // 5. Surgical Levels
       document.getElementById('lvlEntry').textContent = isStandAside ? '---' : h.entry;
@@ -3669,7 +3670,7 @@ html_content = r'''<!DOCTYPE html>
 
     // Real-Time Live Ticker Engine
     const LIVE_PRICES = {
-      GBPUSD: { base: 1.33923, cur: 1.33923, decimals: 5, spread: '0.8 pips', pipScale: 0.0001 },
+      GBPUSD: { base: 1.33652, cur: 1.33652, decimals: 5, spread: '0.8 pips', pipScale: 0.0001 },
       EURUSD: { base: 1.11720, cur: 1.11720, decimals: 5, spread: '0.6 pips', pipScale: 0.0001 },
       USDJPY: { base: 158.329, cur: 158.329, decimals: 3, spread: '0.9 pips', pipScale: 0.01 },
       XAUUSD: { base: 4077.40, cur: 4077.40, decimals: 2, spread: '1.8 pips', pipScale: 0.1 },
@@ -3827,12 +3828,41 @@ html_content = r'''<!DOCTYPE html>
       const dirBadge = document.getElementById('dirHorizonBadge');
       const btnExec = document.getElementById('btnExecute');
 
+      const ribbon = document.getElementById('dirStateRibbon');
+      const ribbonDot = document.getElementById('stateRibbonDot');
+      const ribbonTxt = document.getElementById('stateRibbonText');
+      const ribbonSub = document.getElementById('stateRibbonSub');
+
+      const radarBox = document.getElementById('invalidationRadarBox');
+      const radarDist = document.getElementById('radarDistanceTag');
+      const radarStop = document.getElementById('radarStopVal');
+      const radarState = document.getElementById('radarBreachState');
+
       if (h.status === 'STAND_ASIDE') {
         if (distEl) {
           distEl.textContent = '🛑 STAND ASIDE (NO CHOP)';
           distEl.style.color = 'var(--warn)';
         }
-        if (stateEl) stateEl.textContent = 'CAPITAL PRESERVATION LOCK';
+        if (stateEl) {
+          stateEl.textContent = 'CAPITAL PRESERVATION LOCK';
+          stateEl.style.color = 'var(--warn)';
+        }
+        if (ribbon) ribbon.className = 'state-ribbon standaside';
+        if (ribbonDot) ribbonDot.className = 'pulse-dot red';
+        if (ribbonTxt) ribbonTxt.textContent = '🛑 CONSOLIDATION TRAP • PRESERVE CAPITAL';
+        if (ribbonSub) ribbonSub.textContent = 'STAND ASIDE';
+
+        if (radarBox) radarBox.className = 'invalidation-radar-box';
+        if (radarDist) {
+          radarDist.textContent = 'EQUILIBRIUM CHOP';
+          radarDist.style.color = 'var(--warn)';
+        }
+        if (radarStop) radarStop.textContent = '---';
+        if (radarState) {
+          radarState.textContent = 'No trade until range expansion / liquidity sweep';
+          radarState.style.color = 'var(--warn)';
+        }
+        return;
       } else if (!isNaN(entryNum) && !isNaN(stopNum) && !isNaN(targetNum)) {
         const curPrice = obj.cur;
         const isStopBreached = isBuy ? (curPrice <= stopNum) : (curPrice >= stopNum);
@@ -4040,6 +4070,8 @@ html_content = r'''<!DOCTYPE html>
       try { setupResizer(); } catch (e) { console.error(e); }
       try { updateDesk(); } catch (e) { console.error(e); }
       try { updateTradingViewFrame(); } catch (e) { console.error(e); }
+      try { updateLiveHud(); } catch (e) { console.error(e); }
+      try { startLiveTicker(); } catch (e) { console.error(e); }
       try { renderLogs(); } catch (e) {}
       try { updateClocks(); setInterval(updateClocks, 1000); } catch (e) {}
     });

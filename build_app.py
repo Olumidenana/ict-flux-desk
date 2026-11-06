@@ -268,6 +268,45 @@ html_content = r'''<!DOCTYPE html>
       gap: 8px;
       flex-wrap: wrap;
     }
+    .toolbar-live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface-2);
+      border: 1px solid var(--line-gold);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 800;
+      box-shadow: 0 0 12px rgba(240, 185, 75, 0.15);
+      transition: all 0.15s;
+    }
+    .tlb-label {
+      font-size: 9px;
+      color: var(--faint);
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .tlb-val {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      transition: color 0.15s;
+    }
+    .tlb-val.tick-up {
+      color: var(--bull);
+      text-shadow: 0 0 8px rgba(43,212,125,0.4);
+    }
+    .tlb-val.tick-down {
+      color: var(--bear);
+      text-shadow: 0 0 8px rgba(255,92,108,0.4);
+    }
+    .tlb-arrow {
+      font-size: 10px;
+    }
+
     .instrument-select {
       background: var(--surface-2);
       color: var(--text);
@@ -1295,6 +1334,13 @@ html_content = r'''<!DOCTYPE html>
                   <option value="VOL100">VOL 100 (Deriv) • 2,842.50</option>
                 </optgroup>
               </select>
+
+              <!-- Dedicated Live Price Ticker in Selector Bar -->
+              <div class="toolbar-live-badge" id="toolbarLiveBadge" title="Real-Time Streaming Price">
+                <span class="tlb-label">LIVE:</span>
+                <span class="tlb-val" id="tlbPriceVal">1.33940</span>
+                <span class="tlb-arrow" id="tlbArrow">▲</span>
+              </div>
             </div>
 
             <div class="chart-meta">
@@ -2930,6 +2976,7 @@ html_content = r'''<!DOCTYPE html>
           const oldP = obj.cur;
           obj.cur = parseFloat((obj.cur + delta).toFixed(obj.decimals));
           const isUp = obj.cur >= oldP;
+          obj.isUp = isUp;
 
           const sel = document.getElementById('instrumentSelect');
           if (sel) {
@@ -2960,9 +3007,22 @@ html_content = r'''<!DOCTYPE html>
 
       if (symLabel) symLabel.textContent = `${m.label} • SPREAD: ${obj.spread}`;
 
+      const formatted = (curKey === 'XAUUSD' ? '$' : '') + obj.cur.toLocaleString(undefined, { minimumFractionDigits: obj.decimals });
+      
       if (pVal) {
-        const formatted = (curKey === 'XAUUSD' ? '$' : '') + obj.cur.toLocaleString(undefined, { minimumFractionDigits: obj.decimals });
         pVal.textContent = formatted;
+      }
+
+      // Update Toolbar Selection Bar Live Price
+      const tlbVal = document.getElementById('tlbPriceVal');
+      const tlbArr = document.getElementById('tlbArrow');
+      if (tlbVal) {
+        tlbVal.textContent = formatted;
+        tlbVal.className = 'tlb-val ' + (obj.isUp ? 'tick-up' : 'tick-down');
+      }
+      if (tlbArr) {
+        tlbArr.textContent = obj.isUp ? '▲' : '▼';
+        tlbArr.style.color = obj.isUp ? 'var(--bull)' : 'var(--bear)';
       }
 
       if (h.status === 'STAND_ASIDE') {

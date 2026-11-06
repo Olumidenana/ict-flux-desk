@@ -30,6 +30,8 @@
       --bear-soft: rgba(255, 92, 108, 0.12);
       --sky: #5AA9FF;
       --sky-soft: rgba(90, 169, 255, 0.12);
+      --violet: #A78BFA;
+      --violet-soft: rgba(167, 139, 250, 0.12);
       --mono: 'Geist Mono', ui-monospace, monospace;
       --sans: 'Geist', -apple-system, sans-serif;
       --glow: radial-gradient(900px 420px at 0% -8%, rgba(240, 185, 75, 0.08), transparent 60%),
@@ -103,11 +105,6 @@
       letter-spacing: 0.04em;
     }
 
-    .top-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
     .session-pill {
       display: flex;
       align-items: center;
@@ -134,10 +131,10 @@
       50% { opacity: 0.4; transform: scale(0.85); }
     }
 
-    /* Main App Split */
+    /* App Split Layout */
     .app-layout {
       display: grid;
-      grid-template-columns: 1fr 460px;
+      grid-template-columns: 1fr 470px;
       height: calc(100vh - 60px);
     }
     @media (max-width: 1080px) {
@@ -242,7 +239,7 @@
     }
     .legend-title {
       font-weight: 800;
-      font-size: 12px;
+      font-size: 12.5px;
       color: var(--text);
       letter-spacing: -0.01em;
       display: flex;
@@ -255,11 +252,11 @@
     }
     .ipda-indicator {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       margin-top: 4px;
     }
     .ipda-tag {
-      padding: 2px 5px;
+      padding: 2px 6px;
       border-radius: 3px;
       background: rgba(255,255,255,0.05);
       border: 1px solid rgba(255,255,255,0.1);
@@ -276,10 +273,51 @@
     .desk-panel {
       background: var(--surface);
       overflow-y: auto;
-      padding: 18px 20px;
+      padding: 16px 20px;
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
+    }
+
+    /* Horizon Selector Bar */
+    .horizon-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+      padding: 4px;
+      border-radius: 10px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+    }
+    .hz-btn {
+      padding: 8px 6px;
+      border-radius: 7px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      transition: all 0.15s;
+    }
+    .hz-btn span.hz-sub {
+      font-size: 8.5px;
+      font-weight: 500;
+      color: var(--faint);
+    }
+    .hz-btn.active {
+      background: var(--accent-soft);
+      color: var(--accent);
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+    .hz-btn.active span.hz-sub {
+      color: var(--accent);
+      opacity: 0.85;
     }
 
     /* Big Action Directive Card */
@@ -299,7 +337,7 @@
       justify-content: space-between;
     }
     .archetype-label {
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       color: var(--accent);
       font-family: var(--mono);
@@ -338,10 +376,10 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
-      font-size: 12.5px;
+      font-size: 12px;
     }
     .guide-cell {
-      padding: 12px 14px;
+      padding: 11px 13px;
       display: flex;
       flex-direction: column;
       gap: 4px;
@@ -351,7 +389,7 @@
     }
     .guide-lbl {
       font-family: var(--mono);
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -378,7 +416,7 @@
       background: var(--surface-2);
       border: 1px solid var(--line);
       border-radius: 9px;
-      padding: 10px;
+      padding: 9px;
       display: flex;
       flex-direction: column;
       gap: 3px;
@@ -388,7 +426,7 @@
     .level-box.target { border-color: rgba(43, 212, 125, 0.35); background: var(--bull-soft); }
 
     .level-label {
-      font-size: 9px;
+      font-size: 8.5px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -396,13 +434,13 @@
     }
     .level-price {
       font-family: var(--mono);
-      font-size: 15px;
+      font-size: 14.5px;
       font-weight: 800;
     }
     .pip-pill {
       display: inline-block;
       font-family: var(--mono);
-      font-size: 10px;
+      font-size: 9.5px;
       font-weight: 800;
       padding: 2px 5px;
       border-radius: 4px;
@@ -414,34 +452,34 @@
 
     /* Dual-Tranche Governor Breakdown */
     .governor-breakdown {
-      padding: 10px;
+      padding: 9px;
       background: var(--surface-2);
       border: 1px dashed var(--line-gold);
       border-radius: 9px;
       font-family: var(--mono);
-      font-size: 10.5px;
+      font-size: 10px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 6px;
       text-align: center;
     }
-    .gov-step span { display: block; color: var(--faint); font-size: 8.5px; text-transform: uppercase; margin-bottom: 2px; }
-    .gov-step b { color: var(--accent); font-size: 11px; }
+    .gov-step span { display: block; color: var(--faint); font-size: 8px; text-transform: uppercase; margin-bottom: 2px; }
+    .gov-step b { color: var(--accent); font-size: 10.5px; }
 
     /* Sizing Box */
     .calc-panel {
-      padding: 12px;
+      padding: 10px 12px;
       border-radius: 9px;
       border: 1px solid var(--line);
       background: var(--surface-3);
       font-family: var(--mono);
-      font-size: 11.5px;
+      font-size: 11px;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 6px;
     }
     .lot-recommendation {
-      font-size: 11.5px;
+      font-size: 11px;
       color: var(--text);
       display: flex;
       justify-content: space-between;
@@ -456,12 +494,12 @@
     }
     .btn {
       flex: 1;
-      height: 42px;
+      height: 40px;
       border-radius: 9px;
       border: 1px solid var(--line-2);
       background: var(--surface-2);
       color: var(--text);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       font-family: var(--mono);
       cursor: pointer;
@@ -519,11 +557,9 @@
         </div>
       </a>
 
-      <div class="top-right">
-        <div class="session-pill">
-          <div class="session-dot"></div>
-          <span>LONDON KILLZONE CHOKEPOINT</span>
-        </div>
+      <div class="session-pill">
+        <div class="session-dot"></div>
+        <span>LONDON KILLZONE CHOKEPOINT</span>
       </div>
     </div>
   </header>
@@ -553,7 +589,7 @@
         <div class="chart-legend" id="chartLegend">
           <div class="legend-title">
             <span id="lgSymbol">GBP/USD</span>
-            <span style="font-size:10px;color:var(--muted)">5M</span>
+            <span style="font-size:10px;color:var(--muted)" id="lgTf">M5</span>
             <span class="badge-gods-eye" id="lgModel">SMT TURTLE SOUP</span>
           </div>
           <div class="legend-sub" id="lgPrice">Live: 1.29465 · Spread: 0.8 pips</div>
@@ -572,17 +608,33 @@
     <!-- RIGHT: GOD'S EYE ACTION DIRECTIVE DESK -->
     <div class="desk-panel">
       
+      <!-- Style / Horizon Selector -->
+      <div class="horizon-bar">
+        <button class="hz-btn" onclick="setHorizon('scalp', this)">
+          <span>⚡ SCALP</span>
+          <span class="hz-sub">15-45m · 10-18 Pips</span>
+        </button>
+        <button class="hz-btn active" onclick="setHorizon('day', this)">
+          <span>🎯 DAY TRADE</span>
+          <span class="hz-sub">2-5h · 30-45 Pips</span>
+        </button>
+        <button class="hz-btn" onclick="setHorizon('swing', this)">
+          <span>🌊 SWING</span>
+          <span class="hz-sub">1-3d · 80-140 Pips</span>
+        </button>
+      </div>
+
       <!-- Action Directive -->
       <div class="directive-card">
         <div class="directive-top">
           <span class="archetype-label" id="dirArchetype">SMT Turtle Soup (Sister Divergence)</span>
-          <span class="intercept-pill">● STAGE 3 INTERCEPT</span>
+          <span class="intercept-pill" id="dirHorizonBadge">DAY TRADE CHOKEPOINT</span>
         </div>
         <div class="directive-headline buy" id="dirHeadline">
           BUY LIMIT @ 1.29420
         </div>
         <div class="directive-exec">
-          Order: <b id="dirOrder">Limit @ FVG Consequent Encroachment (50%)</b>
+          Best Entry Point: <b id="dirOrder">Limit @ FVG Consequent Encroachment (50%)</b>
         </div>
       </div>
 
@@ -593,25 +645,25 @@
             <span>✅ WHAT TO DO (EXECUTION DIRECTIVE)</span>
           </div>
           <div class="guide-desc" id="guideDo">
-            Wait for price to tap the <b>50% Consequent Encroachment (1.29420)</b> of the M5 Fair Value Gap inside the London Killzone. Place <b>BUY LIMIT</b> with Stop Loss at 1.29295.
+            Wait for price to tap the 50% Consequent Encroachment (1.29420) of the M5 Fair Value Gap inside the London Killzone. Place BUY LIMIT with Stop Loss at 1.29295.
           </div>
         </div>
 
         <div class="guide-cell">
           <div class="guide-lbl red">
-            <span>⛔ WHAT NOT TO DO (CHOP / TRAP WARNING)</span>
+            <span>⛔ WHAT NOT TO DO (CHOP & TRAP WARNING)</span>
           </div>
           <div class="guide-desc" id="guideDont">
-            <b>DO NOT</b> market-chase the green expansion candle above Asian High. <b>DO NOT</b> hold if 1.29290 is violated with candle-body close before 08:30 NY macro.
+            DO NOT market-chase the green expansion candle above Asian High. DO NOT hold if 1.29290 is violated with candle-body close before 08:30 NY macro.
           </div>
         </div>
 
         <div class="guide-cell">
           <div class="guide-lbl gold">
-            <span>⏰ WHEN TO EXPECT IT (TIME & PRICE WINDOW)</span>
+            <span>⏰ WHEN TO EXPECT IT (TIMING & HOLD WINDOW)</span>
           </div>
           <div class="guide-desc" id="guideWhen">
-            Delivery window: <b>08:30 – 09:15 UTC (London Open)</b>. Secondary re-test opportunity at <b>08:30 NY Macro Injection</b>.
+            Delivery window: 08:30 – 09:15 UTC (London Open). Expected hold duration: 2 to 4 hours.
           </div>
         </div>
       </div>
@@ -629,7 +681,7 @@
           <span class="pip-pill red" id="pillStop">12.5 PIPS RISK</span>
         </div>
         <div class="level-box target">
-          <div class="level-label">Draw (TP2)</div>
+          <div class="level-label">Draw (Target)</div>
           <div class="level-price" style="color:var(--bull)" id="lvlTarget">1.29820</div>
           <span class="pip-pill green" id="pillTarget">40.0 PIPS TP</span>
         </div>
@@ -672,273 +724,682 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    const MARKETS = {
+    // Database of all 6 markets across all 3 Trading Horizons (Scalp, Day Trade, Swing)
+    const DATA = {
       GBPUSD: {
         label: 'GBP/USD',
         price: '1.29465',
         spread: '0.8 pips',
-        profile: 'IPDA: CLASSIC WED EXPANSION',
-        range: 'DISCOUNT ARRAY: 38.2%',
-        headline: 'BUY LIMIT @ 1.29420',
-        headlineClass: 'buy',
-        archetype: 'SMT Turtle Soup · Sister Divergence',
-        order: 'Limit @ FVG Consequent Encroachment (50%)',
-        doText: 'Wait for price to tap the <b>50% Consequent Encroachment (1.29420)</b> of the M5 Fair Value Gap inside the London Killzone. Place <b>BUY LIMIT</b> with Stop Loss at 1.29295.',
-        dontText: '<b>DO NOT</b> market-chase the green expansion candle above Asian High. <b>DO NOT</b> hold if 1.29290 is violated with candle-body close before 08:30 NY macro.',
-        whenText: 'Delivery window: <b>08:30 – 09:15 UTC (London Open)</b>. Secondary re-test opportunity at <b>08:30 NY Macro Injection</b>.',
-        entry: '1.29420',
-        stop: '1.29295',
-        target: '1.29820',
-        pillEntry: 'LIMIT @ 50% CE',
-        pillStop: '12.5 PIPS RISK',
-        pillTarget: '40.0 PIPS TP',
-        govBe: '+0.80R (1.29520)',
-        govTp1: '+1.25R (1.29576)',
-        govTp2: '+3.20R (1.29820)',
-        calc50: '0.40 Lots',
-        calc100: '0.80 Lots',
-        calcRr: '1 : 3.20 R',
         tvSym: 'FX:GBPUSD',
-        // Candlesticks for simulation
         base: 1.29400,
         pipsScale: 0.0001,
-        levels: [
-          { name: 'PDH (Buy-Side Draw)', price: 1.29820, type: 'bsl' },
-          { name: 'ASIA HIGH', price: 1.29650, type: 'range' },
-          { name: 'MIDNIGHT OPEN (00:00 NY)', price: 1.29480, type: 'mo' },
-          { name: 'FVG 50% C.E.', price: 1.29420, type: 'fvg' },
-          { name: 'ASIA LOW (Swept)', price: 1.29295, type: 'ssl' },
-          { name: 'IPDA 20D LOW', price: 1.29150, type: 'ipda' }
-        ]
+        horizons: {
+          scalp: {
+            tf: 'M1/M5',
+            badge: '⚡ SCALP INTERCEPT',
+            headline: 'BUY LIMIT @ 1.29435',
+            headlineClass: 'buy',
+            archetype: 'Micro FVG CE Tap (London Macro)',
+            order: 'Limit @ 50% Consequent Encroachment (1.29435)',
+            doText: 'Place <b>Buy Limit at 1.29435</b> immediately following the 08:30 macro displacement. Anchor Stop Loss 1.5 pips below the micro-wick.',
+            dontText: '<b>DO NOT</b> hold longer than 45 minutes. If target is not reached before 09:15 UTC, close at market.',
+            whenText: 'Active window: <b>08:30 – 09:15 UTC (London Macro)</b>. Expected hold time: <b>15 – 35 minutes</b>.',
+            entry: '1.29435',
+            stop: '1.29370',
+            target: '1.29615',
+            pillEntry: 'LIMIT @ M1 CE',
+            pillStop: '6.5 PIPS RISK',
+            pillTarget: '18.0 PIPS TP',
+            govBe: '+0.80R (1.29487)',
+            govTp1: '+1.25R (1.29516)',
+            govTp2: '+2.77R (1.29615)',
+            calc50: '0.77 Lots',
+            calc100: '1.54 Lots',
+            calcRr: '1 : 2.77 R',
+            profile: 'IPDA: MICRO LIQUIDITY RUN',
+            range: 'DISCOUNT ZONE: 32.5%',
+            levels: [
+              { name: 'SESSION HIGH (Draw)', price: 1.29615, type: 'bsl' },
+              { name: 'MIDNIGHT OPEN', price: 1.29480, type: 'mo' },
+              { name: 'M1 FVG 50% CE', price: 1.29435, type: 'fvg' },
+              { name: 'MICRO SWEEP LOW', price: 1.29370, type: 'ssl' }
+            ]
+          },
+          day: {
+            tf: 'M5/M15',
+            badge: '🎯 DAY TRADE CHOKEPOINT',
+            headline: 'BUY LIMIT @ 1.29420',
+            headlineClass: 'buy',
+            archetype: 'SMT Turtle Soup (Sister Divergence)',
+            order: 'Limit @ FVG Consequent Encroachment (50%)',
+            doText: 'Wait for price to tap the <b>50% Consequent Encroachment (1.29420)</b> of the M5 Fair Value Gap inside London Killzone. Place <b>BUY LIMIT</b>.',
+            dontText: '<b>DO NOT</b> market-chase the green expansion candle above Asian High. <b>DO NOT</b> hold if 1.29290 is violated with candle-body close.',
+            whenText: 'Delivery window: <b>08:30 – 09:15 UTC (London Open)</b>. Expected hold duration: <b>2 to 5 hours</b>.',
+            entry: '1.29420',
+            stop: '1.29295',
+            target: '1.29820',
+            pillEntry: 'LIMIT @ 50% CE',
+            pillStop: '12.5 PIPS RISK',
+            pillTarget: '40.0 PIPS TP',
+            govBe: '+0.80R (1.29520)',
+            govTp1: '+1.25R (1.29576)',
+            govTp2: '+3.20R (1.29820)',
+            calc50: '0.40 Lots',
+            calc100: '0.80 Lots',
+            calcRr: '1 : 3.20 R',
+            profile: 'IPDA: CLASSIC WED EXPANSION',
+            range: 'DISCOUNT ARRAY: 38.2%',
+            levels: [
+              { name: 'PDH (Buy-Side Draw)', price: 1.29820, type: 'bsl' },
+              { name: 'ASIA HIGH', price: 1.29650, type: 'range' },
+              { name: 'MIDNIGHT OPEN', price: 1.29480, type: 'mo' },
+              { name: 'FVG 50% C.E.', price: 1.29420, type: 'fvg' },
+              { name: 'ASIA LOW (Swept)', price: 1.29295, type: 'ssl' }
+            ]
+          },
+          swing: {
+            tf: 'H1/H4',
+            badge: '🌊 SWING PROFILE',
+            headline: 'BUY LIMIT @ 1.29350',
+            headlineClass: 'buy',
+            archetype: 'Weekly Low of Week (Tuesday/Wednesday)',
+            order: 'Limit @ 4H Bullish Order Block + OTE (70.5%)',
+            doText: 'Enter <b>Buy Limit at 1.29350</b> on 4H OB test. Hold through London and NY sessions targeting the Previous Week High at 1.30500.',
+            dontText: '<b>DO NOT</b> micromanage on 1-minute noise. Allow the 4H order flow to deliver across multiple days.',
+            whenText: 'Optimal entry: <b>Tuesday/Wednesday London Session</b>. Expected hold time: <b>2 to 4 days</b>.',
+            entry: '1.29350',
+            stop: '1.29100',
+            target: '1.30500',
+            pillEntry: 'LIMIT @ 4H OB',
+            pillStop: '25.0 PIPS RISK',
+            pillTarget: '115.0 PIPS TP',
+            govBe: '+0.80R (1.29550)',
+            govTp1: '+1.25R (1.29662)',
+            govTp2: '+4.60R (1.30500)',
+            calc50: '0.20 Lots',
+            calc100: '0.40 Lots',
+            calcRr: '1 : 4.60 R',
+            profile: 'IPDA: 20-DAY RANGE REBALANCE',
+            range: 'DEEP DISCOUNT: 21.4%',
+            levels: [
+              { name: 'PWH (Previous Week High)', price: 1.30500, type: 'bsl' },
+              { name: 'IPDA 20D MIDPOINT', price: 1.29850, type: 'range' },
+              { name: '4H ORDER BLOCK', price: 1.29350, type: 'fvg' },
+              { name: 'PWL (Previous Week Low)', price: 1.29100, type: 'ssl' },
+              { name: 'IPDA 60D LOW', price: 1.28500, type: 'ipda' }
+            ]
+          }
+        }
       },
       EURUSD: {
         label: 'EUR/USD',
         price: '1.08690',
         spread: '0.6 pips',
-        profile: 'IPDA: TREND CONTINUATION RAID',
-        range: 'PREMIUM ARRAY: 68.4%',
-        headline: 'SELL LIMIT @ 1.08720',
-        headlineClass: 'sell',
-        archetype: 'Trend Pullback Raid · 4H Aligned',
-        order: 'Limit @ CISD Breaker Block (50% Mitigation)',
-        doText: 'Sell the mitigation into the <b>Bearish Breaker Block at 1.08720</b>. Set Stop Loss at 1.08835 above the sweep wick.',
-        dontText: '<b>DO NOT</b> enter if 5M candle closes back above the Midnight Open (1.08780). That invalidates the bearish delivery.',
-        whenText: 'High probability execution window: <b>08:00 – 08:45 UTC (London Open)</b> and <b>13:30 UTC (NY Equities Open)</b>.',
-        entry: '1.08720',
-        stop: '1.08835',
-        target: '1.08375',
-        pillEntry: 'LIMIT @ BREAKER',
-        pillStop: '11.5 PIPS RISK',
-        pillTarget: '34.5 PIPS TP',
-        govBe: '+0.80R (1.08628)',
-        govTp1: '+1.25R (1.08576)',
-        govTp2: '+3.00R (1.08375)',
-        calc50: '0.43 Lots',
-        calc100: '0.86 Lots',
-        calcRr: '1 : 3.00 R',
         tvSym: 'FX:EURUSD',
         base: 1.08650,
         pipsScale: 0.0001,
-        levels: [
-          { name: 'ASIA HIGH (Swept)', price: 1.08835, type: 'bsl' },
-          { name: 'MIDNIGHT OPEN', price: 1.08780, type: 'mo' },
-          { name: 'BEARISH BREAKER', price: 1.08720, type: 'fvg' },
-          { name: 'ASIA LOW', price: 1.08550, type: 'range' },
-          { name: 'PDL (Sell-Side Draw)', price: 1.08375, type: 'ssl' },
-          { name: 'IPDA 40D LOW', price: 1.08150, type: 'ipda' }
-        ]
+        horizons: {
+          scalp: {
+            tf: 'M1/M5',
+            badge: '⚡ SCALP INTERCEPT',
+            headline: 'SELL LIMIT @ 1.08745',
+            headlineClass: 'sell',
+            archetype: 'Micro Breaker Mitigation (08:30)',
+            order: 'Limit @ M1 Breaker Block Midpoint',
+            doText: 'Sell the quick tap into the <b>M1 Breaker at 1.08745</b>. Take off 80% at 12 pips (1.08625).',
+            dontText: '<b>DO NOT</b> hold into the London Close if target is not reached.',
+            whenText: 'Window: <b>08:00 – 08:45 UTC</b>. Expected hold time: <b>15 – 30 minutes</b>.',
+            entry: '1.08745',
+            stop: '1.08805',
+            target: '1.08605',
+            pillEntry: 'LIMIT @ BREAKER',
+            pillStop: '6.0 PIPS RISK',
+            pillTarget: '14.0 PIPS TP',
+            govBe: '+0.80R (1.08697)',
+            govTp1: '+1.25R (1.08670)',
+            govTp2: '+2.33R (1.08605)',
+            calc50: '0.83 Lots',
+            calc100: '1.66 Lots',
+            calcRr: '1 : 2.33 R',
+            profile: 'IPDA: MICRO MITIGATION',
+            range: 'PREMIUM ZONE: 71.0%',
+            levels: [
+              { name: 'ASIA HIGH', price: 1.08805, type: 'bsl' },
+              { name: 'M1 BREAKER', price: 1.08745, type: 'fvg' },
+              { name: 'SESSION LOW (Draw)', price: 1.08605, type: 'ssl' }
+            ]
+          },
+          day: {
+            tf: 'M5/M15',
+            badge: '🎯 DAY TRADE CHOKEPOINT',
+            headline: 'SELL LIMIT @ 1.08720',
+            headlineClass: 'sell',
+            archetype: 'Trend Pullback Raid · 4H Aligned',
+            order: 'Limit @ CISD Breaker Block (50% Mitigation)',
+            doText: 'Sell the mitigation into the <b>Bearish Breaker Block at 1.08720</b>. Set Stop Loss at 1.08835.',
+            dontText: '<b>DO NOT</b> enter if 5M candle closes back above Midnight Open (1.08780).',
+            whenText: 'Window: <b>08:00 – 08:45 UTC</b> and <b>13:30 UTC (NY Equities)</b>. Hold time: <b>2 – 5 hours</b>.',
+            entry: '1.08720',
+            stop: '1.08835',
+            target: '1.08375',
+            pillEntry: 'LIMIT @ BREAKER',
+            pillStop: '11.5 PIPS RISK',
+            pillTarget: '34.5 PIPS TP',
+            govBe: '+0.80R (1.08628)',
+            govTp1: '+1.25R (1.08576)',
+            govTp2: '+3.00R (1.08375)',
+            calc50: '0.43 Lots',
+            calc100: '0.86 Lots',
+            calcRr: '1 : 3.00 R',
+            profile: 'IPDA: TREND CONTINUATION',
+            range: 'PREMIUM ARRAY: 68.4%',
+            levels: [
+              { name: 'ASIA HIGH (Swept)', price: 1.08835, type: 'bsl' },
+              { name: 'MIDNIGHT OPEN', price: 1.08780, type: 'mo' },
+              { name: 'BEARISH BREAKER', price: 1.08720, type: 'fvg' },
+              { name: 'PDL (Draw)', price: 1.08375, type: 'ssl' }
+            ]
+          },
+          swing: {
+            tf: 'H1/H4',
+            badge: '🌊 SWING PROFILE',
+            headline: 'SELL LIMIT @ 1.08950',
+            headlineClass: 'sell',
+            archetype: 'Daily Order Block + Weekly Expansion',
+            order: 'Limit @ Daily Bearish Mitigation Array',
+            doText: 'Sell the rejection at 1.08950 targeting the Previous Week Low and major sell-side pool at 1.07800.',
+            dontText: '<b>DO NOT</b> panic on intraday pullbacks. Hold position for 48 to 72 hours.',
+            whenText: 'Entry: <b>Wednesday High of the Week</b>. Expected hold time: <b>2 to 3 days</b>.',
+            entry: '1.08950',
+            stop: '1.09200',
+            target: '1.07800',
+            pillEntry: 'LIMIT @ DAILY OB',
+            pillStop: '25.0 PIPS RISK',
+            pillTarget: '115.0 PIPS TP',
+            govBe: '+0.80R (1.08750)',
+            govTp1: '+1.25R (1.08637)',
+            govTp2: '+4.60R (1.07800)',
+            calc50: '0.20 Lots',
+            calc100: '0.40 Lots',
+            calcRr: '1 : 4.60 R',
+            profile: 'IPDA: 40-DAY INSTITUTIONAL EXPANSION',
+            range: 'DEEP PREMIUM: 78.5%',
+            levels: [
+              { name: 'PWH (Previous Week High)', price: 1.09200, type: 'bsl' },
+              { name: 'DAILY OB RESISTANCE', price: 1.08950, type: 'fvg' },
+              { name: 'PWL (Sell-Side Draw)', price: 1.07800, type: 'ssl' }
+            ]
+          }
+        }
       },
       XAUUSD: {
         label: 'Gold (XAU/USD)',
         price: '2736.20',
         spread: '1.5 pips',
-        profile: 'IPDA: JUDAS MACRO EXPANSION',
-        range: 'EXTREME DISCOUNT: 23.6%',
-        headline: 'BUY MARKET @ 2735.40',
-        headlineClass: 'buy',
-        archetype: 'Judas Sweep Reversal · Macro Injection',
-        order: 'Market Confirmation @ 08:30 Macro Reversal Block',
-        doText: 'Enter <b>Market Buy</b> upon candle closure above $2,735.00 following the Asian low sweep. Target previous day high at $2,748.20.',
-        dontText: '<b>DO NOT</b> risk more than 0.5% account size. Gold volatility requires strict stop placement at $2,732.20 ($3.20 stop).',
-        whenText: 'Optimal window: <b>08:30 – 09:30 NY Macro Window (13:30 - 14:30 UTC)</b>.',
-        entry: '2735.40',
-        stop: '2732.20',
-        target: '2748.20',
-        pillEntry: 'MARKET CONFIRM',
-        pillStop: '32.0 PIPS ($3.20)',
-        pillTarget: '128.0 PIPS ($12.80)',
-        govBe: '+0.80R ($2737.96)',
-        govTp1: '+1.25R ($2739.40)',
-        govTp2: '+4.00R ($2748.20)',
-        calc50: '0.16 Lots',
-        calc100: '0.31 Lots',
-        calcRr: '1 : 4.00 R',
         tvSym: 'OANDA:XAUUSD',
         base: 2734.00,
         pipsScale: 0.10,
-        levels: [
-          { name: 'PDH (Buy-Side Draw)', price: 2748.20, type: 'bsl' },
-          { name: 'ASIA HIGH', price: 2742.50, type: 'range' },
-          { name: 'MIDNIGHT OPEN (00:00 NY)', price: 2738.00, type: 'mo' },
-          { name: 'REJECTION BLOCK', price: 2735.40, type: 'fvg' },
-          { name: 'ASIA LOW (Swept)', price: 2732.20, type: 'ssl' },
-          { name: 'IPDA 60D LEVEL', price: 2720.00, type: 'ipda' }
-        ]
+        horizons: {
+          scalp: {
+            tf: 'M1/M5',
+            badge: '⚡ SCALP INTERCEPT',
+            headline: 'BUY MARKET @ 2735.80',
+            headlineClass: 'buy',
+            archetype: 'Micro Judas Sweep (08:30 Macro)',
+            order: 'Market Execution on Micro V-Reversal',
+            doText: 'Execute <b>Market Buy @ 2735.80</b> upon 1M candle close. Target quick liquidity pool at $2,741.00 ($5.20 move).',
+            dontText: '<b>DO NOT</b> hold through high-impact red news. Move to Breakeven at +$2.50 gain.',
+            whenText: 'Window: <b>13:30 – 14:15 UTC (NY 08:30)</b>. Expected hold time: <b>15 – 30 minutes</b>.',
+            entry: '2735.80',
+            stop: '2734.00',
+            target: '2741.00',
+            pillEntry: 'MARKET CONFIRM',
+            pillStop: '18.0 PIPS ($1.80)',
+            pillTarget: '52.0 PIPS ($5.20)',
+            govBe: '+0.80R ($2737.24)',
+            govTp1: '+1.25R ($2738.05)',
+            govTp2: '+2.89R ($2741.00)',
+            calc50: '0.28 Lots',
+            calc100: '0.56 Lots',
+            calcRr: '1 : 2.89 R',
+            profile: 'IPDA: MICRO EXPANSION',
+            range: 'DISCOUNT: 31.0%',
+            levels: [
+              { name: 'MICRO BSL TARGET', price: 2741.00, type: 'bsl' },
+              { name: 'MICRO FVG ENTRY', price: 2735.80, type: 'fvg' },
+              { name: 'MICRO SWEEP LOW', price: 2734.00, type: 'ssl' }
+            ]
+          },
+          day: {
+            tf: 'M5/M15',
+            badge: '🎯 DAY TRADE CHOKEPOINT',
+            headline: 'BUY MARKET @ 2735.40',
+            headlineClass: 'buy',
+            archetype: 'Judas Sweep Reversal · Macro Injection',
+            order: 'Market Confirmation @ 08:30 Reversal Block',
+            doText: 'Enter <b>Market Buy</b> upon candle closure above $2,735.00 following Asian low sweep. Target previous day high at $2,748.20.',
+            dontText: '<b>DO NOT</b> risk more than 0.5% account size. Strict stop placement at $2,732.20 ($3.20 stop).',
+            whenText: 'Window: <b>08:30 – 09:30 NY Macro (13:30 - 14:30 UTC)</b>. Expected hold time: <b>2 – 5 hours</b>.',
+            entry: '2735.40',
+            stop: '2732.20',
+            target: '2748.20',
+            pillEntry: 'MARKET CONFIRM',
+            pillStop: '32.0 PIPS ($3.20)',
+            pillTarget: '128.0 PIPS ($12.80)',
+            govBe: '+0.80R ($2737.96)',
+            govTp1: '+1.25R ($2739.40)',
+            govTp2: '+4.00R ($2748.20)',
+            calc50: '0.16 Lots',
+            calc100: '0.31 Lots',
+            calcRr: '1 : 4.00 R',
+            profile: 'IPDA: JUDAS MACRO EXPANSION',
+            range: 'EXTREME DISCOUNT: 23.6%',
+            levels: [
+              { name: 'PDH (Buy-Side Draw)', price: 2748.20, type: 'bsl' },
+              { name: 'ASIA HIGH', price: 2742.50, type: 'range' },
+              { name: 'MIDNIGHT OPEN', price: 2738.00, type: 'mo' },
+              { name: 'REJECTION BLOCK', price: 2735.40, type: 'fvg' },
+              { name: 'ASIA LOW (Swept)', price: 2732.20, type: 'ssl' }
+            ]
+          },
+          swing: {
+            tf: 'H1/H4',
+            badge: '🌊 SWING PROFILE',
+            headline: 'BUY LIMIT @ 2728.00',
+            headlineClass: 'buy',
+            archetype: 'Weekly Discount Mitigation Array',
+            order: 'Limit @ 4H Institutional Discount Block',
+            doText: 'Buy the deep pullback into 4H Discount Block at $2,728.00. Target all-time high liquidity pool at $2,775.00 ($47 move).',
+            dontText: '<b>DO NOT</b> exit early during minor 5M pullbacks. Let the daily institutional flow expand.',
+            whenText: 'Weekly setup window. Expected hold time: <b>3 to 5 days</b>.',
+            entry: '2728.00',
+            stop: '2718.00',
+            target: '2775.00',
+            pillEntry: 'LIMIT @ 4H OB',
+            pillStop: '100.0 PIPS ($10.00)',
+            pillTarget: '470.0 PIPS ($47.00)',
+            govBe: '+0.80R ($2736.00)',
+            govTp1: '+1.25R ($2740.50)',
+            govTp2: '+4.70R ($2775.00)',
+            calc50: '0.05 Lots',
+            calc100: '0.10 Lots',
+            calcRr: '1 : 4.70 R',
+            profile: 'IPDA: 60-DAY BULL RUN',
+            range: 'DEEP DISCOUNT: 18.0%',
+            levels: [
+              { name: 'ALL-TIME HIGH POOL', price: 2775.00, type: 'bsl' },
+              { name: '4H DISCOUNT BLOCK', price: 2728.00, type: 'fvg' },
+              { name: 'PWH (Previous Week Low)', price: 2718.00, type: 'ssl' }
+            ]
+          }
+        }
       },
       NAS100: {
         label: 'Nasdaq (NAS100)',
         price: '20135.0',
         spread: '1.0 pt',
-        profile: 'IPDA: EQUITIES MORNING SQUEEZE',
-        range: 'PREMIUM ZONE: 74.5%',
-        headline: 'SELL LIMIT @ 20120.0',
-        headlineClass: 'sell',
-        archetype: 'Propulsion Block Displacement',
-        order: 'Limit @ Consequent Encroachment (50%)',
-        doText: 'Place <b>Sell Limit at 20,120.0</b> following 09:30 open sweep. Target London low pool at 19,980.0.',
-        dontText: '<b>DO NOT</b> trade during high-impact FOMC or CPI releases. Flat positions 5 minutes prior.',
-        whenText: 'Execution window: <b>09:30 – 10:30 NY Equities Opening Killzone</b>.',
-        entry: '20120.0',
-        stop: '20165.0',
-        target: '19980.0',
-        pillEntry: 'LIMIT @ PB',
-        pillStop: '45.0 PTS RISK',
-        pillTarget: '140.0 PTS TP',
-        govBe: '+0.80R (20084.0)',
-        govTp1: '+1.25R (20063.7)',
-        govTp2: '+3.11R (19980.0)',
-        calc50: '0.11 Lots',
-        calc100: '0.22 Lots',
-        calcRr: '1 : 3.11 R',
         tvSym: 'FOREXCOM:NSXUSD',
         base: 20110.0,
         pipsScale: 1.0,
-        levels: [
-          { name: '09:30 OPEN HIGH (Swept)', price: 20165.0, type: 'bsl' },
-          { name: 'PROPULSION BLOCK', price: 20120.0, type: 'fvg' },
-          { name: 'MIDNIGHT OPEN', price: 20090.0, type: 'mo' },
-          { name: 'LONDON LOW (Draw)', price: 19980.0, type: 'ssl' }
-        ]
+        horizons: {
+          scalp: {
+            tf: 'M1/M5',
+            badge: '⚡ SCALP INTERCEPT',
+            headline: 'SELL LIMIT @ 20140.0',
+            headlineClass: 'sell',
+            archetype: '09:30 Open Flush (Equities Macro)',
+            order: 'Limit @ Opening Imbalance Edge',
+            doText: 'Sell the 09:30 open pop into 20,140.0. Target immediate 35-point flush to 20,105.0.',
+            dontText: '<b>DO NOT</b> hold past 10:00 AM NY without moving stop to Breakeven.',
+            whenText: 'Window: <b>09:30 – 10:00 NY Open (14:30 - 15:00 UTC)</b>. Hold time: <b>15 – 30 minutes</b>.',
+            entry: '20140.0',
+            stop: '20158.0',
+            target: '20105.0',
+            pillEntry: 'LIMIT @ OPEN',
+            pillStop: '18.0 PTS RISK',
+            pillTarget: '35.0 PTS TP',
+            govBe: '+0.80R (20125.6)',
+            govTp1: '+1.25R (20117.5)',
+            govTp2: '+1.94R (20105.0)',
+            calc50: '0.28 Lots',
+            calc100: '0.56 Lots',
+            calcRr: '1 : 1.94 R',
+            profile: 'IPDA: OPENING SQUEEZE',
+            range: 'PREMIUM ZONE: 72.0%',
+            levels: [
+              { name: 'OPEN HIGH', price: 20158.0, type: 'bsl' },
+              { name: 'OPEN FLUSH ENTRY', price: 20140.0, type: 'fvg' },
+              { name: 'MICRO DRAW', price: 20105.0, type: 'ssl' }
+            ]
+          },
+          day: {
+            tf: 'M5/M15',
+            badge: '🎯 DAY TRADE CHOKEPOINT',
+            headline: 'SELL LIMIT @ 20120.0',
+            headlineClass: 'sell',
+            archetype: 'Propulsion Block Displacement',
+            order: 'Limit @ Consequent Encroachment (50%)',
+            doText: 'Place <b>Sell Limit at 20,120.0</b> following 09:30 open sweep. Target London low pool at 19,980.0.',
+            dontText: '<b>DO NOT</b> trade during high-impact FOMC or CPI releases. Flat positions 5 minutes prior.',
+            whenText: 'Window: <b>09:30 – 10:30 NY Equities Opening Killzone</b>. Hold time: <b>2 – 5 hours</b>.',
+            entry: '20120.0',
+            stop: '20165.0',
+            target: '19980.0',
+            pillEntry: 'LIMIT @ PB',
+            pillStop: '45.0 PTS RISK',
+            pillTarget: '140.0 PTS TP',
+            govBe: '+0.80R (20084.0)',
+            govTp1: '+1.25R (20063.7)',
+            govTp2: '+3.11R (19980.0)',
+            calc50: '0.11 Lots',
+            calc100: '0.22 Lots',
+            calcRr: '1 : 3.11 R',
+            profile: 'IPDA: EQUITIES MORNING SQUEEZE',
+            range: 'PREMIUM ZONE: 74.5%',
+            levels: [
+              { name: '09:30 OPEN HIGH', price: 20165.0, type: 'bsl' },
+              { name: 'PROPULSION BLOCK', price: 20120.0, type: 'fvg' },
+              { name: 'MIDNIGHT OPEN', price: 20090.0, type: 'mo' },
+              { name: 'LONDON LOW (Draw)', price: 19980.0, type: 'ssl' }
+            ]
+          },
+          swing: {
+            tf: 'H1/H4',
+            badge: '🌊 SWING PROFILE',
+            headline: 'SELL LIMIT @ 20250.0',
+            headlineClass: 'sell',
+            archetype: 'Weekly Bearish Imbalance Delivery',
+            order: 'Limit @ 4H Premium Breaker Array',
+            doText: 'Sell the higher-timeframe mitigation at 20,250.0. Target weekly liquidity pool at 19,650.0 (600 point runner).',
+            dontText: '<b>DO NOT</b> exit early during midday chop. Allow weekly expansion profile to complete by Friday.',
+            whenText: 'Expected hold time: <b>3 to 5 days</b>.',
+            entry: '20250.0',
+            stop: '20380.0',
+            target: '19650.0',
+            pillEntry: 'LIMIT @ 4H BREAKER',
+            pillStop: '130.0 PTS RISK',
+            pillTarget: '600.0 PTS TP',
+            govBe: '+0.80R (20146.0)',
+            govTp1: '+1.25R (20087.5)',
+            govTp2: '+4.62R (19650.0)',
+            calc50: '0.04 Lots',
+            calc100: '0.08 Lots',
+            calcRr: '1 : 4.62 R',
+            profile: 'IPDA: WEEKLY PROFILE EXPANSION',
+            range: 'EXTREME PREMIUM: 84.0%',
+            levels: [
+              { name: 'PWH (Previous Week High)', price: 20380.0, type: 'bsl' },
+              { name: '4H PREMIUM BREAKER', price: 20250.0, type: 'fvg' },
+              { name: 'PWL (Major Draw)', price: 19650.0, type: 'ssl' }
+            ]
+          }
+        }
       },
       US500: {
         label: 'S&P 500 (US500)',
         price: '5784.50',
         spread: '0.3 pt',
-        profile: 'IPDA: SMT CROSS-CHECK EXTENSION',
-        range: 'EQUILIBRIUM: 50.0%',
-        headline: 'SELL LIMIT @ 5792.00',
-        headlineClass: 'sell',
-        archetype: 'SMT Triad Divergence',
-        order: 'Limit @ S&P/Nasdaq Divergence Peak',
-        doText: 'Sell the mitigation at 5,792.00 as S&P fails to confirm Nasdaq higher high.',
-        dontText: '<b>DO NOT</b> add to losing positions if 5,800 psychological level breaks.',
-        whenText: 'Active window: <b>10:00 – 11:00 NY Morning Session</b>.',
-        entry: '5792.00',
-        stop: '5804.00',
-        target: '5756.00',
-        pillEntry: 'LIMIT @ SMT',
-        pillStop: '12.0 PTS RISK',
-        pillTarget: '36.0 PTS TP',
-        govBe: '+0.80R (5782.40)',
-        govTp1: '+1.25R (5777.00)',
-        govTp2: '+3.00R (5756.00)',
-        calc50: '0.41 Lots',
-        calc100: '0.83 Lots',
-        calcRr: '1 : 3.00 R',
         tvSym: 'FOREXCOM:SPXUSD',
         base: 5780.0,
         pipsScale: 0.1,
-        levels: [
-          { name: 'PDH (Swept)', price: 5804.0, type: 'bsl' },
-          { name: 'SMT DIVERGENCE LEVEL', price: 5792.0, type: 'fvg' },
-          { name: 'MIDNIGHT OPEN', price: 5780.0, type: 'mo' },
-          { name: 'PDL (Draw)', price: 5756.0, type: 'ssl' }
-        ]
+        horizons: {
+          scalp: {
+            tf: 'M1/M5',
+            badge: '⚡ SCALP INTERCEPT',
+            headline: 'SELL LIMIT @ 5788.50',
+            headlineClass: 'sell',
+            archetype: 'Micro SMT Pop Mitigation',
+            order: 'Limit @ Micro FVG 50% CE',
+            doText: 'Sell the 5,788.50 tap as S&P diverges from Nasdaq. Target quick 8-point scalp to 5,780.50.',
+            dontText: '<b>DO NOT</b> hold longer than 25 minutes.',
+            whenText: 'Active window: <b>14:30 – 15:15 UTC (09:30 - 10:15 NY)</b>.',
+            entry: '5788.50',
+            stop: '5792.50',
+            target: '5780.50',
+            pillEntry: 'LIMIT @ CE',
+            pillStop: '4.0 PTS RISK',
+            pillTarget: '8.0 PTS TP',
+            govBe: '+0.80R (5785.30)',
+            govTp1: '+1.25R (5783.50)',
+            govTp2: '+2.00R (5780.50)',
+            calc50: '1.25 Lots',
+            calc100: '2.50 Lots',
+            calcRr: '1 : 2.00 R',
+            profile: 'IPDA: MICRO SCALP',
+            range: 'PREMIUM ZONE: 68.0%',
+            levels: [
+              { name: 'MICRO HIGH', price: 5792.50, type: 'bsl' },
+              { name: 'MICRO FVG ENTRY', price: 5788.50, type: 'fvg' },
+              { name: 'MICRO LOW', price: 5780.50, type: 'ssl' }
+            ]
+          },
+          day: {
+            tf: 'M5/M15',
+            badge: '🎯 DAY TRADE CHOKEPOINT',
+            headline: 'SELL LIMIT @ 5792.00',
+            headlineClass: 'sell',
+            archetype: 'SMT Triad Divergence',
+            order: 'Limit @ S&P/Nasdaq Divergence Peak',
+            doText: 'Sell the mitigation at 5,792.00 as S&P fails to confirm Nasdaq higher high.',
+            dontText: '<b>DO NOT</b> add to losing positions if 5,800 psychological level breaks.',
+            whenText: 'Active window: <b>10:00 – 11:00 NY Morning Session</b>. Hold time: <b>2 – 4 hours</b>.',
+            entry: '5792.00',
+            stop: '5804.00',
+            target: '5756.00',
+            pillEntry: 'LIMIT @ SMT',
+            pillStop: '12.0 PTS RISK',
+            pillTarget: '36.0 PTS TP',
+            govBe: '+0.80R (5782.40)',
+            govTp1: '+1.25R (5777.00)',
+            govTp2: '+3.00R (5756.00)',
+            calc50: '0.41 Lots',
+            calc100: '0.83 Lots',
+            calcRr: '1 : 3.00 R',
+            profile: 'IPDA: SMT CROSS-CHECK',
+            range: 'EQUILIBRIUM: 50.0%',
+            levels: [
+              { name: 'PDH (Swept)', price: 5804.0, type: 'bsl' },
+              { name: 'SMT DIVERGENCE LEVEL', price: 5792.0, type: 'fvg' },
+              { name: 'MIDNIGHT OPEN', price: 5780.0, type: 'mo' },
+              { name: 'PDL (Draw)', price: 5756.0, type: 'ssl' }
+            ]
+          },
+          swing: {
+            tf: 'H1/H4',
+            badge: '🌊 SWING PROFILE',
+            headline: 'SELL LIMIT @ 5815.00',
+            headlineClass: 'sell',
+            archetype: 'Weekly Dealing Range Rebalance',
+            order: 'Limit @ 4H Bearish Order Block',
+            doText: 'Sell the rejection at 5,815.00 targeting Previous Week Low at 5,680.00 (135 point runner).',
+            dontText: '<b>DO NOT</b> exit early during lunch hour consolidation.',
+            whenText: 'Expected hold time: <b>3 to 5 days</b>.',
+            entry: '5815.00',
+            stop: '5845.00',
+            target: '5680.00',
+            pillEntry: 'LIMIT @ 4H OB',
+            pillStop: '30.0 PTS RISK',
+            pillTarget: '135.0 PTS TP',
+            govBe: '+0.80R (5791.00)',
+            govTp1: '+1.25R (5777.50)',
+            govTp2: '+4.50R (5680.00)',
+            calc50: '0.16 Lots',
+            calc100: '0.33 Lots',
+            calcRr: '1 : 4.50 R',
+            profile: 'IPDA: 40-DAY EXPANSION',
+            range: 'PREMIUM ARRAY: 82.0%',
+            levels: [
+              { name: 'PWH (Weekly High)', price: 5845.0, type: 'bsl' },
+              { name: '4H BEARISH OB', price: 5815.0, type: 'fvg' },
+              { name: 'PWL (Weekly Draw)', price: 5680.0, type: 'ssl' }
+            ]
+          }
+        }
       },
       USDJPY: {
         label: 'USD/JPY',
         price: '152.85',
         spread: '0.9 pips',
-        profile: 'IPDA: TOKYO SESSION EXPANSION',
-        range: 'DISCOUNT ZONE: 41.2%',
-        headline: 'BUY LIMIT @ 152.65',
-        headlineClass: 'buy',
-        archetype: 'Tokyo Low Sweep + OTE',
-        order: 'Limit @ 70.5% OTE Retracement',
-        doText: 'Buy the OTE retracement at 152.65 following the Asian Low purge.',
-        dontText: '<b>DO NOT</b> buy if Bank of Japan (BOJ) rate announcement is pending.',
-        whenText: 'Tokyo Killzone window: <b>00:00 – 03:00 UTC</b>.',
-        entry: '152.65',
-        stop: '152.48',
-        target: '153.25',
-        pillEntry: 'LIMIT @ OTE',
-        pillStop: '17.0 PIPS RISK',
-        pillTarget: '60.0 PIPS TP',
-        govBe: '+0.80R (152.79)',
-        govTp1: '+1.25R (152.86)',
-        govTp2: '+3.53R (153.25)',
-        calc50: '0.29 Lots',
-        calc100: '0.58 Lots',
-        calcRr: '1 : 3.53 R',
         tvSym: 'FX:USDJPY',
         base: 152.60,
         pipsScale: 0.01,
-        levels: [
-          { name: 'TOKYO HIGH (Draw)', price: 153.25, type: 'bsl' },
-          { name: 'MIDNIGHT OPEN', price: 152.80, type: 'mo' },
-          { name: 'OTE (70.5%)', price: 152.65, type: 'fvg' },
-          { name: 'TOKYO LOW (Swept)', price: 152.48, type: 'ssl' }
-        ]
+        horizons: {
+          scalp: {
+            tf: 'M1/M5',
+            badge: '⚡ SCALP INTERCEPT',
+            headline: 'BUY LIMIT @ 152.70',
+            headlineClass: 'buy',
+            archetype: 'Tokyo Range Micro-Sweep',
+            order: 'Limit @ M1 FVG Consequent Encroachment',
+            doText: 'Buy the quick re-test at 152.70. Target Tokyo high at 152.95 (25 pips).',
+            dontText: '<b>DO NOT</b> hold into the London open crossover if not in profit.',
+            whenText: 'Window: <b>01:00 – 02:30 UTC (Tokyo Session)</b>. Hold time: <b>20 – 40 minutes</b>.',
+            entry: '152.70',
+            stop: '152.61',
+            target: '152.95',
+            pillEntry: 'LIMIT @ 50% CE',
+            pillStop: '9.0 PIPS RISK',
+            pillTarget: '25.0 PIPS TP',
+            govBe: '+0.80R (152.77)',
+            govTp1: '+1.25R (152.81)',
+            govTp2: '+2.78R (152.95)',
+            calc50: '0.55 Lots',
+            calc100: '1.11 Lots',
+            calcRr: '1 : 2.78 R',
+            profile: 'IPDA: TOKYO LIQUIDITY RUN',
+            range: 'DISCOUNT: 38.0%',
+            levels: [
+              { name: 'TOKYO HIGH (Draw)', price: 152.95, type: 'bsl' },
+              { name: 'M1 FVG 50% CE', price: 152.70, type: 'fvg' },
+              { name: 'TOKYO LOW (Swept)', price: 152.61, type: 'ssl' }
+            ]
+          },
+          day: {
+            tf: 'M5/M15',
+            badge: '🎯 DAY TRADE CHOKEPOINT',
+            headline: 'BUY LIMIT @ 152.65',
+            headlineClass: 'buy',
+            archetype: 'Tokyo Low Sweep + OTE',
+            order: 'Limit @ 70.5% OTE Retracement',
+            doText: 'Buy the OTE retracement at 152.65 following the Asian Low purge. Target Previous Day High.',
+            dontText: '<b>DO NOT</b> buy if Bank of Japan (BOJ) rate announcement is pending.',
+            whenText: 'Window: <b>00:00 – 03:00 UTC</b>. Expected hold time: <b>2 – 4 hours</b>.',
+            entry: '152.65',
+            stop: '152.48',
+            target: '153.25',
+            pillEntry: 'LIMIT @ OTE',
+            pillStop: '17.0 PIPS RISK',
+            pillTarget: '60.0 PIPS TP',
+            govBe: '+0.80R (152.79)',
+            govTp1: '+1.25R (152.86)',
+            govTp2: '+3.53R (153.25)',
+            calc50: '0.29 Lots',
+            calc100: '0.58 Lots',
+            calcRr: '1 : 3.53 R',
+            profile: 'IPDA: TOKYO SESSION EXPANSION',
+            range: 'DISCOUNT ZONE: 41.2%',
+            levels: [
+              { name: 'TOKYO HIGH (Draw)', price: 153.25, type: 'bsl' },
+              { name: 'MIDNIGHT OPEN', price: 152.80, type: 'mo' },
+              { name: 'OTE (70.5%)', price: 152.65, type: 'fvg' },
+              { name: 'TOKYO LOW (Swept)', price: 152.48, type: 'ssl' }
+            ]
+          },
+          swing: {
+            tf: 'H1/H4',
+            badge: '🌊 SWING PROFILE',
+            headline: 'BUY LIMIT @ 152.20',
+            headlineClass: 'buy',
+            archetype: 'Weekly Bullish Institutional Expansion',
+            order: 'Limit @ 4H Bullish Mitigation Block',
+            doText: 'Enter <b>Buy Limit at 152.20</b> on 4H OB re-test. Target major liquidity pool at 154.50 (230 pip runner).',
+            dontText: '<b>DO NOT</b> cut runner before 153.80 partial take-profit.',
+            whenText: 'Expected hold time: <b>2 to 4 days</b>.',
+            entry: '152.20',
+            stop: '151.70',
+            target: '154.50',
+            pillEntry: 'LIMIT @ 4H OB',
+            pillStop: '50.0 PIPS RISK',
+            pillTarget: '230.0 PIPS TP',
+            govBe: '+0.80R (152.60)',
+            govTp1: '+1.25R (152.82)',
+            govTp2: '+4.60R (154.50)',
+            calc50: '0.10 Lots',
+            calc100: '0.20 Lots',
+            calcRr: '1 : 4.60 R',
+            profile: 'IPDA: MULTI-WEEK EXPANSION',
+            range: 'DEEP DISCOUNT: 26.0%',
+            levels: [
+              { name: 'MAJOR HIGH POOL', price: 154.50, type: 'bsl' },
+              { name: '4H BULLISH OB', price: 152.20, type: 'fvg' },
+              { name: 'PWL (Weekly Low)', price: 151.70, type: 'ssl' }
+            ]
+          }
+        }
       }
     };
 
     let curKey = 'GBPUSD';
+    let curHorizon = 'day';
     let chartMode = 'ict';
-    let animFrame = null;
+
+    function setHorizon(hz, btn) {
+      curHorizon = hz;
+      document.querySelectorAll('.hz-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      updateDesk();
+    }
 
     function selectPair(key, btn) {
       curKey = key;
       document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+      updateDesk();
+    }
 
-      const d = MARKETS[key];
+    function updateDesk() {
+      const m = DATA[curKey];
+      const h = m.horizons[curHorizon];
+
       // Update Legend
-      document.getElementById('lgSymbol').textContent = d.label;
-      document.getElementById('lgModel').textContent = d.archetype.toUpperCase();
-      document.getElementById('lgPrice').textContent = `Live: ${d.price} · Spread: ${d.spread}`;
-      document.getElementById('lgProfile').textContent = d.profile;
-      document.getElementById('lgRange').textContent = d.range;
+      document.getElementById('lgSymbol').textContent = m.label;
+      document.getElementById('lgTf').textContent = h.tf;
+      document.getElementById('lgModel').textContent = h.archetype.toUpperCase();
+      document.getElementById('lgPrice').textContent = `Live: ${m.price} · Spread: ${m.spread}`;
+      document.getElementById('lgProfile').textContent = h.profile;
+      document.getElementById('lgRange').textContent = h.range;
 
       // Update Action Card
       const hl = document.getElementById('dirHeadline');
-      hl.textContent = d.headline;
-      hl.className = 'directive-headline ' + d.headlineClass;
-      document.getElementById('dirArchetype').textContent = d.archetype;
-      document.getElementById('dirOrder').textContent = d.order;
+      hl.textContent = h.headline;
+      hl.className = 'directive-headline ' + h.headlineClass;
+      document.getElementById('dirArchetype').textContent = h.archetype;
+      document.getElementById('dirHorizonBadge').textContent = h.badge;
+      document.getElementById('dirOrder').textContent = h.order;
 
       // Update Guidance Triad
-      document.getElementById('guideDo').innerHTML = d.doText;
-      document.getElementById('guideDont').innerHTML = d.dontText;
-      document.getElementById('guideWhen').innerHTML = d.whenText;
+      document.getElementById('guideDo').innerHTML = h.doText;
+      document.getElementById('guideDont').innerHTML = h.dontText;
+      document.getElementById('guideWhen').innerHTML = h.whenText;
 
       // Update Levels
-      document.getElementById('lvlEntry').textContent = d.entry;
-      document.getElementById('lvlStop').textContent = d.stop;
-      document.getElementById('lvlTarget').textContent = d.target;
+      document.getElementById('lvlEntry').textContent = h.entry;
+      document.getElementById('lvlStop').textContent = h.stop;
+      document.getElementById('lvlTarget').textContent = h.target;
 
-      document.getElementById('pillEntry').textContent = d.pillEntry;
-      document.getElementById('pillStop').textContent = d.pillStop;
-      document.getElementById('pillTarget').textContent = d.pillTarget;
+      document.getElementById('pillEntry').textContent = h.pillEntry;
+      document.getElementById('pillStop').textContent = h.pillStop;
+      document.getElementById('pillTarget').textContent = h.pillTarget;
 
       // Update Governor
-      document.getElementById('govBe').textContent = d.govBe;
-      document.getElementById('govTp1').textContent = d.govTp1;
-      document.getElementById('govTp2').textContent = d.govTp2;
+      document.getElementById('govBe').textContent = h.govBe;
+      document.getElementById('govTp1').textContent = h.govTp1;
+      document.getElementById('govTp2').textContent = h.govTp2;
 
       // Update Sizing
-      document.getElementById('calc50').textContent = d.calc50;
-      document.getElementById('calc100').textContent = d.calc100;
-      document.getElementById('calcRr').textContent = d.calcRr;
+      document.getElementById('calc50').textContent = h.calc50;
+      document.getElementById('calc100').textContent = h.calc100;
+      document.getElementById('calcRr').textContent = h.calcRr;
 
       if (chartMode === 'tv') renderTradingView();
       else drawIctChart();
@@ -967,10 +1428,12 @@
     }
 
     function renderTradingView() {
-      const d = MARKETS[curKey];
+      const m = DATA[curKey];
+      const h = m.horizons[curHorizon];
+      const tvTf = curHorizon === 'scalp' ? '1' : (curHorizon === 'day' ? '5' : '60');
       const q = new URLSearchParams({
-        symbol: d.tvSym,
-        interval: '5',
+        symbol: m.tvSym,
+        interval: tvTf,
         theme: 'dark',
         style: '1',
         timezone: 'America/New_York',
@@ -994,13 +1457,15 @@
 
       const W = rect.width;
       const H = rect.height;
-      const m = MARKETS[curKey];
+      const m = DATA[curKey];
+      const h = m.horizons[curHorizon];
 
-      // Generate deterministic 40 candles around base price
+      // Candlesticks generator
       const candles = [];
       let p = m.base;
-      for (let i = 0; i < 40; i++) {
-        const delta = Math.sin(i * 0.45) * 1.5 * m.pipsScale * 10 + (i > 25 ? (m.headlineClass === 'buy' ? 1.2 : -1.2) * m.pipsScale * 5 : 0);
+      const count = curHorizon === 'scalp' ? 45 : (curHorizon === 'day' ? 38 : 30);
+      for (let i = 0; i < count; i++) {
+        const delta = Math.sin(i * 0.45) * 1.5 * m.pipsScale * 10 + (i > count * 0.65 ? (h.headlineClass === 'buy' ? 1.4 : -1.4) * m.pipsScale * 6 : 0);
         const open = p;
         const close = open + delta + (Math.sin(i * 1.8) * m.pipsScale * 4);
         const high = Math.max(open, close) + Math.abs(Math.sin(i * 2.3) * m.pipsScale * 5);
@@ -1010,7 +1475,7 @@
       }
 
       // Calculate Price Scale (Min/Max)
-      const allPrices = candles.flatMap(c => [c.low, c.high]).concat(m.levels.map(l => l.price));
+      const allPrices = candles.flatMap(c => [c.low, c.high]).concat(h.levels.map(l => l.price));
       const minP = Math.min(...allPrices) - m.pipsScale * 10;
       const maxP = Math.max(...allPrices) + m.pipsScale * 10;
       const priceToY = price => H - 40 - ((price - minP) / (maxP - minP)) * (H - 80);
@@ -1028,18 +1493,20 @@
         ctx.stroke();
       }
 
-      // 2. Draw Subtle Institutional Asian Range Box
-      const asiaX1 = W * 0.12;
-      const asiaX2 = W * 0.42;
-      const asiaH = m.levels.find(l => l.name.includes('ASIA HIGH'))?.price || (m.base + m.pipsScale * 15);
-      const asiaL = m.levels.find(l => l.name.includes('ASIA LOW'))?.price || (m.base - m.pipsScale * 15);
-      const yAsiaH = priceToY(asiaH);
-      const yAsiaL = priceToY(asiaL);
+      // 2. Draw Subtle Institutional Asian / Dealing Box
+      if (curHorizon !== 'scalp') {
+        const boxX1 = W * 0.12;
+        const boxX2 = W * 0.44;
+        const topLvl = h.levels.find(l => l.type === 'bsl' || l.type === 'range')?.price || (m.base + m.pipsScale * 15);
+        const botLvl = h.levels.find(l => l.type === 'ssl' || l.name.includes('LOW'))?.price || (m.base - m.pipsScale * 15);
+        const yTop = priceToY(topLvl);
+        const yBot = priceToY(botLvl);
 
-      ctx.fillStyle = 'rgba(240, 185, 75, 0.035)';
-      ctx.fillRect(asiaX1, yAsiaH, asiaX2 - asiaX1, yAsiaL - yAsiaH);
-      ctx.strokeStyle = 'rgba(240, 185, 75, 0.18)';
-      ctx.strokeRect(asiaX1, yAsiaH, asiaX2 - asiaX1, yAsiaL - yAsiaH);
+        ctx.fillStyle = 'rgba(240, 185, 75, 0.025)';
+        ctx.fillRect(boxX1, yTop, boxX2 - boxX1, yBot - yTop);
+        ctx.strokeStyle = 'rgba(240, 185, 75, 0.14)';
+        ctx.strokeRect(boxX1, yTop, boxX2 - boxX1, yBot - yTop);
+      }
 
       // 3. Draw Candlesticks
       const cW = (W - 120) / candles.length;
@@ -1065,21 +1532,21 @@
       });
 
       // 4. Draw Subdued ICT Institutional Levels with Tiny Monospace Badges
-      m.levels.forEach(lvl => {
+      h.levels.forEach(lvl => {
         const y = priceToY(lvl.price);
         if (y < 20 || y > H - 20) return;
 
         let strokeColor = 'rgba(255, 255, 255, 0.18)';
-        let badgeBg = 'rgba(30, 35, 48, 0.9)';
+        let badgeBg = 'rgba(25, 30, 42, 0.95)';
         let badgeText = '#9AA3B5';
 
         if (lvl.type === 'bsl') {
           strokeColor = 'rgba(43, 212, 125, 0.4)';
-          badgeBg = 'rgba(14, 50, 30, 0.9)';
+          badgeBg = 'rgba(14, 50, 30, 0.95)';
           badgeText = '#2BD47D';
         } else if (lvl.type === 'ssl') {
           strokeColor = 'rgba(255, 92, 108, 0.4)';
-          badgeBg = 'rgba(50, 18, 22, 0.9)';
+          badgeBg = 'rgba(50, 18, 22, 0.95)';
           badgeText = '#FF5C6C';
         } else if (lvl.type === 'mo' || lvl.type === 'fvg') {
           strokeColor = 'rgba(240, 185, 75, 0.45)';
@@ -1097,8 +1564,8 @@
         ctx.stroke();
         ctx.setLineDash([]);
 
-        // Small, crisp 9px tag
-        ctx.font = '600 9px "Geist Mono", monospace';
+        // Small, crisp 8.5px tag
+        ctx.font = '600 8.5px "Geist Mono", monospace';
         const labelText = `${lvl.name} [${lvl.price.toFixed(m.pipsScale === 0.0001 ? 5 : 2)}]`;
         const textW = ctx.measureText(labelText).width;
 
@@ -1112,17 +1579,17 @@
       });
 
       // 5. Draw FVG Shaded Zone if present
-      const fvgLvl = m.levels.find(l => l.type === 'fvg');
+      const fvgLvl = h.levels.find(l => l.type === 'fvg');
       if (fvgLvl) {
         const yFvg = priceToY(fvgLvl.price);
         ctx.fillStyle = 'rgba(240, 185, 75, 0.07)';
-        ctx.fillRect(W * 0.45, yFvg - 12, W * 0.4, 24);
+        ctx.fillRect(W * 0.48, yFvg - 10, W * 0.38, 20);
         ctx.strokeStyle = 'rgba(240, 185, 75, 0.28)';
-        ctx.strokeRect(W * 0.45, yFvg - 12, W * 0.4, 24);
+        ctx.strokeRect(W * 0.48, yFvg - 10, W * 0.38, 20);
 
         ctx.font = '600 8.5px "Geist Mono", monospace';
         ctx.fillStyle = '#F0B94B';
-        ctx.fillText('FVG 50% C.E.', W * 0.46, yFvg + 3);
+        ctx.fillText('FVG 50% C.E.', W * 0.49, yFvg + 3);
       }
     }
 
@@ -1134,34 +1601,35 @@
     }
 
     function copyPlan() {
-      const d = MARKETS[curKey];
-      const text = `◈ ICT FLUX • GOD'S EYE CHOKEPOINT EXECUTION\n` +
-                   `Asset: #${curKey} (M5)\n` +
-                   `Directive: ${d.headline}\n` +
-                   `Archetype: ${d.archetype}\n\n` +
-                   `• Invalidation (SL): ${d.stop} [${d.pillStop}]\n` +
-                   `• Target Draw: ${d.target} [${d.pillTarget}]\n` +
-                   `• Risk/Reward: ${d.calcRr}\n\n` +
-                   `• WHAT TO DO: ${d.doText.replace(/<[^>]*>/g, '')}\n` +
-                   `• WHAT NOT TO DO: ${d.dontText.replace(/<[^>]*>/g, '')}\n` +
-                   `• TIMING WINDOW: ${d.whenText.replace(/<[^>]*>/g, '')}\n\n` +
+      const m = DATA[curKey];
+      const h = m.horizons[curHorizon];
+      const text = `◈ ICT FLUX • ${h.badge}\n` +
+                   `Asset: #${curKey} (${h.tf})\n` +
+                   `Directive: ${h.headline}\n` +
+                   `Best Entry Point: ${h.order}\n\n` +
+                   `• Invalidation (SL): ${h.stop} [${h.pillStop}]\n` +
+                   `• Target Draw: ${h.target} [${h.pillTarget}]\n` +
+                   `• Risk/Reward: ${h.calcRr}\n\n` +
+                   `• WHAT TO DO: ${h.doText.replace(/<[^>]*>/g, '')}\n` +
+                   `• WHAT NOT TO DO: ${h.dontText.replace(/<[^>]*>/g, '')}\n` +
+                   `• TIMING & HOLD: ${h.whenText.replace(/<[^>]*>/g, '')}\n\n` +
                    `Generated via God's Eye Flux Desk 👁️⚡`;
       navigator.clipboard.writeText(text);
-      showToast('✓ Formatted God\'s Eye plan copied! Ready for X.');
+      showToast('✓ Formatted trade plan copied! Ready for X.');
     }
 
     function sendOrder() {
-      const d = MARKETS[curKey];
-      showToast(`⚡ Order placed to MT5 Bridge: ${d.headline} (SL: ${d.stop} | TP: ${d.target})`);
+      const m = DATA[curKey];
+      const h = m.horizons[curHorizon];
+      showToast(`⚡ Sent to MT5: ${h.headline} | SL: ${h.stop} | TP: ${h.target}`);
     }
 
-    // Window Resize Handler
     window.addEventListener('resize', () => {
       if (chartMode === 'ict') drawIctChart();
     });
 
-    // Initialize
-    selectPair('GBPUSD', document.querySelector('.p-btn.active'));
+    // Initial load
+    updateDesk();
   </script>
 </body>
 </html>

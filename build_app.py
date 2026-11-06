@@ -428,6 +428,192 @@ html_content = r'''<!DOCTYPE html>
       border-color: var(--bear);
     }
 
+    
+    /* ICT Chart Markup Overlay */
+    .ict-overlay-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .chart-markup-toolbar {
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: rgba(14, 16, 21, 0.88);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      flex-wrap: wrap;
+    }
+
+    .markup-toggle-btn {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s ease;
+    }
+    .markup-toggle-btn.active {
+      background: rgba(245, 186, 65, 0.15);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .markup-toggle-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    /* Risk/Reward Box Overlay on Chart */
+    .rr-box-stage {
+      position: absolute;
+      right: 68px;
+      top: 18%;
+      width: 220px;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+    }
+
+    .rr-target-zone {
+      background: rgba(43, 212, 125, 0.18);
+      border: 1px dashed rgba(43, 212, 125, 0.6);
+      border-bottom: none;
+      padding: 10px 12px;
+      border-radius: 6px 6px 0 0;
+      position: relative;
+    }
+    .rr-entry-line {
+      height: 2px;
+      background: var(--accent);
+      box-shadow: 0 0 8px rgba(245, 186, 65, 0.6);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .rr-entry-line::before {
+      content: 'ENTRY (FVG CE)';
+      position: absolute;
+      left: 0;
+      top: -18px;
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 800;
+      color: #07080B;
+      background: var(--accent);
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .rr-risk-zone {
+      background: rgba(255, 92, 108, 0.18);
+      border: 1px dashed rgba(255, 92, 108, 0.6);
+      border-top: none;
+      padding: 8px 12px;
+      border-radius: 0 0 6px 6px;
+      position: relative;
+    }
+    .rr-ratio-badge {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background: #07080B;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+      white-space: nowrap;
+    }
+
+    /* Asian Range Box Markup */
+    .asian-box-markup {
+      position: absolute;
+      left: 40px;
+      top: 30%;
+      width: 260px;
+      height: 120px;
+      background: rgba(245, 186, 65, 0.05);
+      border: 1px dashed rgba(245, 186, 65, 0.35);
+      border-radius: 4px;
+      pointer-events: none;
+      padding: 6px 8px;
+      font-family: var(--mono);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .asian-box-title {
+      font-size: 9px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.06em;
+    }
+    .asian-box-bounds {
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      color: var(--muted);
+    }
+
+    /* Dealing Range Meter in Action Card */
+    .dealing-range-card {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .dr-labels {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 700;
+    }
+    .dr-bar-wrap {
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, #2bd47d 0%, #f5ba41 50%, #ff5c6c 100%);
+      border-radius: 4px;
+      position: relative;
+    }
+    .dr-pointer {
+      position: absolute;
+      top: -3px;
+      width: 4px;
+      height: 14px;
+      background: #FFFFFF;
+      border-radius: 2px;
+      box-shadow: 0 0 6px rgba(255, 255, 255, 0.8);
+      transform: translateX(-50%);
+      transition: left 0.4s ease;
+    }
+
     /* Pure TradingView Chart Stage */
     .chart-stage {
       flex: 1;
@@ -1368,8 +1554,58 @@ html_content = r'''<!DOCTYPE html>
             <button class="ib-close" onclick="closeTradeInspection()">✕ Dismiss</button>
           </div>
 
-          <!-- Instant Multi-Asset TradingView Stage (Zero Lag / Preloaded Cache) -->
+          <!-- Instant Multi-Asset TradingView Stage with Live ICT Markups & Trade Replay -->
           <div class="chart-stage" id="chartStage">
+            <!-- ICT Chart Markups & Trade Replay Layer -->
+            <div class="ict-overlay-container" id="ictChartOverlay">
+              <div class="chart-markup-toolbar">
+                <span style="font-family:var(--mono);font-size:10px;font-weight:800;color:var(--accent);margin-right:4px;">ICT MARKUPS:</span>
+                <button class="markup-toggle-btn active" id="btnToggleRr" onclick="toggleMarkupElement('rr')">📐 Risk/Reward Tool</button>
+                <button class="markup-toggle-btn active" id="btnToggleAsia" onclick="toggleMarkupElement('asia')">🕒 Asian Range Box</button>
+                <button class="markup-toggle-btn active" id="btnToggleFvg" onclick="toggleMarkupElement('fvg')">⚡ FVG 50% CE</button>
+                <div style="margin-left:auto;display:flex;align-items:center;gap:6px;">
+                  <span style="font-family:var(--mono);font-size:9.5px;color:var(--muted)">REPLAY WEEK:</span>
+                  <button class="btn sm" onclick="replayPreviousTrade()" style="font-family:var(--mono);font-size:10px;padding:2px 7px;cursor:pointer;">⏪ Prev</button>
+                  <span id="replayTradeLabel" style="font-family:var(--mono);font-size:10px;color:var(--text);font-weight:700;">Live Setup</span>
+                  <button class="btn sm" onclick="replayNextTrade()" style="font-family:var(--mono);font-size:10px;padding:2px 7px;cursor:pointer;">Next ⏩</button>
+                </div>
+              </div>
+
+              <!-- Visual Asian Session Range Box Markup -->
+              <div class="asian-box-markup" id="asianBoxMarkup">
+                <div class="asian-box-title">📍 ASIAN SESSION ACCUMULATION (00:00 - 05:00 UTC)</div>
+                <div style="font-size:9px;color:var(--accent);font-weight:700" id="asiaHighLabel">ASIA HIGH (BSL): 1.34120</div>
+                <div class="asian-box-bounds">
+                  <span>Sweep Trigger: Asia Low Run</span>
+                  <span style="color:var(--bull)">CISD Confirmed</span>
+                </div>
+                <div style="font-size:9px;color:var(--bear);font-weight:700" id="asiaLowLabel">ASIA LOW (SSL SWEPT): 1.33850</div>
+              </div>
+
+              <!-- Visual Risk/Reward Position Tool Overlay (TradingView Style) -->
+              <div class="rr-box-stage" id="rrBoxStage">
+                <div class="rr-target-zone" id="rrTargetZone">
+                  <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--bull);font-weight:700;">
+                    <span>TARGET (TP2)</span>
+                    <span id="rrTpVal">1.34075</span>
+                  </div>
+                  <div style="font-family:var(--mono);font-size:9px;color:rgba(43,212,125,0.85);margin-top:2px;" id="rrTpPips">+18.0 Pips</div>
+                </div>
+
+                <div class="rr-entry-line">
+                  <div class="rr-ratio-badge" id="rrRatioBadge">1 : 4.00 R</div>
+                </div>
+
+                <div class="rr-risk-zone" id="rrRiskZone">
+                  <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--bear);font-weight:700;">
+                    <span>SURGICAL STOP</span>
+                    <span id="rrSlVal">1.33850</span>
+                  </div>
+                  <div style="font-family:var(--mono);font-size:9px;color:rgba(255,92,108,0.85);margin-top:2px;" id="rrSlPips">-4.5 Pips</div>
+                </div>
+              </div>
+            </div>
+
             <div id="tv_chart_container" style="width:100%;height:100%;position:relative;">
               <iframe id="tvFrame_GBPUSD" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:block;" src="https://s.tradingview.com/widgetembed/?symbol=FX%3AGBPUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
               <iframe id="tvFrame_XAUUSD" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=OANDA%3AXAUUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
@@ -1477,18 +1713,31 @@ html_content = r'''<!DOCTYPE html>
             </div>
           </div>
 
-          <div class="guidance-box">
+          <!-- Institutional Dealing Range Meter (Discount vs Premium) -->
+          <div class="dealing-range-card">
+            <div class="dr-labels">
+              <span style="color:var(--bull);">🟢 DEEP DISCOUNT (BUY ZONE)</span>
+              <span id="drPctLabel" style="color:var(--accent);">DISCOUNT 32%</span>
+              <span style="color:var(--bear);">🔴 PREMIUM (SELL ZONE)</span>
+            </div>
+            <div class="dr-bar-wrap">
+              <div class="dr-pointer" id="drPointer" style="left: 32%;"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--muted);">
+              <span>Nearest SSL: <strong id="cardNearSsl" style="color:var(--bear);">1.33850</strong></span>
+              <span>Nearest BSL: <strong id="cardNearBsl" style="color:var(--bull);">1.34120</strong></span>
+            </div>
+          </div>
+
+          <!-- Clean Action Directives (Less Text, Pure Actions) -->
+          <div class="guidance-box" style="margin-top:10px;">
             <div class="guide-row">
-              <span class="guide-badge do">WHAT TO DO</span>
-              <span class="guide-text" id="guideDo">Wait for M5 candle tap into the 50% CE of the Fair Value Gap. Confirm bullish reaction before trigger.</span>
+              <span class="guide-badge do">EXECUTION DIRECTIVE</span>
+              <span class="guide-text" id="guideDo">Wait for candle tap into the 50% CE of the Fair Value Gap. Enter strictly on limit order.</span>
             </div>
             <div class="guide-row">
-              <span class="guide-badge dont">WHAT NOT TO DO</span>
-              <span class="guide-text" id="guideDont">Do NOT chase market execution if price runs away without tapping the FVG. Avoid re-entries if stop is triggered.</span>
-            </div>
-            <div class="guide-row">
-              <span class="guide-badge when">WHEN TO EXPECT</span>
-              <span class="guide-text" id="guideWhen">High probability window active between 07:00 and 10:00 NY Killzone. Invalidation if not filled by 11:30 NY.</span>
+              <span class="guide-badge dont">INVALIDATION RULE</span>
+              <span class="guide-text" id="guideDont">Do NOT market chase past Entry. Cut immediately if surgical stop is breached.</span>
             </div>
           </div>
 
@@ -2707,7 +2956,123 @@ html_content = r'''<!DOCTYPE html>
       showToast(`⚡ Recalibrated Fresh Setup for ${m.label} (${newHeadline})`);
     }
 
+    
+    // State for ICT Chart Markup Overlay
+    let markupSettings = {
+      rr: true,
+      asia: true,
+      fvg: true
+    };
+    let currentReplayIndex = -1;
+
+    function toggleMarkupElement(type) {
+      markupSettings[type] = !markupSettings[type];
+      const btn = document.getElementById('btnToggle' + type.charAt(0).toUpperCase() + type.slice(1));
+      if (btn) btn.classList.toggle('active', markupSettings[type]);
+
+      if (type === 'rr') {
+        const el = document.getElementById('rrBoxStage');
+        if (el) el.style.display = markupSettings.rr ? 'flex' : 'none';
+      } else if (type === 'asia') {
+        const el = document.getElementById('asianBoxMarkup');
+        if (el) el.style.display = markupSettings.asia ? 'flex' : 'none';
+      }
+    }
+
+    // Synchronize Visual Risk/Reward Box on Chart with Active Desk Levels
+    function updateChartMarkupOverlay() {
+      const m = DATA[curKey];
+      const h = m ? m.horizons[curHorizon] : null;
+      const obj = LIVE_PRICES[curKey];
+      if (!m || !h || !obj) return;
+
+      const rrTpVal = document.getElementById('rrTpVal');
+      const rrTpPips = document.getElementById('rrTpPips');
+      const rrSlVal = document.getElementById('rrSlVal');
+      const rrSlPips = document.getElementById('rrSlPips');
+      const rrRatioBadge = document.getElementById('rrRatioBadge');
+
+      if (rrTpVal) rrTpVal.textContent = h.target;
+      if (rrTpPips) rrTpPips.textContent = `+${h.pillTarget}`;
+      if (rrSlVal) rrSlVal.textContent = h.stop;
+      if (rrSlPips) rrSlPips.textContent = `-${h.pillStop}`;
+      if (rrRatioBadge) rrRatioBadge.textContent = h.calcRr;
+
+      // Update Dealing Range Meter & Nearest BSL/SSL
+      const entryNum = parseFloat(String(h.entry).replace(/,/g, ''));
+      const stopNum = parseFloat(String(h.stop).replace(/,/g, ''));
+      const targetNum = parseFloat(String(h.target).replace(/,/g, ''));
+      const curPrice = obj.cur;
+
+      const bslEl = document.getElementById('cardNearBsl');
+      const sslEl = document.getElementById('cardNearSsl');
+      const drPointer = document.getElementById('drPointer');
+      const drLabel = document.getElementById('drPctLabel');
+
+      const highRef = Math.max(entryNum, targetNum, curPrice);
+      const lowRef = Math.min(entryNum, stopNum, curPrice);
+      const span = (highRef - lowRef) || 1;
+      const pct = Math.min(Math.max(((curPrice - lowRef) / span) * 100, 5), 95);
+
+      if (drPointer) drPointer.style.left = `${pct.toFixed(0)}%`;
+      if (drLabel) {
+        if (pct < 40) drLabel.textContent = `DISCOUNT ${pct.toFixed(0)}% (BUY ZONE)`;
+        else if (pct > 60) drLabel.textContent = `PREMIUM ${pct.toFixed(0)}% (SELL ZONE)`;
+        else drLabel.textContent = `EQUILIBRIUM ${pct.toFixed(0)}%`;
+      }
+      if (bslEl) bslEl.textContent = (highRef + (10 * obj.pipScale)).toFixed(obj.decimals);
+      if (sslEl) sslEl.textContent = (lowRef - (10 * obj.pipScale)).toFixed(obj.decimals);
+
+      const asiaH = document.getElementById('asiaHighLabel');
+      const asiaL = document.getElementById('asiaLowLabel');
+      if (asiaH) asiaH.textContent = `ASIA HIGH (BSL): ${(highRef + (6 * obj.pipScale)).toFixed(obj.decimals)}`;
+      if (asiaL) asiaL.textContent = `ASIA LOW (SSL): ${(lowRef - (6 * obj.pipScale)).toFixed(obj.decimals)}`;
+    }
+
+    // Weekly Trade Replay on the Chart
+    function replayPreviousTrade() {
+      const tradesForAsset = REAL_BACKTEST_TRADES.filter(t => t.symbol === curKey);
+      if (!tradesForAsset.length) return;
+
+      currentReplayIndex = (currentReplayIndex - 1 + tradesForAsset.length) % tradesForAsset.length;
+      applyTradeReplayToChart(tradesForAsset[currentReplayIndex]);
+    }
+
+    function replayNextTrade() {
+      const tradesForAsset = REAL_BACKTEST_TRADES.filter(t => t.symbol === curKey);
+      if (!tradesForAsset.length) return;
+
+      currentReplayIndex = (currentReplayIndex + 1) % tradesForAsset.length;
+      applyTradeReplayToChart(tradesForAsset[currentReplayIndex]);
+    }
+
+    function applyTradeReplayToChart(t) {
+      if (!t) return;
+      const lbl = document.getElementById('replayTradeLabel');
+      if (lbl) {
+        const sign = t.r_multiple >= 0 ? '+' : '';
+        lbl.textContent = `${t.ticket} (${sign}${t.r_multiple.toFixed(1)}R)`;
+        lbl.style.color = t.r_multiple >= 0 ? 'var(--bull)' : 'var(--bear)';
+      }
+
+      // Snap the Risk/Reward Box on the chart to this trade's exact coordinates!
+      const rrTpVal = document.getElementById('rrTpVal');
+      const rrTpPips = document.getElementById('rrTpPips');
+      const rrSlVal = document.getElementById('rrSlVal');
+      const rrSlPips = document.getElementById('rrSlPips');
+      const rrRatioBadge = document.getElementById('rrRatioBadge');
+
+      if (rrTpVal) rrTpVal.textContent = t.target;
+      if (rrTpPips) rrTpPips.textContent = `+${t.tp_pips}`;
+      if (rrSlVal) rrSlVal.textContent = t.stop;
+      if (rrSlPips) rrSlPips.textContent = `-${t.sl_pips}`;
+      if (rrRatioBadge) rrRatioBadge.textContent = `${t.rr} (${t.outcome})`;
+
+      showToast(`Replaying Trade ${t.ticket} on Chart (${t.time} • ${t.model})`);
+    }
+
     function updateDesk() {
+      updateChartMarkupOverlay();
       const m = DATA[curKey];
       const h = m.horizons[curHorizon];
       const isStandAside = h.status === 'STAND_ASIDE';

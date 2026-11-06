@@ -6,15 +6,15 @@
   <title>ICT FLUX • God's Eye Execution Desk</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600;700;800&family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700;800&family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #07080B;
       --surface: #0E1015;
-      --surface-2: #151821;
-      --surface-3: #1C2030;
-      --line: rgba(255, 255, 255, 0.08);
-      --line-2: rgba(255, 255, 255, 0.14);
+      --surface-2: #141720;
+      --surface-3: #1B1F2C;
+      --line: rgba(255, 255, 255, 0.07);
+      --line-2: rgba(255, 255, 255, 0.12);
       --line-gold: rgba(240, 185, 75, 0.35);
       --brand: linear-gradient(135deg, #F7CF6B 0%, #E39B2E 100%);
       --text: #F2F4F8;
@@ -32,7 +32,7 @@
       --sky-soft: rgba(90, 169, 255, 0.12);
       --mono: 'Geist Mono', ui-monospace, monospace;
       --sans: 'Geist', -apple-system, sans-serif;
-      --glow: radial-gradient(900px 420px at 0% -8%, rgba(240, 185, 75, 0.09), transparent 60%),
+      --glow: radial-gradient(900px 420px at 0% -8%, rgba(240, 185, 75, 0.08), transparent 60%),
               radial-gradient(800px 380px at 100% -6%, rgba(90, 169, 255, 0.05), transparent 60%);
     }
 
@@ -44,6 +44,7 @@
       font-family: var(--sans);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     /* Header */
@@ -51,7 +52,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(7, 8, 11, 0.88);
+      background: rgba(7, 8, 11, 0.90);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
     }
@@ -59,7 +60,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 64px;
+      height: 60px;
       padding: 0 20px;
     }
     .brand {
@@ -69,21 +70,21 @@
       text-decoration: none;
     }
     .logo-badge {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
+      width: 34px;
+      height: 34px;
+      border-radius: 9px;
       background: var(--brand);
       display: grid;
       place-items: center;
       color: var(--accent-ink);
       font-weight: 900;
-      font-size: 19px;
+      font-size: 18px;
       font-family: var(--mono);
       box-shadow: 0 0 20px var(--accent-glow);
     }
     .brand-title {
       font-weight: 800;
-      font-size: 16px;
+      font-size: 15.5px;
       letter-spacing: -0.02em;
       color: var(--text);
       display: flex;
@@ -91,35 +92,41 @@
       gap: 8px;
     }
     .badge-gods-eye {
-      font-size: 10px;
+      font-size: 9.5px;
       font-family: var(--mono);
       font-weight: 700;
-      padding: 2px 7px;
+      padding: 2px 6px;
       border-radius: 4px;
       background: var(--accent-soft);
       border: 1px solid var(--line-gold);
       color: var(--accent);
+      letter-spacing: 0.04em;
     }
 
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
     .session-pill {
       display: flex;
       align-items: center;
-      gap: 7px;
-      padding: 6px 12px;
+      gap: 6px;
+      padding: 5px 12px;
       border-radius: 99px;
       border: 1px solid var(--line-gold);
       background: var(--accent-soft);
       color: var(--accent);
       font-family: var(--mono);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
     }
     .session-dot {
-      width: 7px;
-      height: 7px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       background: var(--bull);
-      box-shadow: 0 0 10px var(--bull);
+      box-shadow: 0 0 8px var(--bull);
       animation: pulse 1.8s infinite;
     }
     @keyframes pulse {
@@ -127,112 +134,160 @@
       50% { opacity: 0.4; transform: scale(0.85); }
     }
 
-    /* Layout Main Split */
+    /* Main App Split */
     .app-layout {
       display: grid;
-      grid-template-columns: 1fr 440px;
-      height: calc(100vh - 64px);
-      overflow: hidden;
+      grid-template-columns: 1fr 460px;
+      height: calc(100vh - 60px);
     }
-    @media (max-width: 1024px) {
+    @media (max-width: 1080px) {
       .app-layout {
         grid-template-columns: 1fr;
         height: auto;
-        overflow: auto;
       }
     }
 
-    /* Chart Column */
-    .chart-container {
+    /* Left Chart Column */
+    .chart-panel {
       display: flex;
       flex-direction: column;
+      background: #050608;
       border-right: 1px solid var(--line);
-      background: #000;
       position: relative;
     }
     .chart-toolbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 16px;
+      padding: 8px 16px;
       background: var(--surface);
       border-bottom: 1px solid var(--line);
-      gap: 12px;
+      gap: 10px;
       flex-wrap: wrap;
     }
-    .pair-switcher {
+    .pair-bar {
       display: flex;
-      gap: 6px;
+      gap: 5px;
+      overflow-x: auto;
     }
-    .pair-btn {
-      padding: 6px 12px;
-      border-radius: 8px;
+    .p-btn {
+      padding: 5px 10px;
+      border-radius: 6px;
       border: 1px solid var(--line);
       background: var(--surface-2);
       color: var(--muted);
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.15s;
+      white-space: nowrap;
     }
-    .pair-btn:hover {
+    .p-btn:hover {
       border-color: var(--accent);
       color: var(--text);
     }
-    .pair-btn.active {
+    .p-btn.active {
       background: var(--accent-soft);
       border-color: var(--accent);
       color: var(--accent);
     }
-    .tf-switcher {
+
+    .view-mode-bar {
       display: flex;
       gap: 4px;
     }
-    .tf-btn {
+    .v-btn {
       padding: 4px 8px;
       border-radius: 5px;
       border: 1px solid var(--line);
-      background: var(--surface);
+      background: var(--surface-2);
       color: var(--faint);
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10.5px;
+      font-weight: 600;
       cursor: pointer;
     }
-    .tf-btn.active {
+    .v-btn.active {
       background: var(--surface-3);
       color: var(--text);
       border-color: var(--line-2);
     }
 
-    .chart-viewport {
+    .chart-stage {
       flex: 1;
       width: 100%;
       height: 100%;
       position: relative;
+      overflow: hidden;
     }
-    .chart-viewport iframe {
+    canvas#ictCanvas {
       width: 100%;
       height: 100%;
-      border: 0;
+      display: block;
     }
 
-    /* Action Desk Column */
-    .desk-container {
+    /* Legend Overlay on Chart */
+    .chart-legend {
+      position: absolute;
+      top: 12px;
+      left: 14px;
       display: flex;
       flex-direction: column;
+      gap: 4px;
+      pointer-events: none;
+      font-family: var(--mono);
+      font-size: 10px;
+      z-index: 5;
+    }
+    .legend-title {
+      font-weight: 800;
+      font-size: 12px;
+      color: var(--text);
+      letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .legend-sub {
+      color: var(--accent);
+      font-size: 10px;
+    }
+    .ipda-indicator {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .ipda-tag {
+      padding: 2px 5px;
+      border-radius: 3px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+      font-size: 9px;
+    }
+    .ipda-tag.gold {
+      background: var(--accent-soft);
+      border-color: var(--line-gold);
+      color: var(--accent);
+    }
+
+    /* Right Action Desk Column */
+    .desk-panel {
       background: var(--surface);
       overflow-y: auto;
-      padding: 20px;
-      gap: 18px;
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
     }
 
     /* Big Action Directive Card */
     .directive-card {
       border: 1.5px solid var(--line-gold);
       border-radius: 14px;
-      background: linear-gradient(180deg, rgba(240, 185, 75, 0.08) 0%, rgba(14, 16, 21, 0.8) 100%);
-      padding: 18px;
+      background: linear-gradient(180deg, rgba(240, 185, 75, 0.08) 0%, rgba(14, 16, 21, 0.9) 100%);
+      padding: 16px;
       display: flex;
       flex-direction: column;
       gap: 8px;
@@ -243,88 +298,97 @@
       align-items: center;
       justify-content: space-between;
     }
-    .stage-badge {
-      font-family: var(--mono);
-      font-size: 10.5px;
+    .archetype-label {
+      font-size: 12px;
       font-weight: 700;
-      padding: 3px 8px;
+      color: var(--accent);
+      font-family: var(--mono);
+    }
+    .intercept-pill {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 3px 7px;
       border-radius: 4px;
       background: var(--bull-soft);
       color: var(--bull);
       border: 1px solid rgba(43,212,125,0.3);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
     }
-    .directive-action {
-      font-size: 24px;
+    .directive-headline {
+      font-size: 22px;
       font-weight: 800;
       font-family: var(--mono);
       letter-spacing: -0.02em;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
-    .directive-action.sell { color: var(--bear); }
-    .directive-action.buy { color: var(--bull); }
-    .model-archetype {
-      font-size: 13px;
-      color: var(--accent);
-      font-weight: 600;
+    .directive-headline.buy { color: var(--bull); }
+    .directive-headline.sell { color: var(--bear); }
+    .directive-exec {
+      font-size: 11px;
+      color: var(--muted);
+      font-family: var(--mono);
     }
+    .directive-exec b { color: var(--text); }
 
-    /* Narrative Box: Where price has been vs where it is going */
-    .narrative-box {
+    /* WHAT TO DO / WHAT NOT TO DO / TIMING TRIAD */
+    .guidance-box {
       border: 1px solid var(--line);
       border-radius: 12px;
       background: var(--surface-2);
-      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      font-size: 13px;
+      overflow: hidden;
+      font-size: 12.5px;
     }
-    .narrative-row {
+    .guide-cell {
+      padding: 12px 14px;
       display: flex;
       flex-direction: column;
       gap: 4px;
     }
-    .narrative-label {
+    .guide-cell + .guide-cell {
+      border-top: 1px solid var(--line);
+    }
+    .guide-lbl {
       font-family: var(--mono);
-      font-size: 10.5px;
-      font-weight: 700;
+      font-size: 9.5px;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: var(--faint);
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .narrative-text {
+    .guide-lbl.green { color: var(--bull); }
+    .guide-lbl.red { color: var(--bear); }
+    .guide-lbl.gold { color: var(--accent); }
+    .guide-desc {
       color: var(--text);
       line-height: 1.45;
     }
-    .narrative-text b { color: var(--accent); }
+    .guide-desc b { color: var(--accent); }
 
     /* Level Matrix (Pips & Price) */
     .levels {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      gap: 8px;
     }
     .level-box {
       background: var(--surface-2);
       border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 12px;
+      border-radius: 9px;
+      padding: 10px;
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 3px;
     }
     .level-box.entry { border-color: rgba(240, 185, 75, 0.4); background: rgba(240, 185, 75, 0.04); }
     .level-box.stop { border-color: rgba(255, 92, 108, 0.35); background: var(--bear-soft); }
     .level-box.target { border-color: rgba(43, 212, 125, 0.35); background: var(--bull-soft); }
 
     .level-label {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
@@ -332,18 +396,17 @@
     }
     .level-price {
       font-family: var(--mono);
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 800;
     }
     .pip-pill {
       display: inline-block;
       font-family: var(--mono);
-      font-size: 10.5px;
+      font-size: 10px;
       font-weight: 800;
-      padding: 3px 6px;
+      padding: 2px 5px;
       border-radius: 4px;
       margin-top: 2px;
-      letter-spacing: 0.02em;
     }
     .pip-pill.gold { background: var(--accent-soft); color: var(--accent); }
     .pip-pill.red { background: rgba(255,92,108,0.25); color: #FFA0A9; }
@@ -351,80 +414,54 @@
 
     /* Dual-Tranche Governor Breakdown */
     .governor-breakdown {
-      padding: 12px;
+      padding: 10px;
       background: var(--surface-2);
       border: 1px dashed var(--line-gold);
-      border-radius: 10px;
+      border-radius: 9px;
       font-family: var(--mono);
-      font-size: 11px;
+      font-size: 10.5px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 6px;
       text-align: center;
     }
-    .gov-step span { display: block; color: var(--faint); font-size: 9.5px; text-transform: uppercase; margin-bottom: 2px; }
-    .gov-step b { color: var(--accent); font-size: 12px; }
+    .gov-step span { display: block; color: var(--faint); font-size: 8.5px; text-transform: uppercase; margin-bottom: 2px; }
+    .gov-step b { color: var(--accent); font-size: 11px; }
 
-    /* Risk / Calculator Panel */
+    /* Sizing Box */
     .calc-panel {
-      padding: 14px;
-      border-radius: 10px;
+      padding: 12px;
+      border-radius: 9px;
       border: 1px solid var(--line);
       background: var(--surface-3);
       font-family: var(--mono);
-      font-size: 12px;
+      font-size: 11.5px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-    }
-    .calc-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .order-toggle {
-      display: flex;
-      gap: 6px;
-    }
-    .toggle-opt {
-      padding: 3px 8px;
-      border-radius: 5px;
-      background: var(--surface);
-      border: 1px solid var(--line);
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 11px;
-    }
-    .toggle-opt.active {
-      background: var(--accent);
-      color: var(--accent-ink);
-      font-weight: 700;
-      border-color: var(--accent);
+      gap: 8px;
     }
     .lot-recommendation {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text);
       display: flex;
       justify-content: space-between;
-      border-top: 1px dashed var(--line-2);
-      padding-top: 8px;
     }
-    .lot-recommendation b { color: var(--accent); font-size: 13px; }
+    .lot-recommendation b { color: var(--accent); }
 
     /* Action Buttons */
     .action-row {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       margin-top: auto;
     }
     .btn {
       flex: 1;
-      height: 44px;
-      border-radius: 10px;
+      height: 42px;
+      border-radius: 9px;
       border: 1px solid var(--line-2);
       background: var(--surface-2);
       color: var(--text);
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       font-family: var(--mono);
       cursor: pointer;
@@ -432,7 +469,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
-      transition: all 0.2s;
+      transition: all 0.15s;
     }
     .btn:hover {
       border-color: var(--accent);
@@ -449,18 +486,18 @@
       color: var(--accent-ink);
     }
 
-    /* Toast Notification */
+    /* Toast */
     .toast {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
-      padding: 12px 20px;
-      border-radius: 10px;
+      bottom: 20px;
+      right: 20px;
+      padding: 10px 18px;
+      border-radius: 8px;
       background: var(--surface-3);
       border: 1px solid var(--accent);
       color: var(--text);
       font-family: var(--mono);
-      font-size: 13px;
+      font-size: 12px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.8);
       display: none;
       z-index: 100;
@@ -477,77 +514,104 @@
         <div>
           <div class="brand-title">
             ICT FLUX
-            <span class="badge-gods-eye">GOD'S EYE ENGINE</span>
+            <span class="badge-gods-eye">GOD'S EYE CHOKEPOINT DESK</span>
           </div>
         </div>
       </a>
 
-      <div class="session-pill">
-        <div class="session-dot"></div>
-        <span>LONDON KILLZONE CHOKEPOINT</span>
+      <div class="top-right">
+        <div class="session-pill">
+          <div class="session-dot"></div>
+          <span>LONDON KILLZONE CHOKEPOINT</span>
+        </div>
       </div>
     </div>
   </header>
 
   <div class="app-layout">
     
-    <!-- LEFT: LIVE INTERACTIVE TRADINGVIEW CANDLESTICK CHART -->
-    <div class="chart-container">
+    <!-- LEFT: DYNAMIC ICT MARKUP CHART CANVAS -->
+    <div class="chart-panel">
       <div class="chart-toolbar">
-        <div class="pair-switcher">
-          <button class="pair-btn active" onclick="switchPair('GBPUSD', this)">GBP/USD</button>
-          <button class="pair-btn" onclick="switchPair('EURUSD', this)">EUR/USD</button>
-          <button class="pair-btn" onclick="switchPair('XAUUSD', this)">Gold (XAU/USD)</button>
-          <button class="pair-btn" onclick="switchPair('NAS100', this)">Nasdaq (NAS100)</button>
+        <div class="pair-bar">
+          <button class="p-btn active" onclick="selectPair('GBPUSD', this)">GBP/USD</button>
+          <button class="p-btn" onclick="selectPair('EURUSD', this)">EUR/USD</button>
+          <button class="p-btn" onclick="selectPair('XAUUSD', this)">Gold (XAU/USD)</button>
+          <button class="p-btn" onclick="selectPair('NAS100', this)">Nasdaq (NAS100)</button>
+          <button class="p-btn" onclick="selectPair('US500', this)">S&P 500</button>
+          <button class="p-btn" onclick="selectPair('USDJPY', this)">USD/JPY</button>
         </div>
 
-        <div class="tf-switcher">
-          <button class="tf-btn" onclick="setTf('1', this)">1m</button>
-          <button class="tf-btn active" onclick="setTf('5', this)">5m</button>
-          <button class="tf-btn" onclick="setTf('15', this)">15m</button>
-          <button class="tf-btn" onclick="setTf('60', this)">1h</button>
+        <div class="view-mode-bar">
+          <button class="v-btn active" id="btnIct" onclick="setChartMode('ict')">ICT Markup</button>
+          <button class="v-btn" id="btnTv" onclick="setChartMode('tv')">TradingView</button>
         </div>
       </div>
 
-      <div class="chart-viewport" id="chartFrame">
-        <!-- Interactive TradingView iframe loads dynamically -->
+      <div class="chart-stage" id="chartStage">
+        <!-- Overlay Legend -->
+        <div class="chart-legend" id="chartLegend">
+          <div class="legend-title">
+            <span id="lgSymbol">GBP/USD</span>
+            <span style="font-size:10px;color:var(--muted)">5M</span>
+            <span class="badge-gods-eye" id="lgModel">SMT TURTLE SOUP</span>
+          </div>
+          <div class="legend-sub" id="lgPrice">Live: 1.29465 · Spread: 0.8 pips</div>
+          <div class="ipda-indicator">
+            <span class="ipda-tag gold" id="lgProfile">IPDA: CLASSIC WED EXPANSION</span>
+            <span class="ipda-tag" id="lgRange">DISCOUNT ARRAY: 38.2%</span>
+          </div>
+        </div>
+
+        <!-- Canvas for ICT Markup -->
+        <canvas id="ictCanvas"></canvas>
+        <div id="tvContainer" style="display:none;width:100%;height:100%;"></div>
       </div>
     </div>
 
     <!-- RIGHT: GOD'S EYE ACTION DIRECTIVE DESK -->
-    <div class="desk-container">
+    <div class="desk-panel">
       
-      <!-- Big Directive -->
+      <!-- Action Directive -->
       <div class="directive-card">
         <div class="directive-top">
-          <span class="model-archetype" id="dirModel">SMT Turtle Soup (Sister Divergence)</span>
-          <span class="stage-badge">● STAGE 3 INTERCEPT</span>
+          <span class="archetype-label" id="dirArchetype">SMT Turtle Soup (Sister Divergence)</span>
+          <span class="intercept-pill">● STAGE 3 INTERCEPT</span>
         </div>
-        <div class="directive-action buy" id="dirAction">
-          <span>BUY LIMIT @ 1.29420</span>
+        <div class="directive-headline buy" id="dirHeadline">
+          BUY LIMIT @ 1.29420
         </div>
-        <div style="font-size:11.5px;color:var(--muted);font-family:var(--mono)">
-          Execution: <b style="color:var(--text)" id="dirExecType">Limit Order @ FVG Consequent Encroachment (50%)</b>
+        <div class="directive-exec">
+          Order: <b id="dirOrder">Limit @ FVG Consequent Encroachment (50%)</b>
         </div>
       </div>
 
-      <!-- Narrative: Where price has been vs where it is going -->
-      <div class="narrative-box">
-        <div class="narrative-row">
-          <div class="narrative-label">
-            <span>📜 WHERE PRICE HAS BEEN (THE SWEEP)</span>
+      <!-- WHAT TO DO / WHAT NOT TO DO / TIMING -->
+      <div class="guidance-box">
+        <div class="guide-cell">
+          <div class="guide-lbl green">
+            <span>✅ WHAT TO DO (EXECUTION DIRECTIVE)</span>
           </div>
-          <div class="narrative-text" id="narrPast">
-            Price swept the <b>London Session Low at 1.29295</b> to purge sell-side liquidity. EUR/USD failed to make a lower low, confirming an <b>Intermarket SMT Divergence</b>. A strong 5M displacement candle printed with a clean CISD body.
+          <div class="guide-desc" id="guideDo">
+            Wait for price to tap the <b>50% Consequent Encroachment (1.29420)</b> of the M5 Fair Value Gap inside the London Killzone. Place <b>BUY LIMIT</b> with Stop Loss at 1.29295.
           </div>
         </div>
 
-        <div class="narrative-row" style="border-top:1px solid var(--line);padding-top:10px">
-          <div class="narrative-label">
-            <span>🎯 WHERE PRICE IS GOING (THE DRAW ON LIQUIDITY)</span>
+        <div class="guide-cell">
+          <div class="guide-lbl red">
+            <span>⛔ WHAT NOT TO DO (CHOP / TRAP WARNING)</span>
           </div>
-          <div class="narrative-text" id="narrDraw">
-            The institutional Draw on Liquidity is the undisturbed <b>Previous Day High (PDH) and buy-side resting liquidity at 1.29820</b>.
+          <div class="guide-desc" id="guideDont">
+            <b>DO NOT</b> market-chase the green expansion candle above Asian High. <b>DO NOT</b> hold if 1.29290 is violated with candle-body close before 08:30 NY macro.
+          </div>
+        </div>
+
+        <div class="guide-cell">
+          <div class="guide-lbl gold">
+            <span>⏰ WHEN TO EXPECT IT (TIME & PRICE WINDOW)</span>
+          </div>
+          <div class="guide-desc" id="guideWhen">
+            Delivery window: <b>08:30 – 09:15 UTC (London Open)</b>. Secondary re-test opportunity at <b>08:30 NY Macro Injection</b>.
           </div>
         </div>
       </div>
@@ -557,7 +621,7 @@
         <div class="level-box entry">
           <div class="level-label">Entry Level</div>
           <div class="level-price" style="color:var(--accent)" id="lvlEntry">1.29420</div>
-          <span class="pip-pill gold" id="pillEntry">LIMIT @ FVG</span>
+          <span class="pip-pill gold" id="pillEntry">LIMIT @ 50% CE</span>
         </div>
         <div class="level-box stop">
           <div class="level-label">Stop Loss</div>
@@ -565,7 +629,7 @@
           <span class="pip-pill red" id="pillStop">12.5 PIPS RISK</span>
         </div>
         <div class="level-box target">
-          <div class="level-label">Target (TP2)</div>
+          <div class="level-label">Draw (TP2)</div>
           <div class="level-price" style="color:var(--bull)" id="lvlTarget">1.29820</div>
           <span class="pip-pill green" id="pillTarget">40.0 PIPS TP</span>
         </div>
@@ -587,15 +651,8 @@
         </div>
       </div>
 
-      <!-- Execution Mode & Sizing Calculator -->
+      <!-- Sizing Recommendation -->
       <div class="calc-panel">
-        <div class="calc-row">
-          <span style="color:var(--muted)">Order Preference:</span>
-          <div class="order-toggle">
-            <span class="toggle-opt active" onclick="setOrderOpt(this, 'LIMIT')">Limit Order</span>
-            <span class="toggle-opt" onclick="setOrderOpt(this, 'MARKET')">Market Now</span>
-          </div>
-        </div>
         <div class="lot-recommendation">
           <span>Risk $50: <b id="calc50">0.40 Lots</b></span>
           <span>Risk $100: <b id="calc100">0.80 Lots</b></span>
@@ -603,9 +660,9 @@
         </div>
       </div>
 
-      <!-- Direct Actions -->
+      <!-- Action Buttons -->
       <div class="action-row">
-        <button class="btn" onclick="copyPlan()">📋 Copy Tweet Plan</button>
+        <button class="btn" onclick="copyPlan()">📋 Copy Tweet</button>
         <button class="btn primary" onclick="sendOrder()">⚡ Execute on MT5</button>
       </div>
 
@@ -615,20 +672,24 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    // Live Setup Data mapped to each pair
-    const SETUPS = {
+    const MARKETS = {
       GBPUSD: {
-        tvSym: 'FX:GBPUSD',
-        action: 'BUY LIMIT @ 1.29420',
-        actionClass: 'buy',
-        model: 'SMT Turtle Soup (Sister Divergence)',
-        execType: 'Limit Order @ FVG Consequent Encroachment (50%)',
-        past: 'Price swept the <b>London Session Low at 1.29295</b> to purge sell-side liquidity. EUR/USD failed to make a lower low, confirming an <b>Intermarket SMT Divergence</b>. A strong 5M displacement candle printed with a clean CISD body.',
-        draw: 'The institutional Draw on Liquidity is the undisturbed <b>Previous Day High (PDH) and buy-side resting liquidity at 1.29820</b>.',
+        label: 'GBP/USD',
+        price: '1.29465',
+        spread: '0.8 pips',
+        profile: 'IPDA: CLASSIC WED EXPANSION',
+        range: 'DISCOUNT ARRAY: 38.2%',
+        headline: 'BUY LIMIT @ 1.29420',
+        headlineClass: 'buy',
+        archetype: 'SMT Turtle Soup · Sister Divergence',
+        order: 'Limit @ FVG Consequent Encroachment (50%)',
+        doText: 'Wait for price to tap the <b>50% Consequent Encroachment (1.29420)</b> of the M5 Fair Value Gap inside the London Killzone. Place <b>BUY LIMIT</b> with Stop Loss at 1.29295.',
+        dontText: '<b>DO NOT</b> market-chase the green expansion candle above Asian High. <b>DO NOT</b> hold if 1.29290 is violated with candle-body close before 08:30 NY macro.',
+        whenText: 'Delivery window: <b>08:30 – 09:15 UTC (London Open)</b>. Secondary re-test opportunity at <b>08:30 NY Macro Injection</b>.',
         entry: '1.29420',
         stop: '1.29295',
         target: '1.29820',
-        pillEntry: 'LIMIT @ FVG',
+        pillEntry: 'LIMIT @ 50% CE',
         pillStop: '12.5 PIPS RISK',
         pillTarget: '40.0 PIPS TP',
         govBe: '+0.80R (1.29520)',
@@ -636,20 +697,37 @@
         govTp2: '+3.20R (1.29820)',
         calc50: '0.40 Lots',
         calc100: '0.80 Lots',
-        calcRr: '1 : 3.20 R'
+        calcRr: '1 : 3.20 R',
+        tvSym: 'FX:GBPUSD',
+        // Candlesticks for simulation
+        base: 1.29400,
+        pipsScale: 0.0001,
+        levels: [
+          { name: 'PDH (Buy-Side Draw)', price: 1.29820, type: 'bsl' },
+          { name: 'ASIA HIGH', price: 1.29650, type: 'range' },
+          { name: 'MIDNIGHT OPEN (00:00 NY)', price: 1.29480, type: 'mo' },
+          { name: 'FVG 50% C.E.', price: 1.29420, type: 'fvg' },
+          { name: 'ASIA LOW (Swept)', price: 1.29295, type: 'ssl' },
+          { name: 'IPDA 20D LOW', price: 1.29150, type: 'ipda' }
+        ]
       },
       EURUSD: {
-        tvSym: 'FX:EURUSD',
-        action: 'SELL LIMIT @ 1.08720',
-        actionClass: 'sell',
-        model: 'Trend Pullback Raid · 4H Aligned',
-        execType: 'Limit Order @ CISD Breaker Block',
-        past: 'Price reached into the <b>Asian Session High at 1.08835</b> to mitigate an unfilled liquidity void. Institutions aggressively rejected, closing below previous 5M candle bodies in full alignment with the <b>4H Bearish Order Flow</b>.',
-        draw: 'The Draw on Liquidity is the <b>Previous Day Low (PDL) and clean equal lows resting at 1.08375</b>.',
+        label: 'EUR/USD',
+        price: '1.08690',
+        spread: '0.6 pips',
+        profile: 'IPDA: TREND CONTINUATION RAID',
+        range: 'PREMIUM ARRAY: 68.4%',
+        headline: 'SELL LIMIT @ 1.08720',
+        headlineClass: 'sell',
+        archetype: 'Trend Pullback Raid · 4H Aligned',
+        order: 'Limit @ CISD Breaker Block (50% Mitigation)',
+        doText: 'Sell the mitigation into the <b>Bearish Breaker Block at 1.08720</b>. Set Stop Loss at 1.08835 above the sweep wick.',
+        dontText: '<b>DO NOT</b> enter if 5M candle closes back above the Midnight Open (1.08780). That invalidates the bearish delivery.',
+        whenText: 'High probability execution window: <b>08:00 – 08:45 UTC (London Open)</b> and <b>13:30 UTC (NY Equities Open)</b>.',
         entry: '1.08720',
         stop: '1.08835',
         target: '1.08375',
-        pillEntry: 'LIMIT @ CISD',
+        pillEntry: 'LIMIT @ BREAKER',
         pillStop: '11.5 PIPS RISK',
         pillTarget: '34.5 PIPS TP',
         govBe: '+0.80R (1.08628)',
@@ -657,16 +735,32 @@
         govTp2: '+3.00R (1.08375)',
         calc50: '0.43 Lots',
         calc100: '0.86 Lots',
-        calcRr: '1 : 3.00 R'
+        calcRr: '1 : 3.00 R',
+        tvSym: 'FX:EURUSD',
+        base: 1.08650,
+        pipsScale: 0.0001,
+        levels: [
+          { name: 'ASIA HIGH (Swept)', price: 1.08835, type: 'bsl' },
+          { name: 'MIDNIGHT OPEN', price: 1.08780, type: 'mo' },
+          { name: 'BEARISH BREAKER', price: 1.08720, type: 'fvg' },
+          { name: 'ASIA LOW', price: 1.08550, type: 'range' },
+          { name: 'PDL (Sell-Side Draw)', price: 1.08375, type: 'ssl' },
+          { name: 'IPDA 40D LOW', price: 1.08150, type: 'ipda' }
+        ]
       },
       XAUUSD: {
-        tvSym: 'OANDA:XAUUSD',
-        action: 'BUY MARKET @ 2735.40',
-        actionClass: 'buy',
-        model: 'Judas Sweep Reversal · Macro Injection',
-        execType: 'Market Execution on 08:30 NY Macro Open',
-        past: 'Price executed a classic <b>Judas Swing</b> at 08:30 NY open, plunging $3.20 into discount institutional arrays below Asian Lows before printing an immediate V-shaped rejection block.',
-        draw: 'Draw on Liquidity is the <b>Weekly Imbalance and Buy-side Liquidity Pool resting at $2,748.20</b>.',
+        label: 'Gold (XAU/USD)',
+        price: '2736.20',
+        spread: '1.5 pips',
+        profile: 'IPDA: JUDAS MACRO EXPANSION',
+        range: 'EXTREME DISCOUNT: 23.6%',
+        headline: 'BUY MARKET @ 2735.40',
+        headlineClass: 'buy',
+        archetype: 'Judas Sweep Reversal · Macro Injection',
+        order: 'Market Confirmation @ 08:30 Macro Reversal Block',
+        doText: 'Enter <b>Market Buy</b> upon candle closure above $2,735.00 following the Asian low sweep. Target previous day high at $2,748.20.',
+        dontText: '<b>DO NOT</b> risk more than 0.5% account size. Gold volatility requires strict stop placement at $2,732.20 ($3.20 stop).',
+        whenText: 'Optimal window: <b>08:30 – 09:30 NY Macro Window (13:30 - 14:30 UTC)</b>.',
         entry: '2735.40',
         stop: '2732.20',
         target: '2748.20',
@@ -678,16 +772,32 @@
         govTp2: '+4.00R ($2748.20)',
         calc50: '0.16 Lots',
         calc100: '0.31 Lots',
-        calcRr: '1 : 4.00 R'
+        calcRr: '1 : 4.00 R',
+        tvSym: 'OANDA:XAUUSD',
+        base: 2734.00,
+        pipsScale: 0.10,
+        levels: [
+          { name: 'PDH (Buy-Side Draw)', price: 2748.20, type: 'bsl' },
+          { name: 'ASIA HIGH', price: 2742.50, type: 'range' },
+          { name: 'MIDNIGHT OPEN (00:00 NY)', price: 2738.00, type: 'mo' },
+          { name: 'REJECTION BLOCK', price: 2735.40, type: 'fvg' },
+          { name: 'ASIA LOW (Swept)', price: 2732.20, type: 'ssl' },
+          { name: 'IPDA 60D LEVEL', price: 2720.00, type: 'ipda' }
+        ]
       },
       NAS100: {
-        tvSym: 'FOREXCOM:NSXUSD',
-        action: 'SELL LIMIT @ 20120.0',
-        actionClass: 'sell',
-        model: 'Propulsion Block Displacement',
-        execType: 'Limit Order at Consequent Encroachment',
-        past: 'Price rejected the 09:30 Equities Open high, validating an institutional <b>Propulsion Block</b>. S&P 500 showed correlated weakness, confirming downside continuation.',
-        draw: 'Targeting the <b>London Low Liquidity Pool at 19980.0</b>.',
+        label: 'Nasdaq (NAS100)',
+        price: '20135.0',
+        spread: '1.0 pt',
+        profile: 'IPDA: EQUITIES MORNING SQUEEZE',
+        range: 'PREMIUM ZONE: 74.5%',
+        headline: 'SELL LIMIT @ 20120.0',
+        headlineClass: 'sell',
+        archetype: 'Propulsion Block Displacement',
+        order: 'Limit @ Consequent Encroachment (50%)',
+        doText: 'Place <b>Sell Limit at 20,120.0</b> following 09:30 open sweep. Target London low pool at 19,980.0.',
+        dontText: '<b>DO NOT</b> trade during high-impact FOMC or CPI releases. Flat positions 5 minutes prior.',
+        whenText: 'Execution window: <b>09:30 – 10:30 NY Equities Opening Killzone</b>.',
         entry: '20120.0',
         stop: '20165.0',
         target: '19980.0',
@@ -699,107 +809,359 @@
         govTp2: '+3.11R (19980.0)',
         calc50: '0.11 Lots',
         calc100: '0.22 Lots',
-        calcRr: '1 : 3.11 R'
+        calcRr: '1 : 3.11 R',
+        tvSym: 'FOREXCOM:NSXUSD',
+        base: 20110.0,
+        pipsScale: 1.0,
+        levels: [
+          { name: '09:30 OPEN HIGH (Swept)', price: 20165.0, type: 'bsl' },
+          { name: 'PROPULSION BLOCK', price: 20120.0, type: 'fvg' },
+          { name: 'MIDNIGHT OPEN', price: 20090.0, type: 'mo' },
+          { name: 'LONDON LOW (Draw)', price: 19980.0, type: 'ssl' }
+        ]
+      },
+      US500: {
+        label: 'S&P 500 (US500)',
+        price: '5784.50',
+        spread: '0.3 pt',
+        profile: 'IPDA: SMT CROSS-CHECK EXTENSION',
+        range: 'EQUILIBRIUM: 50.0%',
+        headline: 'SELL LIMIT @ 5792.00',
+        headlineClass: 'sell',
+        archetype: 'SMT Triad Divergence',
+        order: 'Limit @ S&P/Nasdaq Divergence Peak',
+        doText: 'Sell the mitigation at 5,792.00 as S&P fails to confirm Nasdaq higher high.',
+        dontText: '<b>DO NOT</b> add to losing positions if 5,800 psychological level breaks.',
+        whenText: 'Active window: <b>10:00 – 11:00 NY Morning Session</b>.',
+        entry: '5792.00',
+        stop: '5804.00',
+        target: '5756.00',
+        pillEntry: 'LIMIT @ SMT',
+        pillStop: '12.0 PTS RISK',
+        pillTarget: '36.0 PTS TP',
+        govBe: '+0.80R (5782.40)',
+        govTp1: '+1.25R (5777.00)',
+        govTp2: '+3.00R (5756.00)',
+        calc50: '0.41 Lots',
+        calc100: '0.83 Lots',
+        calcRr: '1 : 3.00 R',
+        tvSym: 'FOREXCOM:SPXUSD',
+        base: 5780.0,
+        pipsScale: 0.1,
+        levels: [
+          { name: 'PDH (Swept)', price: 5804.0, type: 'bsl' },
+          { name: 'SMT DIVERGENCE LEVEL', price: 5792.0, type: 'fvg' },
+          { name: 'MIDNIGHT OPEN', price: 5780.0, type: 'mo' },
+          { name: 'PDL (Draw)', price: 5756.0, type: 'ssl' }
+        ]
+      },
+      USDJPY: {
+        label: 'USD/JPY',
+        price: '152.85',
+        spread: '0.9 pips',
+        profile: 'IPDA: TOKYO SESSION EXPANSION',
+        range: 'DISCOUNT ZONE: 41.2%',
+        headline: 'BUY LIMIT @ 152.65',
+        headlineClass: 'buy',
+        archetype: 'Tokyo Low Sweep + OTE',
+        order: 'Limit @ 70.5% OTE Retracement',
+        doText: 'Buy the OTE retracement at 152.65 following the Asian Low purge.',
+        dontText: '<b>DO NOT</b> buy if Bank of Japan (BOJ) rate announcement is pending.',
+        whenText: 'Tokyo Killzone window: <b>00:00 – 03:00 UTC</b>.',
+        entry: '152.65',
+        stop: '152.48',
+        target: '153.25',
+        pillEntry: 'LIMIT @ OTE',
+        pillStop: '17.0 PIPS RISK',
+        pillTarget: '60.0 PIPS TP',
+        govBe: '+0.80R (152.79)',
+        govTp1: '+1.25R (152.86)',
+        govTp2: '+3.53R (153.25)',
+        calc50: '0.29 Lots',
+        calc100: '0.58 Lots',
+        calcRr: '1 : 3.53 R',
+        tvSym: 'FX:USDJPY',
+        base: 152.60,
+        pipsScale: 0.01,
+        levels: [
+          { name: 'TOKYO HIGH (Draw)', price: 153.25, type: 'bsl' },
+          { name: 'MIDNIGHT OPEN', price: 152.80, type: 'mo' },
+          { name: 'OTE (70.5%)', price: 152.65, type: 'fvg' },
+          { name: 'TOKYO LOW (Swept)', price: 152.48, type: 'ssl' }
+        ]
       }
     };
 
-    let curPair = 'GBPUSD';
-    let curTf = '5';
+    let curKey = 'GBPUSD';
+    let chartMode = 'ict';
+    let animFrame = null;
 
-    function renderChart() {
-      const s = SETUPS[curPair];
+    function selectPair(key, btn) {
+      curKey = key;
+      document.querySelectorAll('.p-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const d = MARKETS[key];
+      // Update Legend
+      document.getElementById('lgSymbol').textContent = d.label;
+      document.getElementById('lgModel').textContent = d.archetype.toUpperCase();
+      document.getElementById('lgPrice').textContent = `Live: ${d.price} · Spread: ${d.spread}`;
+      document.getElementById('lgProfile').textContent = d.profile;
+      document.getElementById('lgRange').textContent = d.range;
+
+      // Update Action Card
+      const hl = document.getElementById('dirHeadline');
+      hl.textContent = d.headline;
+      hl.className = 'directive-headline ' + d.headlineClass;
+      document.getElementById('dirArchetype').textContent = d.archetype;
+      document.getElementById('dirOrder').textContent = d.order;
+
+      // Update Guidance Triad
+      document.getElementById('guideDo').innerHTML = d.doText;
+      document.getElementById('guideDont').innerHTML = d.dontText;
+      document.getElementById('guideWhen').innerHTML = d.whenText;
+
+      // Update Levels
+      document.getElementById('lvlEntry').textContent = d.entry;
+      document.getElementById('lvlStop').textContent = d.stop;
+      document.getElementById('lvlTarget').textContent = d.target;
+
+      document.getElementById('pillEntry').textContent = d.pillEntry;
+      document.getElementById('pillStop').textContent = d.pillStop;
+      document.getElementById('pillTarget').textContent = d.pillTarget;
+
+      // Update Governor
+      document.getElementById('govBe').textContent = d.govBe;
+      document.getElementById('govTp1').textContent = d.govTp1;
+      document.getElementById('govTp2').textContent = d.govTp2;
+
+      // Update Sizing
+      document.getElementById('calc50').textContent = d.calc50;
+      document.getElementById('calc100').textContent = d.calc100;
+      document.getElementById('calcRr').textContent = d.calcRr;
+
+      if (chartMode === 'tv') renderTradingView();
+      else drawIctChart();
+    }
+
+    function setChartMode(mode) {
+      chartMode = mode;
+      document.getElementById('btnIct').classList.toggle('active', mode === 'ict');
+      document.getElementById('btnTv').classList.toggle('active', mode === 'tv');
+
+      const canvas = document.getElementById('ictCanvas');
+      const tv = document.getElementById('tvContainer');
+      const legend = document.getElementById('chartLegend');
+
+      if (mode === 'ict') {
+        canvas.style.display = 'block';
+        tv.style.display = 'none';
+        legend.style.display = 'flex';
+        drawIctChart();
+      } else {
+        canvas.style.display = 'none';
+        tv.style.display = 'block';
+        legend.style.display = 'none';
+        renderTradingView();
+      }
+    }
+
+    function renderTradingView() {
+      const d = MARKETS[curKey];
       const q = new URLSearchParams({
-        symbol: s.tvSym,
-        interval: curTf,
-        hidesidetoolbar: '0',
-        symboledit: '1',
-        saveimage: '0',
+        symbol: d.tvSym,
+        interval: '5',
         theme: 'dark',
         style: '1',
         timezone: 'America/New_York',
         withdateranges: '1',
         locale: 'en'
       });
-      document.getElementById('chartFrame').innerHTML = 
-        `<iframe src="https://s.tradingview.com/widgetembed/?${q.toString()}" allowfullscreen loading="lazy"></iframe>`;
+      document.getElementById('tvContainer').innerHTML = 
+        `<iframe src="https://s.tradingview.com/widgetembed/?${q.toString()}" style="width:100%;height:100%;border:0;" allowfullscreen></iframe>`;
     }
 
-    function switchPair(pair, btn) {
-      curPair = pair;
-      document.querySelectorAll('.pair-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
+    /* ---------- HIGH-PRECISION ICT MARKUP CANVAS RENDERER ---------- */
+    function drawIctChart() {
+      const canvas = document.getElementById('ictCanvas');
+      const ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
 
-      const data = SETUPS[pair];
-      const dirAct = document.getElementById('dirAction');
-      dirAct.textContent = data.action;
-      dirAct.className = 'directive-action ' + data.actionClass;
-      document.getElementById('dirModel').textContent = data.model;
-      document.getElementById('dirExecType').textContent = data.execType;
-      document.getElementById('narrPast').innerHTML = data.past;
-      document.getElementById('narrDraw').innerHTML = data.draw;
+      canvas.width = rect.width * dpr;
+      canvas.height = rect.height * dpr;
+      ctx.scale(dpr, dpr);
 
-      document.getElementById('lvlEntry').textContent = data.entry;
-      document.getElementById('lvlStop').textContent = data.stop;
-      document.getElementById('lvlTarget').textContent = data.target;
+      const W = rect.width;
+      const H = rect.height;
+      const m = MARKETS[curKey];
 
-      document.getElementById('pillEntry').textContent = data.pillEntry;
-      document.getElementById('pillStop').textContent = data.pillStop;
-      document.getElementById('pillTarget').textContent = data.pillTarget;
+      // Generate deterministic 40 candles around base price
+      const candles = [];
+      let p = m.base;
+      for (let i = 0; i < 40; i++) {
+        const delta = Math.sin(i * 0.45) * 1.5 * m.pipsScale * 10 + (i > 25 ? (m.headlineClass === 'buy' ? 1.2 : -1.2) * m.pipsScale * 5 : 0);
+        const open = p;
+        const close = open + delta + (Math.sin(i * 1.8) * m.pipsScale * 4);
+        const high = Math.max(open, close) + Math.abs(Math.sin(i * 2.3) * m.pipsScale * 5);
+        const low = Math.min(open, close) - Math.abs(Math.cos(i * 2.1) * m.pipsScale * 5);
+        candles.push({ open, high, low, close });
+        p = close;
+      }
 
-      document.getElementById('govBe').textContent = data.govBe;
-      document.getElementById('govTp1').textContent = data.govTp1;
-      document.getElementById('govTp2').textContent = data.govTp2;
+      // Calculate Price Scale (Min/Max)
+      const allPrices = candles.flatMap(c => [c.low, c.high]).concat(m.levels.map(l => l.price));
+      const minP = Math.min(...allPrices) - m.pipsScale * 10;
+      const maxP = Math.max(...allPrices) + m.pipsScale * 10;
+      const priceToY = price => H - 40 - ((price - minP) / (maxP - minP)) * (H - 80);
 
-      document.getElementById('calc50').textContent = data.calc50;
-      document.getElementById('calc100').textContent = data.calc100;
-      document.getElementById('calcRr').textContent = data.calcRr;
+      // 1. Draw Subtle Dark Background Grid
+      ctx.fillStyle = '#06070A';
+      ctx.fillRect(0, 0, W, H);
 
-      renderChart();
-    }
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.035)';
+      ctx.lineWidth = 1;
+      for (let y = 40; y < H - 30; y += 45) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(W, y);
+        ctx.stroke();
+      }
 
-    function setTf(tf, btn) {
-      curTf = tf;
-      document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderChart();
-    }
+      // 2. Draw Subtle Institutional Asian Range Box
+      const asiaX1 = W * 0.12;
+      const asiaX2 = W * 0.42;
+      const asiaH = m.levels.find(l => l.name.includes('ASIA HIGH'))?.price || (m.base + m.pipsScale * 15);
+      const asiaL = m.levels.find(l => l.name.includes('ASIA LOW'))?.price || (m.base - m.pipsScale * 15);
+      const yAsiaH = priceToY(asiaH);
+      const yAsiaL = priceToY(asiaL);
 
-    function setOrderOpt(el, type) {
-      el.parentElement.querySelectorAll('.toggle-opt').forEach(o => o.classList.remove('active'));
-      el.classList.add('active');
-      showToast('Order mode switched to: ' + type);
+      ctx.fillStyle = 'rgba(240, 185, 75, 0.035)';
+      ctx.fillRect(asiaX1, yAsiaH, asiaX2 - asiaX1, yAsiaL - yAsiaH);
+      ctx.strokeStyle = 'rgba(240, 185, 75, 0.18)';
+      ctx.strokeRect(asiaX1, yAsiaH, asiaX2 - asiaX1, yAsiaL - yAsiaH);
+
+      // 3. Draw Candlesticks
+      const cW = (W - 120) / candles.length;
+      candles.forEach((c, i) => {
+        const x = 50 + i * cW;
+        const yOpen = priceToY(c.open);
+        const yClose = priceToY(c.close);
+        const yHigh = priceToY(c.high);
+        const yLow = priceToY(c.low);
+        const isGreen = c.close >= c.open;
+
+        ctx.strokeStyle = isGreen ? 'rgba(43,212,125,0.85)' : 'rgba(255,92,108,0.85)';
+        ctx.lineWidth = 1.2;
+        ctx.beginPath();
+        ctx.moveTo(x + cW * 0.4, yHigh);
+        ctx.lineTo(x + cW * 0.4, yLow);
+        ctx.stroke();
+
+        ctx.fillStyle = isGreen ? '#1E9A5B' : '#C83242';
+        const bodyY = Math.min(yOpen, yClose);
+        const bodyH = Math.max(Math.abs(yClose - yOpen), 1.5);
+        ctx.fillRect(x + 1, bodyY, Math.max(cW * 0.75, 2), bodyH);
+      });
+
+      // 4. Draw Subdued ICT Institutional Levels with Tiny Monospace Badges
+      m.levels.forEach(lvl => {
+        const y = priceToY(lvl.price);
+        if (y < 20 || y > H - 20) return;
+
+        let strokeColor = 'rgba(255, 255, 255, 0.18)';
+        let badgeBg = 'rgba(30, 35, 48, 0.9)';
+        let badgeText = '#9AA3B5';
+
+        if (lvl.type === 'bsl') {
+          strokeColor = 'rgba(43, 212, 125, 0.4)';
+          badgeBg = 'rgba(14, 50, 30, 0.9)';
+          badgeText = '#2BD47D';
+        } else if (lvl.type === 'ssl') {
+          strokeColor = 'rgba(255, 92, 108, 0.4)';
+          badgeBg = 'rgba(50, 18, 22, 0.9)';
+          badgeText = '#FF5C6C';
+        } else if (lvl.type === 'mo' || lvl.type === 'fvg') {
+          strokeColor = 'rgba(240, 185, 75, 0.45)';
+          badgeBg = 'rgba(45, 35, 12, 0.95)';
+          badgeText = '#F0B94B';
+        }
+
+        // Low-opacity thin 1px dashed ray
+        ctx.strokeStyle = strokeColor;
+        ctx.setLineDash([4, 4]);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(40, y);
+        ctx.lineTo(W - 20, y);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        // Small, crisp 9px tag
+        ctx.font = '600 9px "Geist Mono", monospace';
+        const labelText = `${lvl.name} [${lvl.price.toFixed(m.pipsScale === 0.0001 ? 5 : 2)}]`;
+        const textW = ctx.measureText(labelText).width;
+
+        ctx.fillStyle = badgeBg;
+        ctx.fillRect(W - textW - 32, y - 8, textW + 12, 15);
+        ctx.strokeStyle = strokeColor;
+        ctx.strokeRect(W - textW - 32, y - 8, textW + 12, 15);
+
+        ctx.fillStyle = badgeText;
+        ctx.fillText(labelText, W - textW - 26, y + 3);
+      });
+
+      // 5. Draw FVG Shaded Zone if present
+      const fvgLvl = m.levels.find(l => l.type === 'fvg');
+      if (fvgLvl) {
+        const yFvg = priceToY(fvgLvl.price);
+        ctx.fillStyle = 'rgba(240, 185, 75, 0.07)';
+        ctx.fillRect(W * 0.45, yFvg - 12, W * 0.4, 24);
+        ctx.strokeStyle = 'rgba(240, 185, 75, 0.28)';
+        ctx.strokeRect(W * 0.45, yFvg - 12, W * 0.4, 24);
+
+        ctx.font = '600 8.5px "Geist Mono", monospace';
+        ctx.fillStyle = '#F0B94B';
+        ctx.fillText('FVG 50% C.E.', W * 0.46, yFvg + 3);
+      }
     }
 
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.textContent = msg;
       t.style.display = 'block';
-      setTimeout(() => { t.style.display = 'none'; }, 3000);
+      setTimeout(() => { t.style.display = 'none'; }, 3200);
     }
 
     function copyPlan() {
-      const d = SETUPS[curPair];
-      const text = `◈ ICT FLUX • GOD'S EYE CHOKEPOINT PLAN\n` +
-                   `Asset: #${curPair} (M${curTf})\n` +
-                   `Directive: ${d.action}\n` +
-                   `Model: ${d.model}\n\n` +
+      const d = MARKETS[curKey];
+      const text = `◈ ICT FLUX • GOD'S EYE CHOKEPOINT EXECUTION\n` +
+                   `Asset: #${curKey} (M5)\n` +
+                   `Directive: ${d.headline}\n` +
+                   `Archetype: ${d.archetype}\n\n` +
                    `• Invalidation (SL): ${d.stop} [${d.pillStop}]\n` +
-                   `• Target (Draw): ${d.target} [${d.pillTarget}]\n` +
+                   `• Target Draw: ${d.target} [${d.pillTarget}]\n` +
                    `• Risk/Reward: ${d.calcRr}\n\n` +
-                   `• Context: ${d.past.replace(/<[^>]*>/g, '')}\n` +
-                   `• Target Draw: ${d.draw.replace(/<[^>]*>/g, '')}\n\n` +
-                   `Analyzed with God's Eye Flux Desk 👁️⚡`;
+                   `• WHAT TO DO: ${d.doText.replace(/<[^>]*>/g, '')}\n` +
+                   `• WHAT NOT TO DO: ${d.dontText.replace(/<[^>]*>/g, '')}\n` +
+                   `• TIMING WINDOW: ${d.whenText.replace(/<[^>]*>/g, '')}\n\n` +
+                   `Generated via God's Eye Flux Desk 👁️⚡`;
       navigator.clipboard.writeText(text);
-      showToast('✓ Complete trade plan copied! Ready for X / Twitter.');
+      showToast('✓ Formatted God\'s Eye plan copied! Ready for X.');
     }
 
     function sendOrder() {
-      const d = SETUPS[curPair];
-      showToast(`⚡ Order sent to MT5 Bridge: ${d.action} (SL: ${d.stop} | TP: ${d.target})`);
+      const d = MARKETS[curKey];
+      showToast(`⚡ Order placed to MT5 Bridge: ${d.headline} (SL: ${d.stop} | TP: ${d.target})`);
     }
 
-    // Initialize Chart on load
-    renderChart();
+    // Window Resize Handler
+    window.addEventListener('resize', () => {
+      if (chartMode === 'ict') drawIctChart();
+    });
+
+    // Initialize
+    selectPair('GBPUSD', document.querySelector('.p-btn.active'));
   </script>
 </body>
 </html>

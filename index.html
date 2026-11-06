@@ -313,6 +313,103 @@
       color: var(--warn);
     }
 
+        .chart-mode-toggle {
+      display: flex;
+      background: var(--surface-2);
+      border-radius: 6px;
+      padding: 2px;
+      border: 1px solid var(--line);
+      gap: 2px;
+    }
+    .mode-btn {
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .mode-btn:hover {
+      color: var(--text);
+    }
+    .mode-btn.active {
+      background: var(--surface-3);
+      color: var(--accent);
+      border: 1px solid var(--line-gold);
+    }
+
+    .desk-log-section {
+      margin-top: 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .desk-log-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .desk-log-title {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .log-clear-btn {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 9.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .log-clear-btn:hover {
+      color: var(--bear);
+      border-color: var(--bear);
+    }
+    .desk-log-table-wrap {
+      max-height: 180px;
+      overflow-y: auto;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+    .desk-log-table-wrap table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+    .desk-log-table-wrap th {
+      background: var(--surface-3);
+      color: var(--muted);
+      padding: 6px 8px;
+      text-align: left;
+      font-size: 9px;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .desk-log-table-wrap td {
+      padding: 5px 8px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+      white-space: nowrap;
+    }
+
     .chart-stage {
       flex: 1;
       width: 100%;
@@ -1043,7 +1140,104 @@
         width: 100% !important;
         max-width: 100%;
       }
-      .chart-stage {
+          .chart-mode-toggle {
+      display: flex;
+      background: var(--surface-2);
+      border-radius: 6px;
+      padding: 2px;
+      border: 1px solid var(--line);
+      gap: 2px;
+    }
+    .mode-btn {
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .mode-btn:hover {
+      color: var(--text);
+    }
+    .mode-btn.active {
+      background: var(--surface-3);
+      color: var(--accent);
+      border: 1px solid var(--line-gold);
+    }
+
+    .desk-log-section {
+      margin-top: 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .desk-log-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .desk-log-title {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .log-clear-btn {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 9.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .log-clear-btn:hover {
+      color: var(--bear);
+      border-color: var(--bear);
+    }
+    .desk-log-table-wrap {
+      max-height: 180px;
+      overflow-y: auto;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+    .desk-log-table-wrap table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+    .desk-log-table-wrap th {
+      background: var(--surface-3);
+      color: var(--muted);
+      padding: 6px 8px;
+      text-align: left;
+      font-size: 9px;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .desk-log-table-wrap td {
+      padding: 5px 8px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .chart-stage {
         height: 420px;
         min-height: 380px;
       }
@@ -1061,7 +1255,104 @@
       .brand-title {
         font-size: 13.5px;
       }
-      .chart-stage {
+          .chart-mode-toggle {
+      display: flex;
+      background: var(--surface-2);
+      border-radius: 6px;
+      padding: 2px;
+      border: 1px solid var(--line);
+      gap: 2px;
+    }
+    .mode-btn {
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.15s;
+    }
+    .mode-btn:hover {
+      color: var(--text);
+    }
+    .mode-btn.active {
+      background: var(--surface-3);
+      color: var(--accent);
+      border: 1px solid var(--line-gold);
+    }
+
+    .desk-log-section {
+      margin-top: 14px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px;
+    }
+    .desk-log-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .desk-log-title {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+    .log-clear-btn {
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 9.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .log-clear-btn:hover {
+      color: var(--bear);
+      border-color: var(--bear);
+    }
+    .desk-log-table-wrap {
+      max-height: 180px;
+      overflow-y: auto;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+    .desk-log-table-wrap table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: 10px;
+    }
+    .desk-log-table-wrap th {
+      background: var(--surface-3);
+      color: var(--muted);
+      padding: 6px 8px;
+      text-align: left;
+      font-size: 9px;
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      z-index: 2;
+    }
+    .desk-log-table-wrap td {
+      padding: 5px 8px;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .chart-stage {
         height: 360px;
         min-height: 340px;
       }
@@ -1162,6 +1453,11 @@
               </select>
             </div>
 
+            <div class="chart-mode-toggle">
+              <button class="mode-btn active" id="btnModeLc" onclick="switchChartEngine('lc')">⚡ ICT Markups Engine</button>
+              <button class="mode-btn" id="btnModeTv" onclick="switchChartEngine('tv')">📊 TradingView Terminal</button>
+            </div>
+
             <div class="chart-meta">
               <span id="pairSpread">Spread: 0.8 pips</span>
               <span class="status-badge active" id="pairStatusBadge">ACTIVE INTERCEPT</span>
@@ -1169,8 +1465,9 @@
           </div>
 
           <!-- Clean Unobstructed Chart Stage -->
-          <div class="chart-stage">
+          <div class="chart-stage" id="chartStage">
             <div id="tvChartContainer"></div>
+            <iframe id="tvLiveFrame" style="display:none;width:100%;height:100%;border:none;background:#050608;" allowfullscreen loading="lazy"></iframe>
           </div>
 
           <!-- Non-Interfering ICT Benchmark Bar Below Chart -->
@@ -1321,6 +1618,33 @@
           <div class="action-row">
             <button class="btn" onclick="copyPlan()">📋 Copy Tweet</button>
             <button class="btn primary" id="btnExecute" onclick="executeTrade()">⚡ Execute on MT5</button>
+          </div>
+
+          <!-- MT5 Execution Audit Journal -->
+          <div class="desk-log-section">
+            <div class="desk-log-header">
+              <span class="desk-log-title">⚡ MT5 Execution Journal & Audit Log</span>
+              <button class="log-clear-btn" onclick="clearCustomLogs()">Reset</button>
+            </div>
+            <div class="desk-log-table-wrap">
+              <table class="log-table">
+                <thead>
+                  <tr>
+                    <th>Ticket</th>
+                    <th>Asset / TF</th>
+                    <th>Model</th>
+                    <th>Side</th>
+                    <th>Entry</th>
+                    <th>Pip Metrics</th>
+                    <th>R:R</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody id="tradeLogBody">
+                  <!-- Dynamically populated -->
+                </tbody>
+              </table>
+            </div>
           </div>
 
         </div>
@@ -2470,12 +2794,85 @@
       }
     }
 
+        // Chart Mode Engine State & Symbol Map
+    let currentChartEngine = 'lc'; // 'lc' = Lightweight Charts, 'tv' = TradingView Widget
+    const TV_MAP = {
+      GBPUSD: { sym: 'FX:GBPUSD', tf: '15' },
+      EURUSD: { sym: 'FX:EURUSD', tf: '15' },
+      USDJPY: { sym: 'FX:USDJPY', tf: '15' },
+      XAUUSD: { sym: 'OANDA:XAUUSD', tf: '15' },
+      NAS100: { sym: 'FOREXCOM:NSXUSD', tf: '15' },
+      US500: { sym: 'FOREXCOM:SPXUSD', tf: '15' },
+      VOL75: { sym: 'FX:EURUSD', tf: '15' },
+      VOL100: { sym: 'FX:GBPUSD', tf: '15' }
+    };
+
+    function switchChartEngine(engine) {
+      currentChartEngine = engine;
+      const bLc = document.getElementById('btnModeLc');
+      const bTv = document.getElementById('btnModeTv');
+      if (bLc) bLc.classList.toggle('active', engine === 'lc');
+      if (bTv) bTv.classList.toggle('active', engine === 'tv');
+
+      const lcContainer = document.getElementById('tvChartContainer');
+      const tvFrame = document.getElementById('tvLiveFrame');
+
+      if (engine === 'lc') {
+        if (tvFrame) tvFrame.style.display = 'none';
+        if (lcContainer) lcContainer.style.display = 'block';
+        if (tvChart && lcContainer) {
+          setTimeout(() => {
+            tvChart.resize(lcContainer.clientWidth || 800, lcContainer.clientHeight || 500);
+            tvChart.timeScale().fitContent();
+          }, 50);
+        }
+      } else {
+        if (lcContainer) lcContainer.style.display = 'none';
+        if (tvFrame) tvFrame.style.display = 'block';
+        updateTradingViewFrame();
+      }
+    }
+
+    function updateTradingViewFrame() {
+      const tvFrame = document.getElementById('tvLiveFrame');
+      if (!tvFrame) return;
+      const m = DATA[curKey];
+      const h = m ? m.horizons[curHorizon] : null;
+      const info = TV_MAP[curKey] || { sym: 'FX:GBPUSD', tf: '15' };
+      const tfVal = (h && h.tf.includes('M1')) ? '1' : ((h && h.tf.includes('M5')) ? '5' : ((h && h.tf.includes('H1')) ? '60' : '15'));
+
+      const q = new URLSearchParams({
+        frameElementId: 'tv_frame_desk',
+        symbol: info.sym,
+        interval: tfVal,
+        hidesidetoolbar: '0',
+        symboledit: '1',
+        saveimage: '0',
+        theme: 'dark',
+        style: '1',
+        timezone: 'America/New_York',
+        withdateranges: '1',
+        locale: 'en'
+      });
+      const newSrc = `https://s.tradingview.com/widgetembed/?${q.toString()}`;
+      if (tvFrame.src !== newSrc) {
+        tvFrame.src = newSrc;
+      }
+    }
+
     // Initialize TradingView Lightweight Chart (Unobstructed Canvas)
     function initChart() {
       const container = document.getElementById('tvChartContainer');
+      if (!container) return;
       container.innerHTML = '';
 
+      const w = container.clientWidth || 800;
+      const h = container.clientHeight || 500;
+
       tvChart = LightweightCharts.createChart(container, {
+        width: w,
+        height: h,
+        autoSize: true,
         layout: {
           background: { type: 'solid', color: '#050608' },
           textColor: '#9AA3B5',
@@ -2511,9 +2908,22 @@
         wickDownColor: '#FF5C6C'
       });
 
+      if (window.ResizeObserver) {
+        const ro = new ResizeObserver(entries => {
+          if (!tvChart || !container) return;
+          for (const entry of entries) {
+            const cr = entry.contentRect;
+            if (cr.width > 0 && cr.height > 0) {
+              tvChart.resize(cr.width, cr.height);
+            }
+          }
+        });
+        ro.observe(container);
+      }
+
       window.addEventListener('resize', () => {
         if (tvChart && container) {
-          tvChart.resize(container.clientWidth, container.clientHeight);
+          tvChart.resize(container.clientWidth || 800, container.clientHeight || 500);
         }
       });
     }
@@ -2676,6 +3086,10 @@
 
         tvChart.timeScale().fitContent();
       }
+
+      if (currentChartEngine === 'tv') {
+        updateTradingViewFrame();
+      }
     }
 
     function onSelectInstrument(key) {
@@ -2808,6 +3222,7 @@
 
     function renderLogs(filter) {
       const tbody = document.getElementById('tradeLogBody');
+      if (!tbody) return;
       const allLogs = executedTrades.concat(DEFAULT_LOGS);
       
       let filtered = allLogs;
@@ -3080,13 +3495,12 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      initChart();
-      setupResizer();
-      loadLogs();
-      renderLogs('all');
-      updateDesk();
-      updateClocks();
-      setInterval(updateClocks, 1000);
+      try { initChart(); } catch (e) { console.error('initChart err:', e); }
+      try { setupResizer(); } catch (e) { console.error('setupResizer err:', e); }
+      try { loadLogs(); } catch (e) {}
+      try { renderLogs('all'); } catch (e) {}
+      try { updateDesk(); } catch (e) { console.error('updateDesk err:', e); }
+      try { updateClocks(); setInterval(updateClocks, 1000); } catch (e) {}
     });
   </script>
 </body>

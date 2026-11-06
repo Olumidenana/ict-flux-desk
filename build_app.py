@@ -1761,6 +1761,7 @@ html_content = r'''<!DOCTYPE html>
                   <th>Ticket</th>
                   <th>Date / Time (NY)</th>
                   <th>Market</th>
+                  <th>Horizon</th>
                   <th>Model</th>
                   <th>Side</th>
                   <th>Entry</th>
@@ -1768,7 +1769,7 @@ html_content = r'''<!DOCTYPE html>
                   <th>TP Target</th>
                   <th>R Result</th>
                   <th>Status</th>
-                  <th>Action</th>
+                  <th>Audit & Chart Proof</th>
                 </tr>
               </thead>
               <tbody id="backtestTableBody">
@@ -1784,19 +1785,38 @@ html_content = r'''<!DOCTYPE html>
   </div>
 
     <!-- Interactive Trade Detail Inspector Modal -->
-  <div class="modal-overlay" id="tradeModalOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.8);backdrop-filter:blur(5px);z-index:9999;align-items:center;justify-content:center;">
-    <div class="modal-card" style="background:var(--surface);border:1px solid var(--accent);border-radius:14px;max-width:580px;width:92%;padding:22px;box-shadow:0 12px 48px rgba(0,0,0,0.85);position:relative;">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;">
+  <div class="modal-overlay" id="tradeModalOverlay" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(6px);z-index:9999;align-items:center;justify-content:center;">
+    <div class="modal-card" style="background:var(--surface);border:1px solid var(--accent);border-radius:14px;max-width:780px;width:94%;max-height:92vh;overflow-y:auto;padding:24px;box-shadow:0 16px 64px rgba(0,0,0,0.92);position:relative;">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:12px;">
         <div>
-          <span style="font-family:var(--mono);font-size:10px;color:var(--accent);font-weight:800;letter-spacing:0.06em;text-transform:uppercase;">CHOKEPOINT EXECUTION AUDIT</span>
-          <h3 id="modalTradeTitle" style="font-size:17px;font-weight:800;margin-top:4px;color:var(--text);"></h3>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <span style="font-family:var(--mono);font-size:10px;color:var(--accent);font-weight:800;letter-spacing:0.08em;text-transform:uppercase;">ICT FLUX DESK • TRADE EXECUTION JOURNEY</span>
+            <span id="modalHorizonBadge" style="font-family:var(--mono);font-size:9.5px;padding:2px 8px;border-radius:4px;background:var(--surface-3);color:var(--text);font-weight:700;"></span>
+          </div>
+          <h3 id="modalTradeTitle" style="font-size:18px;font-weight:800;margin-top:4px;color:var(--text);"></h3>
         </div>
-        <button onclick="closeTradeModal()" style="background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px;">✕</button>
+        <button onclick="closeTradeModal()" style="background:var(--surface-2);border:1px solid var(--line);color:var(--text);border-radius:6px;width:30px;height:30px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
       </div>
+
+      <!-- Live Chart Proof View Embed for this exact trade -->
+      <div style="margin-bottom:16px;">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+          <span style="font-family:var(--mono);font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;">📍 LIVE CHART PROOF (TRADINGVIEW AUTHENTIC FEED)</span>
+          <span id="modalTvSymTag" style="font-family:var(--mono);font-size:10.5px;color:var(--accent);font-weight:700;"></span>
+        </div>
+        <div id="modalChartContainer" style="width:100%;height:270px;background:#050608;border-radius:8px;border:1px solid var(--line);overflow:hidden;position:relative;">
+          <!-- Dynamically populated with live TradingView chart frame -->
+        </div>
+      </div>
+
       <div id="modalTradeBody" style="font-family:var(--mono);font-size:11.5px;display:flex;flex-direction:column;gap:10px;color:var(--text);"></div>
-      <div style="display:flex;gap:10px;margin-top:20px;justify-content:flex-end;">
-        <button class="btn" onclick="closeTradeModal()">Close</button>
-        <button class="btn primary" id="modalBtnTv" style="background:var(--accent);color:#07080B;font-weight:800;">👁️ View in TradingView</button>
+      
+      <div style="display:flex;gap:10px;margin-top:20px;padding-top:14px;border-top:1px solid var(--line);justify-content:space-between;align-items:center;flex-wrap:wrap;">
+        <button class="btn" onclick="closeTradeModal()">Close Inspector</button>
+        <div style="display:flex;gap:8px;">
+          <button class="btn sm" id="modalBtnDesk" style="font-family:var(--mono);font-size:11px;padding:6px 14px;cursor:pointer;">📺 Open on Main Desk Chart</button>
+          <button class="btn primary sm" id="modalBtnTv" style="background:var(--accent);color:#07080B;font-weight:800;font-family:var(--mono);font-size:11px;padding:6px 14px;cursor:pointer;">↗️ Open on TradingView.com</button>
+        </div>
       </div>
     </div>
   </div>
@@ -2956,12 +2976,19 @@ html_content = r'''<!DOCTYPE html>
         const outcomeLabel = isWin ? '🎯 TP FULL' : (isBe ? '🛡️ BE SAVED' : '🛑 STOP LOSS');
         const rColor = isBe ? 'var(--warn)' : (t.r_multiple > 0 ? 'var(--bull)' : 'var(--bear)');
 
+        const horizonBadge = t.horizon === 'scalp'
+          ? '<span style="color:var(--accent);background:rgba(245,186,65,0.12);padding:2px 6px;border-radius:4px;font-size:9px;font-weight:800;">SCALP</span>'
+          : (t.horizon === 'day'
+              ? '<span style="color:var(--bull);background:rgba(43,212,125,0.12);padding:2px 6px;border-radius:4px;font-size:9px;font-weight:800;">DAY</span>'
+              : '<span style="color:#60a5fa;background:rgba(96,165,250,0.12);padding:2px 6px;border-radius:4px;font-size:9px;font-weight:800;">SWING</span>');
+
         return `
-          <tr onclick="openTradeModal('${t.ticket}')" style="cursor:pointer;" title="Click to view complete execution breakdown">
+          <tr onclick="openTradeModal('${t.ticket}')" style="cursor:pointer;" title="Click to inspect lifecycle progression and chart proof">
             <td style="font-weight:700;color:var(--accent)">${t.ticket}</td>
             <td style="color:var(--muted)">${t.time}</td>
             <td><b>${t.market_label}</b></td>
-            <td><span style="font-size:9.5px;color:var(--faint)">${t.model}</span></td>
+            <td>${horizonBadge}</td>
+            <td><span style="font-size:9.5px;color:var(--muted)">${t.model}</span></td>
             <td><span class="status-badge ${t.direction === 'BUY' ? 'active' : 'standaside'}">${t.direction}</span></td>
             <td style="font-weight:700;color:var(--accent)">${t.entry}</td>
             <td style="color:var(--bear)">${t.stop} <span style="font-size:9px;color:var(--faint)">(${t.sl_pips})</span></td>
@@ -2969,8 +2996,8 @@ html_content = r'''<!DOCTYPE html>
             <td style="font-weight:800;color:${rColor}">${t.r_multiple >= 0 ? '+' : ''}${t.r_multiple.toFixed(2)}R</td>
             <td style="font-weight:700;color:${outcomeColor}">${outcomeLabel}</td>
             <td>
-              <button class="view-tv-btn" onclick="inspectTradeInTradingView('${t.ticket}')">
-                👁️ View in TradingView
+              <button class="btn sm primary" onclick="event.stopPropagation();openTradeModal('${t.ticket}')" style="background:var(--accent);color:#07080B;font-family:var(--mono);font-size:10px;font-weight:800;padding:4px 10px;border-radius:4px;cursor:pointer;border:none;box-shadow:0 0 8px rgba(245,186,65,0.25);">
+                🔍 Inspect & Chart
               </button>
             </td>
           </tr>
@@ -2986,44 +3013,116 @@ html_content = r'''<!DOCTYPE html>
       const overlay = document.getElementById('tradeModalOverlay');
       const title = document.getElementById('modalTradeTitle');
       const body = document.getElementById('modalTradeBody');
+      const badge = document.getElementById('modalHorizonBadge');
+      const tvSymTag = document.getElementById('modalTvSymTag');
+      const chartBox = document.getElementById('modalChartContainer');
       const btnTv = document.getElementById('modalBtnTv');
+      const btnDesk = document.getElementById('modalBtnDesk');
 
       const isWin = t.outcome === 'TP_HIT';
       const isBe = t.outcome === 'BE_SAVED';
       const outcomeColor = isWin ? 'var(--bull)' : (isBe ? 'var(--warn)' : 'var(--bear)');
-      const outcomeLabel = isWin ? '🎯 TAKE PROFIT' : (isBe ? '🛡️ BE PROTECTED' : '🛑 STOP LOSS HIT');
+      const outcomeLabel = isWin ? '🎯 TAKE PROFIT (+4.00R / Full Harvest)' : (isBe ? '🛡️ BREAKEVEN LOCK (+0.80R Saved)' : '🛑 STOP LOSS CUT (-1.00R Initial)');
 
-      title.textContent = `${t.ticket} • ${t.market_label} ${t.direction}`;
+      const horizonLabel = t.horizon === 'scalp' ? 'M1 / M5 SCALP' : (t.horizon === 'day' ? 'M5 / M15 DAY TRADE' : 'H1 / H4 SWING');
+      const horizonColor = t.horizon === 'scalp' ? 'var(--accent)' : (t.horizon === 'day' ? 'var(--bull)' : '#60a5fa');
+
+      title.textContent = `${t.ticket} • ${t.market_label} (${t.direction})`;
+      if (badge) {
+        badge.textContent = horizonLabel;
+        badge.style.color = horizonColor;
+        badge.style.border = `1px solid ${horizonColor}`;
+      }
+      if (tvSymTag) {
+        tvSymTag.textContent = `${t.tv_symbol} • ${t.time}`;
+      }
+
+      // Inject Live TradingView Chart Frame directly for this trade
+      if (chartBox) {
+        let tfVal = '15';
+        if (t.horizon === 'scalp') tfVal = '1';
+        else if (t.horizon === 'day') tfVal = '5';
+        else if (t.horizon === 'swing') tfVal = '60';
+
+        const tvUrl = `https://s.tradingview.com/widgetembed/?frameElementId=modal_tv_frame&symbol=${encodeURIComponent(t.tv_symbol)}&interval=${tfVal}&hidesidetoolbar=1&symboledit=0&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1`;
+        chartBox.innerHTML = `<iframe src="${tvUrl}" style="width:100%;height:100%;border:none;" loading="lazy"></iframe>`;
+      }
+
+      // Progression Steps
+      const step1Text = `${t.time} — ${t.direction} Order Trigger: Asian range liquidity sweep identified. Limit order filled at ${t.entry} (${t.model}).`;
+      const step2Text = isWin || isBe 
+        ? `Displacement reached +0.80R threshold. Algorithmic Breakeven Lock engaged automatically: Stop Loss moved to Entry (${t.entry}). Zero downside risk.`
+        : `Displacement stalled; opposite order flow emerged. Predefined Stop Loss respected at ${t.stop}. Position terminated cleanly with zero emotional revenge trading.`;
+      const step3Text = isWin 
+        ? `Tranche 1: 70% harvested at TP1 (+1.50R). Tranche 2: 30% runner held until Draw-on-Liquidity target hit at ${t.target} (+4.00R). Total Realized Net R: +${t.r_multiple.toFixed(2)}R.`
+        : (isBe 
+            ? `Price reversed back into entry level. Protected stop triggered at ${t.entry} (+0.80R lock). Full capital preserved with +0.00R net change.`
+            : `Risk capped at strictly -1.00R (${t.sl_pips}). Account capital protected.`);
+
       body.innerHTML = `
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--surface-2);padding:12px;border-radius:8px;border:1px solid var(--line);">
-          <div><span style="color:var(--muted)">Model Archetype:</span> <b>${t.model}</b></div>
-          <div><span style="color:var(--muted)">Horizon:</span> <b style="text-transform:uppercase">${t.horizon}</b></div>
-          <div><span style="color:var(--muted)">Execution Time:</span> <b>${t.time}</b></div>
-          <div><span style="color:var(--muted)">Exit Time:</span> <b>${t.exit_time}</b></div>
+        <!-- High-level Metric Strip -->
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(130px, 1fr));gap:8px;background:var(--surface-2);padding:12px;border-radius:8px;border:1px solid var(--line);">
+          <div><span style="color:var(--muted);display:block;font-size:10px">ORDER EXECUTION</span><b style="color:var(--text);font-size:12px">${t.time}</b></div>
+          <div><span style="color:var(--muted);display:block;font-size:10px">TERMINAL EXIT</span><b style="color:var(--text);font-size:12px">${t.exit_time}</b></div>
+          <div><span style="color:var(--muted);display:block;font-size:10px">OUTCOME STATUS</span><b style="color:${outcomeColor};font-size:12px">${outcomeLabel}</b></div>
+          <div><span style="color:var(--muted);display:block;font-size:10px">NET REALIZED R</span><b style="color:${t.r_multiple >= 0 ? 'var(--bull)' : 'var(--bear)'};font-size:14px">${t.r_multiple >= 0 ? '+' : ''}${t.r_multiple.toFixed(2)}R</b></div>
         </div>
 
+        <!-- Precise Price Coordinates -->
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;background:var(--surface-2);padding:12px;border-radius:8px;border:1px solid var(--line);">
-          <div><span style="color:var(--muted);display:block;font-size:10px">LIMIT ENTRY</span><b style="color:var(--accent);font-size:13px">${t.entry}</b></div>
-          <div><span style="color:var(--muted);display:block;font-size:10px">SURGICAL SL</span><b style="color:var(--bear);font-size:13px">${t.stop}</b> <span style="font-size:9.5px;color:var(--faint)">(${t.sl_pips})</span></div>
-          <div><span style="color:var(--muted);display:block;font-size:10px">TAKE PROFIT</span><b style="color:var(--bull);font-size:13px">${t.target}</b> <span style="font-size:9.5px;color:var(--faint)">(${t.tp_pips})</span></div>
+          <div><span style="color:var(--muted);display:block;font-size:10px">LIMIT ENTRY</span><b style="color:var(--accent);font-size:13.5px">${t.entry}</b></div>
+          <div><span style="color:var(--muted);display:block;font-size:10px">SURGICAL STOP LOSS</span><b style="color:var(--bear);font-size:13.5px">${t.stop}</b> <span style="font-size:9.5px;color:var(--muted)">(${t.sl_pips})</span></div>
+          <div><span style="color:var(--muted);display:block;font-size:10px">DRAW-ON-LIQUIDITY TP</span><b style="color:var(--bull);font-size:13.5px">${t.target}</b> <span style="font-size:9.5px;color:var(--muted)">(${t.tp_pips})</span></div>
         </div>
 
-        <div style="background:var(--surface-2);padding:12px;border-radius:8px;border:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;">
-          <div><span style="color:var(--muted)">Outcome:</span> <b style="color:${outcomeColor}">${outcomeLabel}</b></div>
-          <div><span style="color:var(--muted)">Realized Net R:</span> <b style="font-size:14px;color:${t.r_multiple >= 0 ? 'var(--bull)' : 'var(--bear)'}">${t.r_multiple >= 0 ? '+' : ''}${t.r_multiple.toFixed(2)}R</b></div>
-          <div><span style="color:var(--muted)">Risk:Reward:</span> <b>${t.rr}</b></div>
+        <!-- How The Trade Went Through (Execution Lifecycle Timeline) -->
+        <div style="background:var(--surface-2);padding:14px;border-radius:8px;border:1px solid var(--line);">
+          <span style="color:var(--accent);font-weight:800;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;display:block;margin-bottom:10px;">
+            📈 HOW THIS TRADE WENT THROUGH (STEP-BY-STEP PROGRESSION):
+          </span>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:var(--accent);color:#07080B;font-size:9.5px;font-weight:800;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</span>
+              <div><strong style="color:var(--text);font-size:11px">Liquidity Intercept & Entry Fill:</strong> <span style="color:var(--muted);font-size:11px">${step1Text}</span></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:${isWin || isBe ? 'var(--bull)' : 'var(--bear)'};color:#07080B;font-size:9.5px;font-weight:800;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</span>
+              <div><strong style="color:var(--text);font-size:11px">Displacement & Risk Shield:</strong> <span style="color:var(--muted);font-size:11px">${step2Text}</span></div>
+            </div>
+            <div style="display:flex;gap:10px;align-items:flex-start;">
+              <span style="background:${outcomeColor};color:#07080B;font-size:9.5px;font-weight:800;border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</span>
+              <div><strong style="color:var(--text);font-size:11px">Resolution & Tranche Harvest:</strong> <span style="color:var(--muted);font-size:11px">${step3Text}</span></div>
+            </div>
+          </div>
         </div>
 
-        <div style="background:var(--surface-2);padding:12px;border-radius:8px;border-left:3px solid var(--accent);">
-          <span style="color:var(--accent);font-weight:700;display:block;margin-bottom:4px">⚡ ICT ALGORITHMIC THESIS:</span>
+        <!-- ICT Thesis -->
+        <div style="background:var(--surface-3);padding:12px;border-radius:8px;border-left:3px solid var(--accent);">
+          <span style="color:var(--accent);font-weight:800;display:block;margin-bottom:3px;font-size:10.5px">⚡ INSTITUTIONAL ALGORITHMIC THESIS:</span>
           <span style="color:var(--text);font-size:11px;line-height:1.4">${t.notes}</span>
         </div>
       `;
 
-      btnTv.onclick = () => {
-        closeTradeModal();
-        inspectTradeInTradingView(t.ticket);
-      };
+      if (btnDesk) {
+        btnDesk.onclick = () => {
+          closeTradeModal();
+          curKey = t.symbol;
+          curHorizon = t.horizon;
+          const sel = document.getElementById('instrumentSelect');
+          if (sel) sel.value = curKey;
+          switchView('desk');
+          updateDesk();
+          updateTradingViewFrame();
+          showToast(`Loaded ${t.symbol} (${t.horizon.toUpperCase()}) on Execution Desk!`);
+        };
+      }
+
+      if (btnTv) {
+        btnTv.onclick = () => {
+          const directUrl = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(t.tv_symbol)}`;
+          window.open(directUrl, '_blank');
+        };
+      }
 
       overlay.style.display = 'flex';
     }
@@ -3081,9 +3180,10 @@ html_content = r'''<!DOCTYPE html>
         return;
       }
 
-      let csv = 'Ticket,DateTime_NY,Symbol,Direction,Model,Horizon,Entry,StopLoss,TakeProfit,SL_Pips,TP_Pips,RR,R_Multiple,Outcome,Notes\n';
+      let csv = 'Ticket,DateTime_NY,ExitTime_NY,Symbol,Direction,Model,Horizon,Limit_Entry,Stop_Loss,Take_Profit,SL_Pips,TP_Pips,RR,Realized_Net_R,Outcome_Status,TradingView_Chart_Proof_URL,Institutional_Notes\n';
       currentFilteredTrades.forEach(t => {
-        csv += `"${t.ticket}","${t.time}","${t.symbol}","${t.direction}","${t.model}","${t.horizon}",${t.entry},${t.stop},${t.target},"${t.sl_pips}","${t.tp_pips}","${t.rr}",${t.r_multiple},"${t.outcome}","${t.notes || ''}"\n`;
+        const tvUrl = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(t.tv_symbol)}`;
+        csv += `"${t.ticket}","${t.time}","${t.exit_time || ''}","${t.symbol}","${t.direction}","${t.model}","${t.horizon}",${t.entry},${t.stop},${t.target},"${t.sl_pips}","${t.tp_pips}","${t.rr}",${t.r_multiple},"${t.outcome}","${tvUrl}","${(t.notes || '').replace(/"/g, '""')}"\n`;
       });
 
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });

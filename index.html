@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ICT FLUX • Institutional Order Flow Desk</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;600;700;800&family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #07080B;
+      --surface: #0E1015;
+      --surface-2: #151821;
+      --surface-3: #1C2030;
+      --line: rgba(255, 255, 255, 0.07);
+      --line-2: rgba(255, 255, 255, 0.12);
+      --line-gold: rgba(240, 185, 75, 0.25);
+      --brand: linear-gradient(135deg, #F7CF6B 0%, #E39B2E 100%);
+      --text: #F2F4F8;
+      --muted: #9AA3B5;
+      --faint: #646C7E;
+      --accent: #F0B94B;
+      --accent-ink: #1A1305;
+      --accent-soft: rgba(240, 185, 75, 0.12);
+      --accent-glow: rgba(240, 185, 75, 0.22);
+      --bull: #2BD47D;
+      --bull-soft: rgba(43, 212, 125, 0.12);
+      --bear: #FF5C6C;
+      --bear-soft: rgba(255, 92, 108, 0.12);
+      --sky: #5AA9FF;
+      --sky-soft: rgba(90, 169, 255, 0.12);
+      --mono: 'Geist Mono', ui-monospace, monospace;
+      --sans: 'Geist', -apple-system, sans-serif;
+      --glow: radial-gradient(900px 420px at 0% -8%, rgba(240, 185, 75, 0.08), transparent 60%),
+              radial-gradient(800px 380px at 100% -6%, rgba(90, 169, 255, 0.05), transparent 60%);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--glow), var(--bg);
+      background-attachment: fixed;
+      color: var(--text);
+      font-family: var(--sans);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 60px;
+    }
+
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* Header */
+    header.top {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(7, 8, 11, 0.82);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 68px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+    .logo-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--brand);
+      display: grid;
+      place-items: center;
+      color: var(--accent-ink);
+      font-weight: 900;
+      font-size: 18px;
+      font-family: var(--mono);
+      box-shadow: 0 0 24px var(--accent-glow);
+    }
+    .brand-title {
+      font-weight: 800;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .brand-sub {
+      font-size: 11px;
+      font-family: var(--mono);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .session-hud {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .session-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border-radius: 99px;
+      border: 1px solid var(--line-gold);
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+    }
+    .session-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--bull);
+      box-shadow: 0 0 10px var(--bull);
+      animation: pulse 1.8s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* Sub-nav banner */
+    .hero-banner {
+      padding: 32px 0 20px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 24px;
+    }
+    .hero-title h1 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 6px;
+    }
+    .hero-title p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .model-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .filter-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+    .filter-btn.active {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Signal Cards Grid */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(370px, 1fr));
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      box-shadow: 0 12px 32px -16px rgba(0,0,0,0.6);
+      position: relative;
+    }
+    .card:hover {
+      border-color: var(--line-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px -18px rgba(240, 185, 75, 0.15);
+    }
+    .card-top {
+      padding: 18px 20px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .pair-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pair-sym {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      font-family: var(--mono);
+    }
+    .tf-badge {
+      font-size: 11px;
+      font-family: var(--mono);
+      padding: 2px 7px;
+      border-radius: 5px;
+      background: var(--surface-2);
+      border: 1px solid var(--line-2);
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .bias-badge {
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--mono);
+      padding: 4px 10px;
+      border-radius: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .bias-badge.bull { background: var(--bull-soft); color: var(--bull); border: 1px solid rgba(43,212,125,0.3); }
+    .bias-badge.bear { background: var(--bear-soft); color: var(--bear); border: 1px solid rgba(255,92,108,0.3); }
+
+    /* Model Banner */
+    .model-ribbon {
+      padding: 10px 20px;
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 12px;
+    }
+    .model-name {
+      color: var(--accent);
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .model-tag {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--faint);
+    }
+
+    /* Level Matrix (Pips & Price) */
+    .levels {
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      background: var(--surface);
+    }
+    .level-box {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .level-box.entry { border-color: rgba(240, 185, 75, 0.3); background: rgba(240, 185, 75, 0.04); }
+    .level-box.stop { border-color: rgba(255, 92, 108, 0.3); background: var(--bear-soft); }
+    .level-box.target { border-color: rgba(43, 212, 125, 0.3); background: var(--bull-soft); }
+
+    .level-label {
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--faint);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .level-price {
+      font-family: var(--mono);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .pip-pill {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-top: 2px;
+    }
+    .pip-pill.gold { background: var(--accent-soft); color: var(--accent); }
+    .pip-pill.red { background: rgba(255,92,108,0.25); color: #FFA0A9; }
+    .pip-pill.green { background: rgba(43,212,125,0.25); color: #8BF7BA; }
+
+    /* R:R Bar */
+    .rr-container {
+      padding: 0 20px 14px;
+    }
+    .rr-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--mono);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+    .rr-ratio {
+      font-weight: 800;
+      color: var(--accent);
+      font-size: 14px;
+    }
+    .rr-bar-track {
+      height: 8px;
+      border-radius: 99px;
+      background: var(--surface-3);
+      overflow: hidden;
+      display: flex;
+    }
+    .rr-bar-risk {
+      width: 25%;
+      background: var(--bear);
+    }
+    .rr-bar-reward {
+      width: 75%;
+      background: var(--bull);
+    }
+
+    /* Execution Choice & Dynamic Calculator */
+    .calc-panel {
+      margin: 0 20px 16px;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--surface-3);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .order-toggle {
+      display: flex;
+      gap: 6px;
+    }
+    .toggle-opt {
+      padding: 3px 8px;
+      border-radius: 5px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 11px;
+    }
+    .toggle-opt.active {
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-weight: 700;
+      border-color: var(--accent);
+    }
+    .lot-recommendation {
+      font-size: 12px;
+      color: var(--text);
+      display: flex;
+      justify-content: space-between;
+      border-top: 1px dashed var(--line-2);
+      padding-top: 8px;
+    }
+    .lot-recommendation b { color: var(--accent); font-size: 13px; }
+
+    /* Card Action Footer */
+    .card-footer {
+      margin-top: auto;
+      padding: 14px 20px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      gap: 10px;
+      background: var(--surface-2);
+    }
+    .btn {
+      flex: 1;
+      height: 38px;
+      border-radius: 8px;
+      border: 1px solid var(--line-2);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 12.5px;
+      font-weight: 700;
+      font-family: var(--mono);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .btn.primary {
+      background: var(--brand);
+      color: var(--accent-ink);
+      border: 0;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+    .btn.primary:hover {
+      opacity: 0.92;
+      color: var(--accent-ink);
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 12px 20px;
+      border-radius: 10px;
+      background: var(--surface-3);
+      border: 1px solid var(--accent);
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 13px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+      display: none;
+      z-index: 100;
+      animation: fadeIn 0.2s;
+    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="top">
+    <div class="wrap top-bar">
+      <a href="#" class="brand">
+        <div class="logo-badge">◈</div>
+        <div>
+          <div class="brand-title">ICT FLUX</div>
+          <div class="brand-sub">Institutional Order Flow Desk</div>
+        </div>
+      </a>
+
+      <div class="session-hud">
+        <div class="session-pill">
+          <div class="session-dot"></div>
+          <span>LONDON KILLZONE ACTIVE</span>
+        </div>
+        <div style="color:var(--faint)">08:30:15 UTC · NY 03:30:15</div>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Hero / Header Controls -->
+    <section class="hero-banner">
+      <div class="hero-title">
+        <h1>Live Institutional Execution Radar</h1>
+        <p>Full ICT Taxonomy: Propulsion Blocks · Breakers · SMT Divergence · OTE · Volume Imbalances</p>
+      </div>
+
+      <div class="model-filters">
+        <button class="filter-btn active" onclick="filterModel('all', this)">All Setups</button>
+        <button class="filter-btn" onclick="filterModel('propulsion', this)">Propulsion Block</button>
+        <button class="filter-btn" onclick="filterModel('breaker', this)">Breaker + OTE</button>
+        <button class="filter-btn" onclick="filterModel('smt', this)">SMT Divergence</button>
+        <button class="filter-btn" onclick="filterModel('judas', this)">Judas Swing</button>
+      </div>
+    </section>
+
+    <!-- Signal Cards Grid -->
+    <div class="grid" id="signalGrid">
+      
+      <!-- Card 1: EURUSD Propulsion Block -->
+      <div class="card" data-model="propulsion">
+        <div class="card-top">
+          <div class="pair-badge">
+            <span class="pair-sym">EUR/USD</span>
+            <span class="tf-badge">M5</span>
+          </div>
+          <span class="bias-badge bear">Short Displacement</span>
+        </div>
+
+        <div class="model-ribbon">
+          <div class="model-name">
+            <span>⚡ Propulsion Block + Liquidity Void Fill</span>
+          </div>
+          <div class="model-tag">London Open · 08:05 UTC</div>
+        </div>
+
+        <div class="levels">
+          <div class="level-box entry">
+            <div class="level-label">Entry (CE 50%)</div>
+            <div class="level-price" style="color:var(--accent)">1.08720</div>
+            <span class="pip-pill gold">LIMIT @ OB</span>
+          </div>
+          <div class="level-box stop">
+            <div class="level-label">Invalidation (SL)</div>
+            <div class="level-price" style="color:var(--bear)">1.08835</div>
+            <span class="pip-pill red">11.5 PIPS RISK</span>
+          </div>
+          <div class="level-box target">
+            <div class="level-label">Target (Draw)</div>
+            <div class="level-price" style="color:var(--bull)">1.08375</div>
+            <span class="pip-pill green">34.5 PIPS TP</span>
+          </div>
+        </div>
+
+        <div class="rr-container">
+          <div class="rr-header">
+            <span style="color:var(--muted)">Risk to Reward Ratio</span>
+            <span class="rr-ratio">1 : 3.00 R</span>
+          </div>
+          <div class="rr-bar-track">
+            <div class="rr-bar-risk"></div>
+            <div class="rr-bar-reward"></div>
+          </div>
+        </div>
+
+        <div class="calc-panel">
+          <div class="calc-row">
+            <span style="color:var(--muted)">Order Type:</span>
+            <div class="order-toggle">
+              <span class="toggle-opt active" onclick="setOpt(this)">Limit @ 50%</span>
+              <span class="toggle-opt" onclick="setOpt(this)">Market Now</span>
+            </div>
+          </div>
+          <div class="lot-recommendation">
+            <span>Risk $50: <b>0.43 Lots</b></span>
+            <span>Risk $100: <b>0.86 Lots</b></span>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn" onclick="copyCard('EURUSD', 'SHORT', 'Propulsion Block', '1.08720', '11.5 pips', '34.5 pips', '1:3.0R')">📋 Copy Tweet</button>
+          <button class="btn primary" onclick="sendToMT5('EURUSD', 'SELL_LIMIT', 1.08720, 1.08835, 1.08375, 0.43)">⚡ Send to MT5</button>
+        </div>
+      </div>
+
+      <!-- Card 2: GBPUSD Breaker + OTE -->
+      <div class="card" data-model="breaker">
+        <div class="card-top">
+          <div class="pair-badge">
+            <span class="pair-sym">GBP/USD</span>
+            <span class="tf-badge">M5</span>
+          </div>
+          <span class="bias-badge bull">Long Displacement</span>
+        </div>
+
+        <div class="model-ribbon">
+          <div class="model-name">
+            <span>🛡️ Bullish Breaker + OTE (70.5%)</span>
+          </div>
+          <div class="model-tag">London Killzone · 09:15 UTC</div>
+        </div>
+
+        <div class="levels">
+          <div class="level-box entry">
+            <div class="level-label">Entry (OTE 70.5%)</div>
+            <div class="level-price" style="color:var(--accent)">1.29420</div>
+            <span class="pip-pill gold">LIMIT ORDER</span>
+          </div>
+          <div class="level-box stop">
+            <div class="level-label">Stop Loss</div>
+            <div class="level-price" style="color:var(--bear)">1.29295</div>
+            <span class="pip-pill red">12.5 PIPS RISK</span>
+          </div>
+          <div class="level-box target">
+            <div class="level-label">Take Profit</div>
+            <div class="level-price" style="color:var(--bull)">1.29820</div>
+            <span class="pip-pill green">40.0 PIPS TP</span>
+          </div>
+        </div>
+
+        <div class="rr-container">
+          <div class="rr-header">
+            <span style="color:var(--muted)">Risk to Reward Ratio</span>
+            <span class="rr-ratio">1 : 3.20 R</span>
+          </div>
+          <div class="rr-bar-track">
+            <div class="rr-bar-risk" style="width:23.8%"></div>
+            <div class="rr-bar-reward" style="width:76.2%"></div>
+          </div>
+        </div>
+
+        <div class="calc-panel">
+          <div class="calc-row">
+            <span style="color:var(--muted)">Order Type:</span>
+            <div class="order-toggle">
+              <span class="toggle-opt active" onclick="setOpt(this)">Limit @ OTE</span>
+              <span class="toggle-opt" onclick="setOpt(this)">Market Execution</span>
+            </div>
+          </div>
+          <div class="lot-recommendation">
+            <span>Risk $50: <b>0.40 Lots</b></span>
+            <span>Risk $100: <b>0.80 Lots</b></span>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn" onclick="copyCard('GBPUSD', 'LONG', 'Bullish Breaker + OTE', '1.29420', '12.5 pips', '40.0 pips', '1:3.2R')">📋 Copy Tweet</button>
+          <button class="btn primary" onclick="sendToMT5('GBPUSD', 'BUY_LIMIT', 1.29420, 1.29295, 1.29820, 0.40)">⚡ Send to MT5</button>
+        </div>
+      </div>
+
+      <!-- Card 3: Gold (XAUUSD) SMT Divergence -->
+      <div class="card" data-model="smt">
+        <div class="card-top">
+          <div class="pair-badge">
+            <span class="pair-sym">XAU/USD</span>
+            <span class="tf-badge">M5</span>
+          </div>
+          <span class="bias-badge bull">Macro Reversal</span>
+        </div>
+
+        <div class="model-ribbon">
+          <div class="model-name">
+            <span>👑 SMT Divergence + Rejection Block</span>
+          </div>
+          <div class="model-tag">08:30 NY Macro Injection</div>
+        </div>
+
+        <div class="levels">
+          <div class="level-box entry">
+            <div class="level-label">Entry Price</div>
+            <div class="level-price" style="color:var(--accent)">2735.40</div>
+            <span class="pip-pill gold">MARKET CONFIRM</span>
+          </div>
+          <div class="level-box stop">
+            <div class="level-label">Stop Loss</div>
+            <div class="level-price" style="color:var(--bear)">2732.20</div>
+            <span class="pip-pill red">32.0 PIPS ($3.20)</span>
+          </div>
+          <div class="level-box target">
+            <div class="level-label">Take Profit</div>
+            <div class="level-price" style="color:var(--bull)">2748.20</div>
+            <span class="pip-pill green">128.0 PIPS ($12.80)</span>
+          </div>
+        </div>
+
+        <div class="rr-container">
+          <div class="rr-header">
+            <span style="color:var(--muted)">Risk to Reward Ratio</span>
+            <span class="rr-ratio">1 : 4.00 R</span>
+          </div>
+          <div class="rr-bar-track">
+            <div class="rr-bar-risk" style="width:20%"></div>
+            <div class="rr-bar-reward" style="width:80%"></div>
+          </div>
+        </div>
+
+        <div class="calc-panel">
+          <div class="calc-row">
+            <span style="color:var(--muted)">Order Type:</span>
+            <div class="order-toggle">
+              <span class="toggle-opt" onclick="setOpt(this)">Limit</span>
+              <span class="toggle-opt active" onclick="setOpt(this)">Market Now</span>
+            </div>
+          </div>
+          <div class="lot-recommendation">
+            <span>Risk $50: <b>0.15 Lots</b></span>
+            <span>Risk $100: <b>0.31 Lots</b></span>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <button class="btn" onclick="copyCard('XAUUSD', 'LONG', 'SMT Divergence + Rejection Block', '2735.40', '32.0 pips', '128.0 pips', '1:4.0R')">📋 Copy Tweet</button>
+          <button class="btn primary" onclick="sendToMT5('XAUUSD', 'BUY', 2735.40, 2732.20, 2748.20, 0.15)">⚡ Send to MT5</button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    function filterModel(model, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.card').forEach(c => {
+        if (model === 'all' || c.getAttribute('data-model') === model) {
+          c.style.display = 'flex';
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    }
+
+    function setOpt(el) {
+      el.parentElement.querySelectorAll('.toggle-opt').forEach(o => o.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(() => { t.style.display = 'none'; }, 3000);
+    }
+
+    function copyCard(pair, bias, model, entry, sl, tp, rr) {
+      const text = `◈ ICT FLUX • INSTITUTIONAL ORDER FLOW PLAN\n` +
+                   `Asset: #${pair} (5M)\n` +
+                   `Model: ${model}\n` +
+                   `Bias: ${bias}\n\n` +
+                   `• Entry: ${entry}\n` +
+                   `• Stop Loss: ${sl}\n` +
+                   `• Target: ${tp}\n` +
+                   `• R:R: ${rr}\n\n` +
+                   `Calculated via ICT Flux Desk ⚡`;
+      navigator.clipboard.writeText(text);
+      showToast('✓ Formatted trade plan copied! Ready to paste into X / Twitter.');
+    }
+
+    function sendToMT5(pair, type, entry, sl, tp, lots) {
+      showToast(`⚡ Order request generated for MT5: ${type} ${pair} @ ${entry} (Lots: ${lots})`);
+      // Can call local python bridge via fetch('http://localhost:5000/order', ...)
+    }
+  </script>
+</body>
+</html>

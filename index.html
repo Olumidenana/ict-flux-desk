@@ -13,8 +13,8 @@
       --surface: #0E1015;
       --surface-2: #151821;
       --surface-3: #1C2030;
-      --line: rgba(255, 255, 255, 0.07);
-      --line-2: rgba(255, 255, 255, 0.12);
+      --line: rgba(255, 255, 255, 0.08);
+      --line-2: rgba(255, 255, 255, 0.14);
       --line-gold: rgba(240, 185, 75, 0.35);
       --brand: linear-gradient(135deg, #F7CF6B 0%, #E39B2E 100%);
       --text: #F2F4F8;
@@ -44,13 +44,6 @@
       font-family: var(--sans);
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
-      padding-bottom: 60px;
-    }
-
-    .wrap {
-      max-width: 1260px;
-      margin: 0 auto;
-      padding: 0 24px;
     }
 
     /* Header */
@@ -58,7 +51,7 @@
       position: sticky;
       top: 0;
       z-index: 50;
-      background: rgba(7, 8, 11, 0.85);
+      background: rgba(7, 8, 11, 0.88);
       backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--line);
     }
@@ -66,30 +59,31 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 72px;
+      height: 64px;
+      padding: 0 20px;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       text-decoration: none;
     }
     .logo-badge {
-      width: 42px;
-      height: 42px;
-      border-radius: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
       background: var(--brand);
       display: grid;
       place-items: center;
       color: var(--accent-ink);
       font-weight: 900;
-      font-size: 20px;
+      font-size: 19px;
       font-family: var(--mono);
-      box-shadow: 0 0 28px var(--accent-glow);
+      box-shadow: 0 0 20px var(--accent-glow);
     }
     .brand-title {
       font-weight: 800;
-      font-size: 18px;
+      font-size: 16px;
       letter-spacing: -0.02em;
       color: var(--text);
       display: flex;
@@ -97,7 +91,7 @@
       gap: 8px;
     }
     .badge-gods-eye {
-      font-size: 10.5px;
+      font-size: 10px;
       font-family: var(--mono);
       font-weight: 700;
       padding: 2px 7px;
@@ -105,31 +99,19 @@
       background: var(--accent-soft);
       border: 1px solid var(--line-gold);
       color: var(--accent);
-      letter-spacing: 0.04em;
-    }
-    .brand-sub {
-      font-size: 11.5px;
-      font-family: var(--mono);
-      color: var(--muted);
-      letter-spacing: 0.05em;
     }
 
-    .session-hud {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      font-family: var(--mono);
-      font-size: 12px;
-    }
     .session-pill {
       display: flex;
       align-items: center;
       gap: 7px;
-      padding: 6px 14px;
+      padding: 6px 12px;
       border-radius: 99px;
       border: 1px solid var(--line-gold);
       background: var(--accent-soft);
       color: var(--accent);
+      font-family: var(--mono);
+      font-size: 11.5px;
       font-weight: 700;
     }
     .session-dot {
@@ -145,164 +127,188 @@
       50% { opacity: 0.4; transform: scale(0.85); }
     }
 
-    /* Hero Banner */
-    .hero-banner {
-      padding: 32px 0 20px;
+    /* Layout Main Split */
+    .app-layout {
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      height: calc(100vh - 64px);
+      overflow: hidden;
+    }
+    @media (max-width: 1024px) {
+      .app-layout {
+        grid-template-columns: 1fr;
+        height: auto;
+        overflow: auto;
+      }
+    }
+
+    /* Chart Column */
+    .chart-container {
       display: flex;
-      align-items: flex-end;
+      flex-direction: column;
+      border-right: 1px solid var(--line);
+      background: #000;
+      position: relative;
+    }
+    .chart-toolbar {
+      display: flex;
+      align-items: center;
       justify-content: space-between;
+      padding: 10px 16px;
+      background: var(--surface);
       border-bottom: 1px solid var(--line);
-      margin-bottom: 24px;
-    }
-    .hero-title h1 {
-      font-size: 26px;
-      font-weight: 800;
-      letter-spacing: -0.03em;
-      margin-bottom: 6px;
-    }
-    .hero-title p {
-      color: var(--muted);
-      font-size: 13.5px;
-    }
-    .model-filters {
-      display: flex;
-      gap: 8px;
+      gap: 12px;
       flex-wrap: wrap;
     }
-    .filter-btn {
-      padding: 7px 14px;
+    .pair-switcher {
+      display: flex;
+      gap: 6px;
+    }
+    .pair-btn {
+      padding: 6px 12px;
       border-radius: 8px;
       border: 1px solid var(--line);
-      background: var(--surface);
+      background: var(--surface-2);
       color: var(--muted);
-      font-size: 12.5px;
-      font-weight: 600;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s;
     }
-    .filter-btn:hover {
+    .pair-btn:hover {
       border-color: var(--accent);
       color: var(--text);
     }
-    .filter-btn.active {
+    .pair-btn.active {
       background: var(--accent-soft);
       border-color: var(--accent);
       color: var(--accent);
     }
-
-    /* Engine Status Governor Banner */
-    .governor-bar {
-      margin-bottom: 24px;
-      padding: 12px 18px;
-      background: var(--surface-2);
-      border: 1px solid var(--line-gold);
-      border-radius: 12px;
+    .tf-switcher {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-family: var(--mono);
-      font-size: 12px;
+      gap: 4px;
     }
-    .governor-item {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .governor-item b { color: var(--accent); }
-
-    /* Signal Cards Grid */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
-      gap: 24px;
-    }
-
-    .card {
-      background: var(--surface);
+    .tf-btn {
+      padding: 4px 8px;
+      border-radius: 5px;
       border: 1px solid var(--line);
-      border-radius: 16px;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-      box-shadow: 0 12px 32px -16px rgba(0,0,0,0.6);
+      background: var(--surface);
+      color: var(--faint);
+      font-family: var(--mono);
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .tf-btn.active {
+      background: var(--surface-3);
+      color: var(--text);
+      border-color: var(--line-2);
+    }
+
+    .chart-viewport {
+      flex: 1;
+      width: 100%;
+      height: 100%;
       position: relative;
     }
-    .card:hover {
-      border-color: var(--line-gold);
-      transform: translateY(-2px);
-      box-shadow: 0 18px 40px -18px rgba(240, 185, 75, 0.18);
+    .chart-viewport iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
     }
-    .card-top {
-      padding: 18px 20px 14px;
+
+    /* Action Desk Column */
+    .desk-container {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+      overflow-y: auto;
+      padding: 20px;
+      gap: 18px;
+    }
+
+    /* Big Action Directive Card */
+    .directive-card {
+      border: 1.5px solid var(--line-gold);
+      border-radius: 14px;
+      background: linear-gradient(180deg, rgba(240, 185, 75, 0.08) 0%, rgba(14, 16, 21, 0.8) 100%);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 10px 24px -10px var(--accent-glow);
+    }
+    .directive-top {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--line);
     }
-    .pair-badge {
+    .stage-badge {
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: var(--bull-soft);
+      color: var(--bull);
+      border: 1px solid rgba(43,212,125,0.3);
+      letter-spacing: 0.05em;
+    }
+    .directive-action {
+      font-size: 24px;
+      font-weight: 800;
+      font-family: var(--mono);
+      letter-spacing: -0.02em;
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
-    .pair-sym {
-      font-size: 21px;
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      font-family: var(--mono);
-    }
-    .tf-badge {
-      font-size: 11px;
-      font-family: var(--mono);
-      padding: 2px 7px;
-      border-radius: 5px;
-      background: var(--surface-2);
-      border: 1px solid var(--line-2);
-      color: var(--muted);
+    .directive-action.sell { color: var(--bear); }
+    .directive-action.buy { color: var(--bull); }
+    .model-archetype {
+      font-size: 13px;
+      color: var(--accent);
       font-weight: 600;
     }
-    .bias-badge {
-      font-size: 11px;
-      font-weight: 700;
-      font-family: var(--mono);
-      padding: 4px 10px;
-      border-radius: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    .bias-badge.bull { background: var(--bull-soft); color: var(--bull); border: 1px solid rgba(43,212,125,0.3); }
-    .bias-badge.bear { background: var(--bear-soft); color: var(--bear); border: 1px solid rgba(255,92,108,0.3); }
 
-    /* Model Ribbon */
-    .model-ribbon {
-      padding: 10px 20px;
+    /* Narrative Box: Where price has been vs where it is going */
+    .narrative-box {
+      border: 1px solid var(--line);
+      border-radius: 12px;
       background: var(--surface-2);
-      border-bottom: 1px solid var(--line);
+      padding: 16px;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 12px;
+      flex-direction: column;
+      gap: 12px;
+      font-size: 13px;
     }
-    .model-name {
-      color: var(--accent);
+    .narrative-row {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .narrative-label {
+      font-family: var(--mono);
+      font-size: 10.5px;
       font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--faint);
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .model-tag {
-      font-family: var(--mono);
-      font-size: 10.5px;
-      color: var(--faint);
+    .narrative-text {
+      color: var(--text);
+      line-height: 1.45;
     }
+    .narrative-text b { color: var(--accent); }
 
     /* Level Matrix (Pips & Price) */
     .levels {
-      padding: 18px 20px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      background: var(--surface);
+      gap: 10px;
     }
     .level-box {
       background: var(--surface-2);
@@ -313,7 +319,7 @@
       flex-direction: column;
       gap: 4px;
     }
-    .level-box.entry { border-color: rgba(240, 185, 75, 0.35); background: rgba(240, 185, 75, 0.04); }
+    .level-box.entry { border-color: rgba(240, 185, 75, 0.4); background: rgba(240, 185, 75, 0.04); }
     .level-box.stop { border-color: rgba(255, 92, 108, 0.35); background: var(--bear-soft); }
     .level-box.target { border-color: rgba(43, 212, 125, 0.35); background: var(--bull-soft); }
 
@@ -326,18 +332,18 @@
     }
     .level-price {
       font-family: var(--mono);
-      font-size: 17px;
+      font-size: 16px;
       font-weight: 800;
-      letter-spacing: -0.02em;
     }
     .pip-pill {
       display: inline-block;
       font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 700;
-      padding: 2px 6px;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 3px 6px;
       border-radius: 4px;
       margin-top: 2px;
+      letter-spacing: 0.02em;
     }
     .pip-pill.gold { background: var(--accent-soft); color: var(--accent); }
     .pip-pill.red { background: rgba(255,92,108,0.25); color: #FFA0A9; }
@@ -345,11 +351,10 @@
 
     /* Dual-Tranche Governor Breakdown */
     .governor-breakdown {
-      margin: 0 20px 14px;
-      padding: 10px 12px;
+      padding: 12px;
       background: var(--surface-2);
       border: 1px dashed var(--line-gold);
-      border-radius: 8px;
+      border-radius: 10px;
       font-family: var(--mono);
       font-size: 11px;
       display: grid;
@@ -358,57 +363,24 @@
       text-align: center;
     }
     .gov-step span { display: block; color: var(--faint); font-size: 9.5px; text-transform: uppercase; margin-bottom: 2px; }
-    .gov-step b { color: var(--text); }
-    .gov-step.active b { color: var(--accent); }
+    .gov-step b { color: var(--accent); font-size: 12px; }
 
-    /* R:R Bar */
-    .rr-container {
-      padding: 0 20px 14px;
-    }
-    .rr-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-family: var(--mono);
-      font-size: 12px;
-      margin-bottom: 6px;
-    }
-    .rr-ratio {
-      font-weight: 800;
-      color: var(--accent);
-      font-size: 14px;
-    }
-    .rr-bar-track {
-      height: 8px;
-      border-radius: 99px;
-      background: var(--surface-3);
-      overflow: hidden;
-      display: flex;
-    }
-    .rr-bar-risk {
-      width: 25%;
-      background: var(--bear);
-    }
-    .rr-bar-reward {
-      width: 75%;
-      background: var(--bull);
-    }
-
-    /* Execution Choice & Dynamic Calculator */
+    /* Risk / Calculator Panel */
     .calc-panel {
-      margin: 0 20px 16px;
       padding: 14px;
       border-radius: 10px;
       border: 1px solid var(--line);
       background: var(--surface-3);
       font-family: var(--mono);
       font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
     }
     .calc-row {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
     }
     .order-toggle {
       display: flex;
@@ -439,23 +411,20 @@
     }
     .lot-recommendation b { color: var(--accent); font-size: 13px; }
 
-    /* Card Action Footer */
-    .card-footer {
-      margin-top: auto;
-      padding: 14px 20px;
-      border-top: 1px solid var(--line);
+    /* Action Buttons */
+    .action-row {
       display: flex;
       gap: 10px;
-      background: var(--surface-2);
+      margin-top: auto;
     }
     .btn {
       flex: 1;
-      height: 40px;
-      border-radius: 8px;
+      height: 44px;
+      border-radius: 10px;
       border: 1px solid var(--line-2);
-      background: var(--surface);
+      background: var(--surface-2);
       color: var(--text);
-      font-size: 12.5px;
+      font-size: 13px;
       font-weight: 700;
       font-family: var(--mono);
       cursor: pointer;
@@ -480,7 +449,7 @@
       color: var(--accent-ink);
     }
 
-    /* Toast */
+    /* Toast Notification */
     .toast {
       position: fixed;
       bottom: 24px;
@@ -495,16 +464,14 @@
       box-shadow: 0 10px 30px rgba(0,0,0,0.8);
       display: none;
       z-index: 100;
-      animation: fadeIn 0.2s;
     }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
 
   <!-- Top Navigation -->
   <header class="top">
-    <div class="wrap top-bar">
+    <div class="top-bar">
       <a href="#" class="brand">
         <div class="logo-badge">👁️</div>
         <div>
@@ -512,319 +479,295 @@
             ICT FLUX
             <span class="badge-gods-eye">GOD'S EYE ENGINE</span>
           </div>
-          <div class="brand-sub">Single-Pass Chokepoint Intercept Desk</div>
         </div>
       </a>
 
-      <div class="session-hud">
-        <div class="session-pill">
-          <div class="session-dot"></div>
-          <span>LONDON KILLZONE INTERCEPT</span>
-        </div>
-        <div style="color:var(--faint)">08:30:15 UTC · NY 03:30:15</div>
+      <div class="session-pill">
+        <div class="session-dot"></div>
+        <span>LONDON KILLZONE CHOKEPOINT</span>
       </div>
     </div>
   </header>
 
-  <main class="wrap">
-    <!-- Hero / Header Controls -->
-    <section class="hero-banner">
-      <div class="hero-title">
-        <h1>God's Eye Execution Desk</h1>
-        <p>Vectorized State Machine: Order Flow Alignment · CISD Confirmation · Dual-Tranche Governor</p>
+  <div class="app-layout">
+    
+    <!-- LEFT: LIVE INTERACTIVE TRADINGVIEW CANDLESTICK CHART -->
+    <div class="chart-container">
+      <div class="chart-toolbar">
+        <div class="pair-switcher">
+          <button class="pair-btn active" onclick="switchPair('GBPUSD', this)">GBP/USD</button>
+          <button class="pair-btn" onclick="switchPair('EURUSD', this)">EUR/USD</button>
+          <button class="pair-btn" onclick="switchPair('XAUUSD', this)">Gold (XAU/USD)</button>
+          <button class="pair-btn" onclick="switchPair('NAS100', this)">Nasdaq (NAS100)</button>
+        </div>
+
+        <div class="tf-switcher">
+          <button class="tf-btn" onclick="setTf('1', this)">1m</button>
+          <button class="tf-btn active" onclick="setTf('5', this)">5m</button>
+          <button class="tf-btn" onclick="setTf('15', this)">15m</button>
+          <button class="tf-btn" onclick="setTf('60', this)">1h</button>
+        </div>
       </div>
 
-      <div class="model-filters">
-        <button class="filter-btn active" onclick="filterModel('all', this)">All Intercepts</button>
-        <button class="filter-btn" onclick="filterModel('trend_raid', this)">Trend Pullback Raid</button>
-        <button class="filter-btn" onclick="filterModel('smt_turtle', this)">SMT Turtle Soup</button>
-        <button class="filter-btn" onclick="filterModel('judas_sweep', this)">Judas Sweep Reversal</button>
-      </div>
-    </section>
-
-    <!-- Governor Metrics Bar -->
-    <div class="governor-bar">
-      <div class="governor-item">
-        <span>🛡️ Dual-Tranche Governor:</span>
-        <b>At +0.80R: Auto-BE (+0.05R Scratch Guard)</b>
-      </div>
-      <div class="governor-item">
-        <span>💰 Tranche 1:</span>
-        <b>At +1.25R: Harvest 70% Position</b>
-      </div>
-      <div class="governor-item">
-        <span>🚀 Tranche 2:</span>
-        <b>At +2.80R: Final Draw Runner (30%)</b>
+      <div class="chart-viewport" id="chartFrame">
+        <!-- Interactive TradingView iframe loads dynamically -->
       </div>
     </div>
 
-    <!-- Signal Cards Grid -->
-    <div class="grid" id="signalGrid">
+    <!-- RIGHT: GOD'S EYE ACTION DIRECTIVE DESK -->
+    <div class="desk-container">
       
-      <!-- Card 1: EURUSD Trend Pullback Raid -->
-      <div class="card" data-model="trend_raid">
-        <div class="card-top">
-          <div class="pair-badge">
-            <span class="pair-sym">EUR/USD</span>
-            <span class="tf-badge">M5</span>
-          </div>
-          <span class="bias-badge bear">Short Intercept</span>
+      <!-- Big Directive -->
+      <div class="directive-card">
+        <div class="directive-top">
+          <span class="model-archetype" id="dirModel">SMT Turtle Soup (Sister Divergence)</span>
+          <span class="stage-badge">● STAGE 3 INTERCEPT</span>
         </div>
-
-        <div class="model-ribbon">
-          <div class="model-name">
-            <span>⚡ Trend Pullback Raid · 4H/1H Aligned</span>
-          </div>
-          <div class="model-tag">Stage 3 Intercept · 08:05 UTC</div>
+        <div class="directive-action buy" id="dirAction">
+          <span>BUY LIMIT @ 1.29420</span>
         </div>
-
-        <div class="levels">
-          <div class="level-box entry">
-            <div class="level-label">Chokepoint Entry</div>
-            <div class="level-price" style="color:var(--accent)">1.08720</div>
-            <span class="pip-pill gold">LIMIT @ CISD</span>
-          </div>
-          <div class="level-box stop">
-            <div class="level-label">Structural SL</div>
-            <div class="level-price" style="color:var(--bear)">1.08835</div>
-            <span class="pip-pill red">11.5 PIPS RISK</span>
-          </div>
-          <div class="level-box target">
-            <div class="level-label">TP2 Draw Target</div>
-            <div class="level-price" style="color:var(--bull)">1.08375</div>
-            <span class="pip-pill green">34.5 PIPS TP</span>
-          </div>
-        </div>
-
-        <div class="governor-breakdown">
-          <div class="gov-step active">
-            <span>Break-Even Lock</span>
-            <b>+0.80R (1.08628)</b>
-          </div>
-          <div class="gov-step active">
-            <span>TP1 (70% Harvest)</span>
-            <b>+1.25R (1.08576)</b>
-          </div>
-          <div class="gov-step active">
-            <span>TP2 (30% Runner)</span>
-            <b>+3.00R (1.08375)</b>
-          </div>
-        </div>
-
-        <div class="rr-container">
-          <div class="rr-header">
-            <span style="color:var(--muted)">Risk to Reward Ratio</span>
-            <span class="rr-ratio">1 : 3.00 R</span>
-          </div>
-          <div class="rr-bar-track">
-            <div class="rr-bar-risk"></div>
-            <div class="rr-bar-reward"></div>
-          </div>
-        </div>
-
-        <div class="calc-panel">
-          <div class="calc-row">
-            <span style="color:var(--muted)">Execution Mode:</span>
-            <div class="order-toggle">
-              <span class="toggle-opt active" onclick="setOpt(this)">Limit @ Chokepoint</span>
-              <span class="toggle-opt" onclick="setOpt(this)">Market Execution</span>
-            </div>
-          </div>
-          <div class="lot-recommendation">
-            <span>Risk $50: <b>0.43 Lots</b></span>
-            <span>Risk $100: <b>0.86 Lots</b></span>
-          </div>
-        </div>
-
-        <div class="card-footer">
-          <button class="btn" onclick="copyCard('EURUSD', 'SHORT', 'Trend Pullback Raid (God\'s Eye)', '1.08720', '11.5 pips', '34.5 pips', '1:3.0R')">📋 Copy Tweet</button>
-          <button class="btn primary" onclick="sendToMT5('EURUSD', 'SELL_LIMIT', 1.08720, 1.08835, 1.08375, 0.43)">⚡ Send to MT5</button>
+        <div style="font-size:11.5px;color:var(--muted);font-family:var(--mono)">
+          Execution: <b style="color:var(--text)" id="dirExecType">Limit Order @ FVG Consequent Encroachment (50%)</b>
         </div>
       </div>
 
-      <!-- Card 2: GBPUSD SMT Turtle Soup -->
-      <div class="card" data-model="smt_turtle">
-        <div class="card-top">
-          <div class="pair-badge">
-            <span class="pair-sym">GBP/USD</span>
-            <span class="tf-badge">M5</span>
+      <!-- Narrative: Where price has been vs where it is going -->
+      <div class="narrative-box">
+        <div class="narrative-row">
+          <div class="narrative-label">
+            <span>📜 WHERE PRICE HAS BEEN (THE SWEEP)</span>
           </div>
-          <span class="bias-badge bull">Long Intercept</span>
-        </div>
-
-        <div class="model-ribbon">
-          <div class="model-name">
-            <span>🐢 SMT Turtle Soup · Sister Market Divergence</span>
-          </div>
-          <div class="model-tag">London Killzone · 09:15 UTC</div>
-        </div>
-
-        <div class="levels">
-          <div class="level-box entry">
-            <div class="level-label">Chokepoint Entry</div>
-            <div class="level-price" style="color:var(--accent)">1.29420</div>
-            <span class="pip-pill gold">LIMIT ORDER</span>
-          </div>
-          <div class="level-box stop">
-            <div class="level-label">Structural SL</div>
-            <div class="level-price" style="color:var(--bear)">1.29295</div>
-            <span class="pip-pill red">12.5 PIPS RISK</span>
-          </div>
-          <div class="level-box target">
-            <div class="level-label">TP2 Draw Target</div>
-            <div class="level-price" style="color:var(--bull)">1.29820</div>
-            <span class="pip-pill green">40.0 PIPS TP</span>
+          <div class="narrative-text" id="narrPast">
+            Price swept the <b>London Session Low at 1.29295</b> to purge sell-side liquidity. EUR/USD failed to make a lower low, confirming an <b>Intermarket SMT Divergence</b>. A strong 5M displacement candle printed with a clean CISD body.
           </div>
         </div>
 
-        <div class="governor-breakdown">
-          <div class="gov-step active">
-            <span>Break-Even Lock</span>
-            <b>+0.80R (1.29520)</b>
+        <div class="narrative-row" style="border-top:1px solid var(--line);padding-top:10px">
+          <div class="narrative-label">
+            <span>🎯 WHERE PRICE IS GOING (THE DRAW ON LIQUIDITY)</span>
           </div>
-          <div class="gov-step active">
-            <span>TP1 (70% Harvest)</span>
-            <b>+1.25R (1.29576)</b>
+          <div class="narrative-text" id="narrDraw">
+            The institutional Draw on Liquidity is the undisturbed <b>Previous Day High (PDH) and buy-side resting liquidity at 1.29820</b>.
           </div>
-          <div class="gov-step active">
-            <span>TP2 (30% Runner)</span>
-            <b>+3.20R (1.29820)</b>
-          </div>
-        </div>
-
-        <div class="rr-container">
-          <div class="rr-header">
-            <span style="color:var(--muted)">Risk to Reward Ratio</span>
-            <span class="rr-ratio">1 : 3.20 R</span>
-          </div>
-          <div class="rr-bar-track">
-            <div class="rr-bar-risk" style="width:23.8%"></div>
-            <div class="rr-bar-reward" style="width:76.2%"></div>
-          </div>
-        </div>
-
-        <div class="calc-panel">
-          <div class="calc-row">
-            <span style="color:var(--muted)">Execution Mode:</span>
-            <div class="order-toggle">
-              <span class="toggle-opt active" onclick="setOpt(this)">Limit @ FVG</span>
-              <span class="toggle-opt" onclick="setOpt(this)">Market Execution</span>
-            </div>
-          </div>
-          <div class="lot-recommendation">
-            <span>Risk $50: <b>0.40 Lots</b></span>
-            <span>Risk $100: <b>0.80 Lots</b></span>
-          </div>
-        </div>
-
-        <div class="card-footer">
-          <button class="btn" onclick="copyCard('GBPUSD', 'LONG', 'SMT Turtle Soup (God\'s Eye)', '1.29420', '12.5 pips', '40.0 pips', '1:3.2R')">📋 Copy Tweet</button>
-          <button class="btn primary" onclick="sendToMT5('GBPUSD', 'BUY_LIMIT', 1.29420, 1.29295, 1.29820, 0.40)">⚡ Send to MT5</button>
         </div>
       </div>
 
-      <!-- Card 3: Gold (XAUUSD) Judas Sweep Reversal -->
-      <div class="card" data-model="judas_sweep">
-        <div class="card-top">
-          <div class="pair-badge">
-            <span class="pair-sym">XAU/USD</span>
-            <span class="tf-badge">M5</span>
-          </div>
-          <span class="bias-badge bull">Macro Intercept</span>
+      <!-- Level Matrix (Pip Transparency) -->
+      <div class="levels">
+        <div class="level-box entry">
+          <div class="level-label">Entry Level</div>
+          <div class="level-price" style="color:var(--accent)" id="lvlEntry">1.29420</div>
+          <span class="pip-pill gold" id="pillEntry">LIMIT @ FVG</span>
         </div>
+        <div class="level-box stop">
+          <div class="level-label">Stop Loss</div>
+          <div class="level-price" style="color:var(--bear)" id="lvlStop">1.29295</div>
+          <span class="pip-pill red" id="pillStop">12.5 PIPS RISK</span>
+        </div>
+        <div class="level-box target">
+          <div class="level-label">Target (TP2)</div>
+          <div class="level-price" style="color:var(--bull)" id="lvlTarget">1.29820</div>
+          <span class="pip-pill green" id="pillTarget">40.0 PIPS TP</span>
+        </div>
+      </div>
 
-        <div class="model-ribbon">
-          <div class="model-name">
-            <span>🎯 Judas Sweep Reversal · Asian Low Raid</span>
-          </div>
-          <div class="model-tag">08:30 NY Macro Injection</div>
+      <!-- Dual-Tranche Governor Breakdown -->
+      <div class="governor-breakdown">
+        <div class="gov-step">
+          <span>Auto BE (+0.05R)</span>
+          <b id="govBe">+0.80R (1.29520)</b>
         </div>
+        <div class="gov-step">
+          <span>TP1 (Harvest 70%)</span>
+          <b id="govTp1">+1.25R (1.29576)</b>
+        </div>
+        <div class="gov-step">
+          <span>TP2 (Runner 30%)</span>
+          <b id="govTp2">+3.20R (1.29820)</b>
+        </div>
+      </div>
 
-        <div class="levels">
-          <div class="level-box entry">
-            <div class="level-label">Chokepoint Entry</div>
-            <div class="level-price" style="color:var(--accent)">2735.40</div>
-            <span class="pip-pill gold">MARKET / LIMIT</span>
-          </div>
-          <div class="level-box stop">
-            <div class="level-label">Structural SL</div>
-            <div class="level-price" style="color:var(--bear)">2732.20</div>
-            <span class="pip-pill red">32.0 PIPS ($3.20)</span>
-          </div>
-          <div class="level-box target">
-            <div class="level-label">TP2 Draw Target</div>
-            <div class="level-price" style="color:var(--bull)">2748.20</div>
-            <span class="pip-pill green">128.0 PIPS ($12.80)</span>
+      <!-- Execution Mode & Sizing Calculator -->
+      <div class="calc-panel">
+        <div class="calc-row">
+          <span style="color:var(--muted)">Order Preference:</span>
+          <div class="order-toggle">
+            <span class="toggle-opt active" onclick="setOrderOpt(this, 'LIMIT')">Limit Order</span>
+            <span class="toggle-opt" onclick="setOrderOpt(this, 'MARKET')">Market Now</span>
           </div>
         </div>
+        <div class="lot-recommendation">
+          <span>Risk $50: <b id="calc50">0.40 Lots</b></span>
+          <span>Risk $100: <b id="calc100">0.80 Lots</b></span>
+          <span>R:R: <b style="color:var(--accent)" id="calcRr">1 : 3.20 R</b></span>
+        </div>
+      </div>
 
-        <div class="governor-breakdown">
-          <div class="gov-step active">
-            <span>Break-Even Lock</span>
-            <b>+0.80R ($2737.96)</b>
-          </div>
-          <div class="gov-step active">
-            <span>TP1 (70% Harvest)</span>
-            <b>+1.25R ($2739.40)</b>
-          </div>
-          <div class="gov-step active">
-            <span>TP2 (30% Runner)</span>
-            <b>+4.00R ($2748.20)</b>
-          </div>
-        </div>
-
-        <div class="rr-container">
-          <div class="rr-header">
-            <span style="color:var(--muted)">Risk to Reward Ratio</span>
-            <span class="rr-ratio">1 : 4.00 R</span>
-          </div>
-          <div class="rr-bar-track">
-            <div class="rr-bar-risk" style="width:20%"></div>
-            <div class="rr-bar-reward" style="width:80%"></div>
-          </div>
-        </div>
-
-        <div class="calc-panel">
-          <div class="calc-row">
-            <span style="color:var(--muted)">Execution Mode:</span>
-            <div class="order-toggle">
-              <span class="toggle-opt" onclick="setOpt(this)">Limit</span>
-              <span class="toggle-opt active" onclick="setOpt(this)">Market Now</span>
-            </div>
-          </div>
-          <div class="lot-recommendation">
-            <span>Risk $50: <b>0.16 Lots</b></span>
-            <span>Risk $100: <b>0.31 Lots</b></span>
-          </div>
-        </div>
-
-        <div class="card-footer">
-          <button class="btn" onclick="copyCard('XAUUSD', 'LONG', 'Judas Sweep Reversal (God\'s Eye)', '2735.40', '32.0 pips', '128.0 pips', '1:4.0R')">📋 Copy Tweet</button>
-          <button class="btn primary" onclick="sendToMT5('XAUUSD', 'BUY', 2735.40, 2732.20, 2748.20, 0.16)">⚡ Send to MT5</button>
-        </div>
+      <!-- Direct Actions -->
+      <div class="action-row">
+        <button class="btn" onclick="copyPlan()">📋 Copy Tweet Plan</button>
+        <button class="btn primary" onclick="sendOrder()">⚡ Execute on MT5</button>
       </div>
 
     </div>
-  </main>
+  </div>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    function filterModel(model, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      document.querySelectorAll('.card').forEach(c => {
-        if (model === 'all' || c.getAttribute('data-model') === model) {
-          c.style.display = 'flex';
-        } else {
-          c.style.display = 'none';
-        }
+    // Live Setup Data mapped to each pair
+    const SETUPS = {
+      GBPUSD: {
+        tvSym: 'FX:GBPUSD',
+        action: 'BUY LIMIT @ 1.29420',
+        actionClass: 'buy',
+        model: 'SMT Turtle Soup (Sister Divergence)',
+        execType: 'Limit Order @ FVG Consequent Encroachment (50%)',
+        past: 'Price swept the <b>London Session Low at 1.29295</b> to purge sell-side liquidity. EUR/USD failed to make a lower low, confirming an <b>Intermarket SMT Divergence</b>. A strong 5M displacement candle printed with a clean CISD body.',
+        draw: 'The institutional Draw on Liquidity is the undisturbed <b>Previous Day High (PDH) and buy-side resting liquidity at 1.29820</b>.',
+        entry: '1.29420',
+        stop: '1.29295',
+        target: '1.29820',
+        pillEntry: 'LIMIT @ FVG',
+        pillStop: '12.5 PIPS RISK',
+        pillTarget: '40.0 PIPS TP',
+        govBe: '+0.80R (1.29520)',
+        govTp1: '+1.25R (1.29576)',
+        govTp2: '+3.20R (1.29820)',
+        calc50: '0.40 Lots',
+        calc100: '0.80 Lots',
+        calcRr: '1 : 3.20 R'
+      },
+      EURUSD: {
+        tvSym: 'FX:EURUSD',
+        action: 'SELL LIMIT @ 1.08720',
+        actionClass: 'sell',
+        model: 'Trend Pullback Raid · 4H Aligned',
+        execType: 'Limit Order @ CISD Breaker Block',
+        past: 'Price reached into the <b>Asian Session High at 1.08835</b> to mitigate an unfilled liquidity void. Institutions aggressively rejected, closing below previous 5M candle bodies in full alignment with the <b>4H Bearish Order Flow</b>.',
+        draw: 'The Draw on Liquidity is the <b>Previous Day Low (PDL) and clean equal lows resting at 1.08375</b>.',
+        entry: '1.08720',
+        stop: '1.08835',
+        target: '1.08375',
+        pillEntry: 'LIMIT @ CISD',
+        pillStop: '11.5 PIPS RISK',
+        pillTarget: '34.5 PIPS TP',
+        govBe: '+0.80R (1.08628)',
+        govTp1: '+1.25R (1.08576)',
+        govTp2: '+3.00R (1.08375)',
+        calc50: '0.43 Lots',
+        calc100: '0.86 Lots',
+        calcRr: '1 : 3.00 R'
+      },
+      XAUUSD: {
+        tvSym: 'OANDA:XAUUSD',
+        action: 'BUY MARKET @ 2735.40',
+        actionClass: 'buy',
+        model: 'Judas Sweep Reversal · Macro Injection',
+        execType: 'Market Execution on 08:30 NY Macro Open',
+        past: 'Price executed a classic <b>Judas Swing</b> at 08:30 NY open, plunging $3.20 into discount institutional arrays below Asian Lows before printing an immediate V-shaped rejection block.',
+        draw: 'Draw on Liquidity is the <b>Weekly Imbalance and Buy-side Liquidity Pool resting at $2,748.20</b>.',
+        entry: '2735.40',
+        stop: '2732.20',
+        target: '2748.20',
+        pillEntry: 'MARKET CONFIRM',
+        pillStop: '32.0 PIPS ($3.20)',
+        pillTarget: '128.0 PIPS ($12.80)',
+        govBe: '+0.80R ($2737.96)',
+        govTp1: '+1.25R ($2739.40)',
+        govTp2: '+4.00R ($2748.20)',
+        calc50: '0.16 Lots',
+        calc100: '0.31 Lots',
+        calcRr: '1 : 4.00 R'
+      },
+      NAS100: {
+        tvSym: 'FOREXCOM:NSXUSD',
+        action: 'SELL LIMIT @ 20120.0',
+        actionClass: 'sell',
+        model: 'Propulsion Block Displacement',
+        execType: 'Limit Order at Consequent Encroachment',
+        past: 'Price rejected the 09:30 Equities Open high, validating an institutional <b>Propulsion Block</b>. S&P 500 showed correlated weakness, confirming downside continuation.',
+        draw: 'Targeting the <b>London Low Liquidity Pool at 19980.0</b>.',
+        entry: '20120.0',
+        stop: '20165.0',
+        target: '19980.0',
+        pillEntry: 'LIMIT @ PB',
+        pillStop: '45.0 PTS RISK',
+        pillTarget: '140.0 PTS TP',
+        govBe: '+0.80R (20084.0)',
+        govTp1: '+1.25R (20063.7)',
+        govTp2: '+3.11R (19980.0)',
+        calc50: '0.11 Lots',
+        calc100: '0.22 Lots',
+        calcRr: '1 : 3.11 R'
+      }
+    };
+
+    let curPair = 'GBPUSD';
+    let curTf = '5';
+
+    function renderChart() {
+      const s = SETUPS[curPair];
+      const q = new URLSearchParams({
+        symbol: s.tvSym,
+        interval: curTf,
+        hidesidetoolbar: '0',
+        symboledit: '1',
+        saveimage: '0',
+        theme: 'dark',
+        style: '1',
+        timezone: 'America/New_York',
+        withdateranges: '1',
+        locale: 'en'
       });
+      document.getElementById('chartFrame').innerHTML = 
+        `<iframe src="https://s.tradingview.com/widgetembed/?${q.toString()}" allowfullscreen loading="lazy"></iframe>`;
     }
 
-    function setOpt(el) {
+    function switchPair(pair, btn) {
+      curPair = pair;
+      document.querySelectorAll('.pair-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const data = SETUPS[pair];
+      const dirAct = document.getElementById('dirAction');
+      dirAct.textContent = data.action;
+      dirAct.className = 'directive-action ' + data.actionClass;
+      document.getElementById('dirModel').textContent = data.model;
+      document.getElementById('dirExecType').textContent = data.execType;
+      document.getElementById('narrPast').innerHTML = data.past;
+      document.getElementById('narrDraw').innerHTML = data.draw;
+
+      document.getElementById('lvlEntry').textContent = data.entry;
+      document.getElementById('lvlStop').textContent = data.stop;
+      document.getElementById('lvlTarget').textContent = data.target;
+
+      document.getElementById('pillEntry').textContent = data.pillEntry;
+      document.getElementById('pillStop').textContent = data.pillStop;
+      document.getElementById('pillTarget').textContent = data.pillTarget;
+
+      document.getElementById('govBe').textContent = data.govBe;
+      document.getElementById('govTp1').textContent = data.govTp1;
+      document.getElementById('govTp2').textContent = data.govTp2;
+
+      document.getElementById('calc50').textContent = data.calc50;
+      document.getElementById('calc100').textContent = data.calc100;
+      document.getElementById('calcRr').textContent = data.calcRr;
+
+      renderChart();
+    }
+
+    function setTf(tf, btn) {
+      curTf = tf;
+      document.querySelectorAll('.tf-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderChart();
+    }
+
+    function setOrderOpt(el, type) {
       el.parentElement.querySelectorAll('.toggle-opt').forEach(o => o.classList.remove('active'));
       el.classList.add('active');
+      showToast('Order mode switched to: ' + type);
     }
 
     function showToast(msg) {
@@ -834,24 +777,29 @@
       setTimeout(() => { t.style.display = 'none'; }, 3000);
     }
 
-    function copyCard(pair, bias, model, entry, sl, tp, rr) {
-      const text = `◈ ICT FLUX • GOD'S EYE CHOKEPOINT EXECUTION\n` +
-                   `Asset: #${pair} (5M)\n` +
-                   `Archetype: ${model}\n` +
-                   `Bias: ${bias} [CISD Confirmed]\n\n` +
-                   `• Entry: ${entry}\n` +
-                   `• Invalidation (SL): ${sl}\n` +
-                   `• Target (TP): ${tp}\n` +
-                   `• Risk/Reward: ${rr}\n` +
-                   `• Governor: +0.80R BE Lock | +1.25R 70% Harvest | +2.8R+ Runner\n\n` +
-                   `Powered by God's Eye Flux Engine 👁️⚡`;
+    function copyPlan() {
+      const d = SETUPS[curPair];
+      const text = `◈ ICT FLUX • GOD'S EYE CHOKEPOINT PLAN\n` +
+                   `Asset: #${curPair} (M${curTf})\n` +
+                   `Directive: ${d.action}\n` +
+                   `Model: ${d.model}\n\n` +
+                   `• Invalidation (SL): ${d.stop} [${d.pillStop}]\n` +
+                   `• Target (Draw): ${d.target} [${d.pillTarget}]\n` +
+                   `• Risk/Reward: ${d.calcRr}\n\n` +
+                   `• Context: ${d.past.replace(/<[^>]*>/g, '')}\n` +
+                   `• Target Draw: ${d.draw.replace(/<[^>]*>/g, '')}\n\n` +
+                   `Analyzed with God's Eye Flux Desk 👁️⚡`;
       navigator.clipboard.writeText(text);
-      showToast('✓ God\'s Eye trade plan copied! Ready to paste into X / Twitter.');
+      showToast('✓ Complete trade plan copied! Ready for X / Twitter.');
     }
 
-    function sendToMT5(pair, type, entry, sl, tp, lots) {
-      showToast(`⚡ Submitting to MT5 Bridge: ${type} ${pair} @ ${entry} (Lots: ${lots})`);
+    function sendOrder() {
+      const d = SETUPS[curPair];
+      showToast(`⚡ Order sent to MT5 Bridge: ${d.action} (SL: ${d.stop} | TP: ${d.target})`);
     }
+
+    // Initialize Chart on load
+    renderChart();
   </script>
 </body>
 </html>

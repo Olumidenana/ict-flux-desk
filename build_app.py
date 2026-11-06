@@ -1461,9 +1461,14 @@ html_content = r'''<!DOCTYPE html>
           </div>
 
           <div class="directive-card" id="dirCard">
-            <div class="directive-header">
+            <div class="directive-header" style="flex-wrap:wrap;gap:8px;">
               <span class="directive-headline buy" id="dirHeadline">BUY LIMIT @ 1.33890</span>
-              <span class="status-badge active" id="dirHorizonBadge">DAY TRADE</span>
+              <div style="display:flex;gap:6px;align-items:center;">
+                <span class="status-badge active" id="dirHorizonBadge">DAY TRADE</span>
+                <button class="btn sm" id="btnScanFreshSetup" onclick="regenerateLiveSetupForCurrentPrice()" style="background:var(--surface-3);border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;" title="Scan live order flow & regenerate fresh setup for current market price">
+                  ⚡ SCAN FRESH SETUP
+                </button>
+              </div>
             </div>
             <div class="directive-archetype" id="dirArchetype">LONDON KZ DISPLACEMENT • 2022 MODEL</div>
             <div class="directive-order">
@@ -2629,6 +2634,79 @@ html_content = r'''<!DOCTYPE html>
       });
     }
 
+    
+    // Dynamically regenerate fresh active ICT setup anchored to current live market price
+    function regenerateLiveSetupForCurrentPrice() {
+      const obj = LIVE_PRICES[curKey];
+      if (!obj) return;
+
+      const p = obj.cur;
+      const dec = obj.decimals;
+      const scale = obj.pipScale;
+      const m = DATA[curKey];
+      if (!m) return;
+
+      // Calculate fresh institutional levels relative to live price
+      let isBullish = obj.isUp !== undefined ? obj.isUp : true;
+      let pipOffset = curHorizon === 'scalp' ? 5.5 : (curHorizon === 'day' ? 12.0 : 35.0);
+      let slOffset = curHorizon === 'scalp' ? 4.5 : (curHorizon === 'day' ? 7.5 : 22.0);
+      let tpOffset = curHorizon === 'scalp' ? 18.0 : (curHorizon === 'day' ? 36.0 : 95.0);
+
+      let newEntry, newStop, newTarget, newHeadline, newOrder, newArchetype, newDo, newDont, newWhen;
+
+      if (isBullish) {
+        newEntry = (p - (pipOffset * 0.4 * scale)).toFixed(dec);
+        newStop = (parseFloat(newEntry) - (slOffset * scale)).toFixed(dec);
+        newTarget = (parseFloat(newEntry) + (tpOffset * scale)).toFixed(dec);
+        newHeadline = `BUY LIMIT @ ${newEntry}`;
+        newOrder = `Limit @ M1/M5 Bullish FVG 50% CE (${newEntry})`;
+        newArchetype = 'Live Market Displacement • Bullish Order Block';
+        newDo = `Wait for price to tap the fresh FVG at ${newEntry}. Enter strictly on the 50% CE with ${slOffset.toFixed(1)} pip risk.`;
+        newDont = `Do NOT market chase past ${p.toFixed(dec)}. Avoid trading if displacement stalls before reaching ${newEntry}.`;
+        newWhen = `Active session execution window: Valid for next 45 minutes of current Killzone.`;
+      } else {
+        newEntry = (p + (pipOffset * 0.4 * scale)).toFixed(dec);
+        newStop = (parseFloat(newEntry) + (slOffset * scale)).toFixed(dec);
+        newTarget = (parseFloat(newEntry) - (tpOffset * scale)).toFixed(dec);
+        newHeadline = `SELL LIMIT @ ${newEntry}`;
+        newOrder = `Limit @ M1/M5 Bearish FVG 50% CE (${newEntry})`;
+        newArchetype = 'Live Market Displacement • Bearish Order Block';
+        newDo = `Wait for price to retrace into the premium FVG at ${newEntry}. Target liquidity pool at ${newTarget}.`;
+        newDont = `Do NOT sell into discount below ${p.toFixed(dec)}. Terminate if price takes out upper liquidity without rejection.`;
+        newWhen = `Active session execution window: Valid for next 45 minutes of current Killzone.`;
+      }
+
+      // Update DATA matrix for this asset and horizon
+      m.horizons[curHorizon] = {
+        status: 'ACTIVE',
+        tf: curHorizon === 'scalp' ? 'M1/M5' : (curHorizon === 'day' ? 'M5/M15' : 'H1/H4'),
+        headline: newHeadline,
+        headlineClass: isBullish ? 'buy' : 'sell',
+        archetype: newArchetype,
+        badge: curHorizon === 'scalp' ? 'SCALP SURGE' : (curHorizon === 'day' ? 'DAY DISPLACEMENT' : 'SWING RUN'),
+        order: newOrder,
+        doText: newDo,
+        dontText: newDont,
+        whenText: newWhen,
+        entry: newEntry,
+        stop: newStop,
+        target: newTarget,
+        pillEntry: 'FVG 50% CE',
+        pillStop: `${slOffset.toFixed(1)} Pips`,
+        pillTarget: `${tpOffset.toFixed(1)} Pips`,
+        calcRr: `1 : ${(tpOffset / slOffset).toFixed(2)} R`,
+        calc50: '1.20 Lots',
+        calc100: '2.40 Lots',
+        govBe: `+0.80R (${(parseFloat(newEntry) + (isBullish ? 1 : -1) * 0.8 * slOffset * scale).toFixed(dec)})`,
+        govTp1: `+1.50R (${(parseFloat(newEntry) + (isBullish ? 1 : -1) * 1.5 * slOffset * scale).toFixed(dec)})`,
+        govTp2: `+4.00R (${newTarget})`
+      };
+
+      updateDesk();
+      updateLiveHud();
+      showToast(`⚡ Recalibrated Fresh Setup for ${m.label} (${newHeadline})`);
+    }
+
     function updateDesk() {
       const m = DATA[curKey];
       const h = m.horizons[curHorizon];
@@ -3460,21 +3538,132 @@ html_content = r'''<!DOCTYPE html>
         tlbArr.style.color = obj.isUp ? 'var(--bull)' : 'var(--bear)';
       }
 
+      const entryNum = parseFloat(String(h.entry).replace(/,/g, ''));
+      const stopNum = parseFloat(String(h.stop).replace(/,/g, ''));
+      const targetNum = parseFloat(String(h.target).replace(/,/g, ''));
+      const isBuy = h.headline.includes('BUY') || (targetNum > entryNum);
+
+      const dirCard = document.getElementById('dirCard');
+      const dirHl = document.getElementById('dirHeadline');
+      const guideDo = document.getElementById('guideDo');
+      const badge = document.getElementById('pairStatusBadge');
+      const dirBadge = document.getElementById('dirHorizonBadge');
+      const btnExec = document.getElementById('btnExecute');
+
       if (h.status === 'STAND_ASIDE') {
         if (distEl) {
           distEl.textContent = '🛑 STAND ASIDE (NO CHOP)';
           distEl.style.color = 'var(--warn)';
         }
         if (stateEl) stateEl.textContent = 'CAPITAL PRESERVATION LOCK';
-      } else {
-        const entryNum = parseFloat(String(h.entry).replace(/,/g, ''));
-        const distPips = Math.abs(obj.cur - entryNum) / obj.pipScale;
-        if (distEl) {
-          distEl.textContent = `📍 ${distPips.toFixed(1)} Pips to Limit`;
-          distEl.style.color = 'var(--accent)';
-        }
-        if (stateEl) {
-          stateEl.textContent = distPips < 5 ? '🔥 IMMINENT FILL ZONE' : 'PENDING ORDER FILL';
+      } else if (!isNaN(entryNum) && !isNaN(stopNum) && !isNaN(targetNum)) {
+        const curPrice = obj.cur;
+        const isStopBreached = isBuy ? (curPrice <= stopNum) : (curPrice >= stopNum);
+        const isTargetReached = isBuy ? (curPrice >= targetNum) : (curPrice <= targetNum);
+        const isInProfit = isBuy ? (curPrice > entryNum && curPrice < targetNum) : (curPrice < entryNum && curPrice > targetNum);
+
+        if (isStopBreached) {
+          // LIVE STATE 1: SETUP INVALIDATED
+          if (dirCard) dirCard.classList.add('standaside');
+          if (dirHl) {
+            dirHl.textContent = '🛑 SETUP INVALIDATED (STOP LEVEL SWEPT)';
+            dirHl.className = 'directive-headline sell';
+          }
+          if (stateEl) {
+            stateEl.textContent = '⚠️ INVALIDATED • STOP SWEPT';
+            stateEl.style.color = 'var(--bear)';
+          }
+          if (distEl) {
+            distEl.textContent = '🛑 STAND ASIDE • 0 REVENGE TRADING';
+            distEl.style.color = 'var(--bear)';
+          }
+          if (badge) {
+            badge.textContent = 'SETUP INVALIDATED';
+            badge.className = 'status-badge standaside';
+          }
+          if (dirBadge) {
+            dirBadge.textContent = 'INVALIDATED';
+            dirBadge.className = 'status-badge standaside';
+          }
+          if (guideDo) {
+            guideDo.innerHTML = `<strong style="color:var(--bear)">Setup Invalidated:</strong> Price breached surgical stop (${h.stop}). Liquidity pool absorbed. Do NOT chase. Click <b>⚡ SCAN FRESH SETUP</b> above to recalibrate for current price.`;
+          }
+          if (btnExec) {
+            btnExec.classList.add('disabled');
+            btnExec.textContent = '🛑 Setup Invalidated (Preserve Capital)';
+          }
+        } else if (isTargetReached) {
+          // LIVE STATE 2: TARGET ACHIEVED
+          if (dirHl) {
+            dirHl.textContent = '🎯 TARGET ACHIEVED (DRAW COMPLETE)';
+            dirHl.className = 'directive-headline buy';
+          }
+          if (stateEl) {
+            stateEl.textContent = '🎯 TARGET HIT • +4.00R SECURED';
+            stateEl.style.color = 'var(--bull)';
+          }
+          if (distEl) {
+            distEl.textContent = '✅ DRAW EXHAUSTED (+4.00R)';
+            distEl.style.color = 'var(--bull)';
+          }
+          if (dirBadge) {
+            dirBadge.textContent = 'PROFIT SECURED';
+            dirBadge.className = 'status-badge active';
+          }
+          if (guideDo) {
+            guideDo.innerHTML = `<strong style="color:var(--bull)">Target Swept:</strong> Terminal Draw on Liquidity (${h.target}) fully hit. 100% of tranches closed. Stand aside to prevent giving back profits.`;
+          }
+          if (btnExec) {
+            btnExec.classList.add('disabled');
+            btnExec.textContent = '🎯 Target Achieved (Profits Locked)';
+          }
+        } else if (isInProfit) {
+          // LIVE STATE 3: TRADE ACTIVE & IN PROFIT
+          const gainPips = isBuy ? (curPrice - entryNum) / obj.pipScale : (entryNum - curPrice) / obj.pipScale;
+          const riskPips = Math.abs(entryNum - stopNum) / obj.pipScale;
+          const rMultiple = gainPips / (riskPips || 1);
+
+          if (dirHl) {
+            dirHl.textContent = `⚡ RUNNING IN PROFIT (+${gainPips.toFixed(1)} Pips • +${rMultiple.toFixed(2)}R)`;
+            dirHl.className = 'directive-headline buy';
+          }
+          if (rMultiple >= 0.80) {
+            if (stateEl) {
+              stateEl.textContent = '🛡️ BREAKEVEN SHIELD LOCKED (+0.80R)';
+              stateEl.style.color = 'var(--bull)';
+            }
+            if (distEl) {
+              distEl.textContent = `🛡️ Risk-Free (+${rMultiple.toFixed(2)}R Gain)`;
+              distEl.style.color = 'var(--bull)';
+            }
+            if (guideDo) {
+              guideDo.innerHTML = `<strong style="color:var(--bull)">Breakeven Shield Active:</strong> Price crossed +0.80R threshold. Stop loss moved to Entry (${h.entry}). Position is 100% risk-free. Tranche 1 (+1.50R) harvested.`;
+            }
+          } else {
+            if (stateEl) {
+              stateEl.textContent = `⚡ IN PROFIT (+${gainPips.toFixed(1)} Pips)`;
+              stateEl.style.color = 'var(--accent)';
+            }
+            if (distEl) {
+              distEl.textContent = `Running +${gainPips.toFixed(1)} Pips to TP`;
+              distEl.style.color = 'var(--accent)';
+            }
+          }
+        } else {
+          // LIVE STATE 4: PENDING ORDER FILL
+          const distPips = Math.abs(curPrice - entryNum) / obj.pipScale;
+          if (distEl) {
+            distEl.textContent = `📍 ${distPips.toFixed(1)} Pips to Limit`;
+            distEl.style.color = 'var(--accent)';
+          }
+          if (stateEl) {
+            stateEl.textContent = distPips < 4 ? '🔥 IMMINENT FILL ZONE' : '⏳ PENDING ORDER FILL';
+            stateEl.style.color = 'var(--text)';
+          }
+          if (btnExec && !btnExec.textContent.includes('Execute')) {
+            btnExec.classList.remove('disabled');
+            btnExec.textContent = '⚡ Execute on MT5';
+          }
         }
       }
     }

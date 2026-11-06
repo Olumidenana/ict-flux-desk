@@ -429,6 +429,104 @@ html_content = r'''<!DOCTYPE html>
     }
 
     
+    
+    /* Dynamic Action Card Flow & Animations */
+    @keyframes pulseGlowGold {
+      0% { box-shadow: 0 0 4px rgba(245, 186, 65, 0.3); }
+      50% { box-shadow: 0 0 16px rgba(245, 186, 65, 0.7); }
+      100% { box-shadow: 0 0 4px rgba(245, 186, 65, 0.3); }
+    }
+    @keyframes pulseGlowRed {
+      0% { box-shadow: 0 0 6px rgba(255, 92, 108, 0.4); border-color: rgba(255, 92, 108, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(255, 92, 108, 0.85); border-color: rgba(255, 92, 108, 1); }
+      100% { box-shadow: 0 0 6px rgba(255, 92, 108, 0.4); border-color: rgba(255, 92, 108, 0.5); }
+    }
+    @keyframes pulseGlowGreen {
+      0% { box-shadow: 0 0 4px rgba(43, 212, 125, 0.3); }
+      50% { box-shadow: 0 0 16px rgba(43, 212, 125, 0.7); }
+      100% { box-shadow: 0 0 4px rgba(43, 212, 125, 0.3); }
+    }
+    @keyframes pulseDot {
+      0% { opacity: 0.3; transform: scale(0.85); }
+      50% { opacity: 1; transform: scale(1.15); }
+      100% { opacity: 0.3; transform: scale(0.85); }
+    }
+
+    .pulse-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 6px;
+      animation: pulseDot 1.4s infinite ease-in-out;
+    }
+    .pulse-dot.gold { background: var(--accent); }
+    .pulse-dot.red { background: var(--bear); }
+    .pulse-dot.green { background: var(--bull); }
+
+    /* Live Dynamic Status Ribbon */
+    .state-ribbon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+      transition: all 0.25s ease;
+      border: 1px solid var(--line);
+    }
+    .state-ribbon.pending {
+      background: rgba(245, 186, 65, 0.12);
+      border-color: rgba(245, 186, 65, 0.4);
+      color: var(--accent);
+      animation: pulseGlowGold 2.5s infinite;
+    }
+    .state-ribbon.invalidated {
+      background: rgba(255, 92, 108, 0.18);
+      border-color: rgba(255, 92, 108, 0.8);
+      color: #ff5c6c;
+      animation: pulseGlowRed 1.8s infinite;
+    }
+    .state-ribbon.in-profit {
+      background: rgba(43, 212, 125, 0.14);
+      border-color: rgba(43, 212, 125, 0.5);
+      color: var(--bull);
+      animation: pulseGlowGreen 2.5s infinite;
+    }
+    .state-ribbon.target-hit {
+      background: rgba(43, 212, 125, 0.25);
+      border-color: var(--bull);
+      color: #FFFFFF;
+    }
+
+    /* Invalidation Chokepoint Radar Box */
+    .invalidation-radar-box {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      transition: all 0.25s ease;
+    }
+    .invalidation-radar-box.danger {
+      border-color: var(--warn);
+      background: rgba(255, 186, 65, 0.08);
+    }
+    .invalidation-radar-box.breached {
+      border-color: var(--bear);
+      background: rgba(255, 92, 108, 0.15);
+      animation: pulseGlowRed 1.8s infinite;
+    }
+
     /* ICT Chart Markup Overlay */
     .ict-overlay-container {
       position: absolute;
@@ -1696,6 +1794,15 @@ html_content = r'''<!DOCTYPE html>
             </div>
           </div>
 
+          <!-- LIVE FLOW STATUS RIBBON (Pulsing Reactive State Indicator) -->
+          <div class="state-ribbon pending" id="dirStateRibbon">
+            <div style="display:flex;align-items:center;">
+              <span class="pulse-dot gold" id="stateRibbonDot"></span>
+              <span id="stateRibbonText">⏳ PENDING LIMIT RETRACEMENT • 2.8 Pips Away</span>
+            </div>
+            <span id="stateRibbonSub" style="font-size:9.5px;color:var(--muted);font-weight:700;">LIMIT READY</span>
+          </div>
+
           <div class="directive-card" id="dirCard">
             <div class="directive-header" style="flex-wrap:wrap;gap:8px;">
               <span class="directive-headline buy" id="dirHeadline">BUY LIMIT @ 1.33890</span>
@@ -1710,6 +1817,27 @@ html_content = r'''<!DOCTYPE html>
             <div class="directive-order">
               <span style="color:var(--muted)">Best Entry Point:</span>
               <b id="dirOrder">Limit @ FVG 50% CE (1.33890)</b>
+            </div>
+          </div>
+
+          <!-- SURGICAL INVALIDATION CHOKEPOINT RADAR -->
+          <div class="invalidation-radar-box" id="invalidationRadarBox">
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <span style="color:var(--muted);font-weight:700;font-size:9.5px;text-transform:uppercase;">🛡️ Invalidation Chokepoint:</span>
+              <span id="radarDistanceTag" style="color:var(--bull);font-weight:800;font-size:10px;">🟢 SAFE BUFFER (+6.8 Pips)</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;">
+              <span>Surgical Stop Cutoff: <strong id="radarStopVal" style="color:var(--bear);">1.33810</strong></span>
+              <span id="radarBreachState" style="color:var(--accent);">Trade Is Valid</span>
+            </div>
+            <!-- Quick State Simulator for Instant Visual Verification -->
+            <div style="display:flex;gap:6px;margin-top:4px;padding-top:6px;border-top:1px solid var(--line);align-items:center;justify-content:space-between;">
+              <span style="font-size:9px;color:var(--muted)">FLOW SIMULATOR:</span>
+              <div style="display:flex;gap:4px;">
+                <button class="btn sm" onclick="simulateCardState('breached')" style="font-size:9px;padding:1px 6px;cursor:pointer;background:rgba(255,92,108,0.2);color:#ff5c6c;border-color:rgba(255,92,108,0.4);" title="Test how card reacts when stop is breached">Test Invalidation</button>
+                <button class="btn sm" onclick="simulateCardState('profit')" style="font-size:9px;padding:1px 6px;cursor:pointer;background:rgba(43,212,125,0.2);color:#2bd47d;border-color:rgba(43,212,125,0.4);" title="Test in-profit running state">+0.80R BE Lock</button>
+                <button class="btn sm" onclick="simulateCardState('live')" style="font-size:9px;padding:1px 6px;cursor:pointer;" title="Restore live market feed">Live Feed</button>
+              </div>
             </div>
           </div>
 
@@ -2885,6 +3013,42 @@ html_content = r'''<!DOCTYPE html>
 
     
     // Dynamically regenerate fresh active ICT setup anchored to current live market price
+    
+    // Flow Simulator for instant testing of card states (Invalidated vs In-Profit vs Live)
+    let simulatedState = null;
+    function simulateCardState(mode) {
+      const obj = LIVE_PRICES[curKey];
+      const m = DATA[curKey];
+      const h = m ? m.horizons[curHorizon] : null;
+      if (!obj || !m || !h) return;
+
+      const stopNum = parseFloat(String(h.stop).replace(/,/g, ''));
+      const entryNum = parseFloat(String(h.entry).replace(/,/g, ''));
+      const isBuy = h.headline.includes('BUY') || h.order.includes('BUY');
+
+      if (mode === 'breached') {
+        simulatedState = 'breached';
+        // Force price past stop level
+        obj.cur = isBuy ? (stopNum - (1.5 * obj.pipScale)) : (stopNum + (1.5 * obj.pipScale));
+        obj.cur = parseFloat(obj.cur.toFixed(obj.decimals));
+        updateLiveHud();
+        showToast('⚠️ Simulated Market Breach: Price swept Stop Level! Card updated dynamically.');
+      } else if (mode === 'profit') {
+        simulatedState = 'profit';
+        // Force price into +1.2R profit
+        const risk = Math.abs(entryNum - stopNum);
+        obj.cur = isBuy ? (entryNum + (1.2 * risk)) : (entryNum - (1.2 * risk));
+        obj.cur = parseFloat(obj.cur.toFixed(obj.decimals));
+        updateLiveHud();
+        showToast('🛡️ Simulated Market Run: Price displaced +1.20R! Breakeven Shield locked.');
+      } else {
+        simulatedState = null;
+        obj.cur = obj.base;
+        updateLiveHud();
+        showToast('🟢 Restored Live Market Feed.');
+      }
+    }
+
     function regenerateLiveSetupForCurrentPrice() {
       const obj = LIVE_PRICES[curKey];
       if (!obj) return;
@@ -3927,9 +4091,38 @@ html_content = r'''<!DOCTYPE html>
         const isTargetReached = isBuy ? (curPrice >= targetNum) : (curPrice <= targetNum);
         const isInProfit = isBuy ? (curPrice > entryNum && curPrice < targetNum) : (curPrice < entryNum && curPrice > targetNum);
 
+        const ribbon = document.getElementById('dirStateRibbon');
+        const ribbonDot = document.getElementById('stateRibbonDot');
+        const ribbonTxt = document.getElementById('stateRibbonText');
+        const ribbonSub = document.getElementById('stateRibbonSub');
+
+        const radarBox = document.getElementById('invalidationRadarBox');
+        const radarDist = document.getElementById('radarDistanceTag');
+        const radarStop = document.getElementById('radarStopVal');
+        const radarState = document.getElementById('radarBreachState');
+
+        const stopDistPips = Math.abs(curPrice - stopNum) / obj.pipScale;
+        if (radarStop) radarStop.textContent = h.stop;
+
         if (isStopBreached) {
           // LIVE STATE 1: SETUP INVALIDATED
           if (dirCard) dirCard.classList.add('standaside');
+          if (ribbon) {
+            ribbon.className = 'state-ribbon invalidated';
+            if (ribbonDot) ribbonDot.className = 'pulse-dot red';
+            if (ribbonTxt) ribbonTxt.textContent = '🛑 SETUP INVALIDATED • SURGICAL STOP SWEPT';
+            if (ribbonSub) ribbonSub.textContent = 'PRESERVE CAPITAL';
+          }
+          if (radarBox) radarBox.className = 'invalidation-radar-box breached';
+          if (radarDist) {
+            radarDist.textContent = '🛑 SWEPT & BREACHED';
+            radarDist.style.color = 'var(--bear)';
+          }
+          if (radarState) {
+            radarState.textContent = 'Structure Broken (Stand Aside)';
+            radarState.style.color = 'var(--bear)';
+          }
+
           if (dirHl) {
             dirHl.textContent = '🛑 SETUP INVALIDATED (STOP LEVEL SWEPT)';
             dirHl.className = 'directive-headline sell';
@@ -3951,13 +4144,30 @@ html_content = r'''<!DOCTYPE html>
             dirBadge.className = 'status-badge standaside';
           }
           if (guideDo) {
-            guideDo.innerHTML = `<strong style="color:var(--bear)">Setup Invalidated:</strong> Price breached surgical stop (${h.stop}). Liquidity pool absorbed. Do NOT chase. Click <b>⚡ SCAN FRESH SETUP</b> above to recalibrate for current price.`;
+            guideDo.innerHTML = `<strong style="color:var(--bear)">Setup Invalidated:</strong> Price swept surgical stop (${h.stop}). Liquidity pool absorbed. Do NOT chase. Click <b>⚡ SCAN FRESH SETUP</b> above to recalibrate for current price.`;
           }
           if (btnExec) {
             btnExec.classList.add('disabled');
             btnExec.textContent = '🛑 Setup Invalidated (Preserve Capital)';
           }
         } else if (isTargetReached) {
+          // LIVE STATE 2: TARGET ACHIEVED
+          if (dirCard) dirCard.classList.remove('standaside');
+          if (ribbon) {
+            ribbon.className = 'state-ribbon target-hit';
+            if (ribbonDot) ribbonDot.className = 'pulse-dot green';
+            if (ribbonTxt) ribbonTxt.textContent = '🎯 TARGET SWEPT • +4.00R EXHAUSTION';
+            if (ribbonSub) ribbonSub.textContent = 'PROFITS LOCKED';
+          }
+          if (radarBox) radarBox.className = 'invalidation-radar-box';
+          if (radarDist) {
+            radarDist.textContent = '✅ DRAW COMPLETE';
+            radarDist.style.color = 'var(--bull)';
+          }
+          if (radarState) {
+            radarState.textContent = 'Target Exhausted';
+            radarState.style.color = 'var(--bull)';
+          }
           // LIVE STATE 2: TARGET ACHIEVED
           if (dirHl) {
             dirHl.textContent = '🎯 TARGET ACHIEVED (DRAW COMPLETE)';
@@ -3988,6 +4198,23 @@ html_content = r'''<!DOCTYPE html>
           const riskPips = Math.abs(entryNum - stopNum) / obj.pipScale;
           const rMultiple = gainPips / (riskPips || 1);
 
+          if (dirCard) dirCard.classList.remove('standaside');
+          if (ribbon) {
+            ribbon.className = 'state-ribbon in-profit';
+            if (ribbonDot) ribbonDot.className = 'pulse-dot green';
+            if (ribbonTxt) ribbonTxt.textContent = `⚡ RUNNING IN PROFIT (+${gainPips.toFixed(1)} Pips • +${rMultiple.toFixed(2)}R)`;
+            if (ribbonSub) ribbonSub.textContent = rMultiple >= 0.80 ? '🛡️ BE LOCKED' : 'RUNNING';
+          }
+          if (radarBox) radarBox.className = 'invalidation-radar-box';
+          if (radarDist) {
+            radarDist.textContent = `🛡️ BUFFER +${stopDistPips.toFixed(1)} Pips`;
+            radarDist.style.color = 'var(--bull)';
+          }
+          if (radarState) {
+            radarState.textContent = rMultiple >= 0.80 ? 'Breakeven Active (0 Risk)' : 'Stop at Entry Buffer';
+            radarState.style.color = 'var(--bull)';
+          }
+
           if (dirHl) {
             dirHl.textContent = `⚡ RUNNING IN PROFIT (+${gainPips.toFixed(1)} Pips • +${rMultiple.toFixed(2)}R)`;
             dirHl.className = 'directive-headline buy';
@@ -4017,6 +4244,23 @@ html_content = r'''<!DOCTYPE html>
         } else {
           // LIVE STATE 4: PENDING ORDER FILL
           const distPips = Math.abs(curPrice - entryNum) / obj.pipScale;
+          if (dirCard) dirCard.classList.remove('standaside');
+          if (ribbon) {
+            ribbon.className = 'state-ribbon pending';
+            if (ribbonDot) ribbonDot.className = 'pulse-dot gold';
+            if (ribbonTxt) ribbonTxt.textContent = `⏳ PENDING RETRACEMENT • ${distPips.toFixed(1)} Pips to FVG Touch`;
+            if (ribbonSub) ribbonSub.textContent = distPips < 3.5 ? '🔥 IMMINENT FILL' : 'LIMIT READY';
+          }
+          if (radarBox) radarBox.className = stopDistPips < 4.0 ? 'invalidation-radar-box danger' : 'invalidation-radar-box';
+          if (radarDist) {
+            radarDist.textContent = stopDistPips < 4.0 ? `⚠️ NARROW BUFFER (+${stopDistPips.toFixed(1)}p)` : `🟢 SAFE BUFFER (+${stopDistPips.toFixed(1)} Pips)`;
+            radarDist.style.color = stopDistPips < 4.0 ? 'var(--warn)' : 'var(--bull)';
+          }
+          if (radarState) {
+            radarState.textContent = 'Trade Setup Is Valid';
+            radarState.style.color = 'var(--accent)';
+          }
+
           if (distEl) {
             distEl.textContent = `📍 ${distPips.toFixed(1)} Pips to Limit`;
             distEl.style.color = 'var(--accent)';

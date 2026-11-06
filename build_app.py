@@ -19,6 +19,8 @@ html_content = r'''<!DOCTYPE html>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600;700;800&family=Geist:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Official TradingView Real-Time Charting Library -->
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <style>
     :root {
       --bg: #07080B;
@@ -1312,9 +1314,11 @@ html_content = r'''<!DOCTYPE html>
             <button class="ib-close" onclick="closeTradeInspection()">✕ Dismiss</button>
           </div>
 
-          <!-- Pure TradingView Terminal Stage (Unlocked Drawing Toolbar) -->
-          <div class="chart-stage">
-            <iframe id="tvLiveFrame" style="width:100%;height:100%;border:none;background:#050608;" allowfullscreen loading="lazy"></iframe>
+          <!-- Pure TradingView Terminal Stage (Instant Real-Time Stream) -->
+          <div class="chart-stage" id="chartStage">
+            <div id="tv_chart_container" style="width:100%;height:100%;">
+              <iframe id="tvLiveFrame" style="width:100%;height:100%;border:none;background:#050608;" src="https://s.tradingview.com/widgetembed/?symbol=FX%3AGBPUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
+            </div>
           </div>
 
           <!-- Non-Interfering ICT Benchmark Bar Below Chart -->
@@ -2368,9 +2372,8 @@ html_content = r'''<!DOCTYPE html>
 
     // Update TradingView Live Terminal Frame
     function updateTradingViewFrame() {
+      const container = document.getElementById('tv_chart_container');
       const tvFrame = document.getElementById('tvLiveFrame');
-      if (!tvFrame) return;
-
       const m = DATA[curKey];
       const h = m ? m.horizons[curHorizon] : null;
       const tvSym = TV_MAP[curKey] || 'FX:GBPUSD';
@@ -2398,8 +2401,11 @@ html_content = r'''<!DOCTYPE html>
       });
 
       const newSrc = `https://s.tradingview.com/widgetembed/?${q.toString()}`;
-      if (tvFrame.src !== newSrc) {
+
+      if (tvFrame) {
         tvFrame.src = newSrc;
+      } else if (container) {
+        container.innerHTML = `<iframe id="tvLiveFrame" style="width:100%;height:100%;border:none;background:#050608;" src="${newSrc}" allowfullscreen></iframe>`;
       }
 
       const extLink = document.getElementById('btnTvExt');

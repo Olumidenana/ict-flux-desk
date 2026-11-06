@@ -2829,7 +2829,7 @@ html_content = r'''<!DOCTYPE html>
 
       if (banner) {
         title.textContent = `${trade.ticket} • ${trade.market_label} ${trade.direction} (${trade.model}) at ${trade.time}`;
-        levels.innerHTML = `Entry: <b style="color:var(--accent)">${trade.entry}</b> | SL: <b style="color:var(--bear)">${trade.stop} (${trade.sl_pips})</b> | TP: <b style="color:var(--bull)">${trade.target} (${trade.tp_pips})</b> | Outcome: <b style="color:${trade.r_multiple > 0 ? 'var(--bull)' : (trade.r_multiple === 0 ? 'var(--warn)' : 'var(--bear)')}">${trade.outcome} (${trade.r_multiple >= 0 ? '+' : ''}${trade.r_multiple.toFixed(2)}R)</b>`;
+        levels.innerHTML = `Entry: <b style="color:var(--accent)">${trade.entry}</b> | SL: <b style="color:var(--bear)">${trade.stop} (${trade.sl_pips})</b> | TP: <b style="color:var(--bull)">${trade.target} (${trade.tp_pips})</b> | Outcome: <b style="color:${trade.r_multiple > 0 ? 'var(--bull)' : (trade.r_multiple === 0 ? 'var(--warn)' : 'var(--bear)')}">${trade.outcome} (${trade.r_multiple >= 0 ? '+' : ''}${trade.r_multiple.toFixed(2)}R)</b><br><span style="font-size:10.5px;color:var(--faint);font-weight:500;display:block;margin-top:2px">⚡ <b>ICT Thesis:</b> ${trade.notes}</span>`;
         banner.style.display = 'flex';
       }
 

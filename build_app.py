@@ -1,3 +1,4 @@
+import json
 # -*- coding: utf-8 -*-
 """Builder script to generate the unified ICT Flux Desk:
 1. Pure TradingView Live Terminal (With unlocked drawing tools, zero fake canvases)
@@ -1360,10 +1361,17 @@ html_content = r'''<!DOCTYPE html>
             <button class="ib-close" onclick="closeTradeInspection()">✕ Dismiss</button>
           </div>
 
-          <!-- Pure TradingView Terminal Stage (Instant Real-Time Stream) -->
+          <!-- Instant Multi-Asset TradingView Stage (Zero Lag / Preloaded Cache) -->
           <div class="chart-stage" id="chartStage">
-            <div id="tv_chart_container" style="width:100%;height:100%;">
-              <iframe id="tvLiveFrame" style="width:100%;height:100%;border:none;background:#050608;" src="https://s.tradingview.com/widgetembed/?symbol=FX%3AGBPUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
+            <div id="tv_chart_container" style="width:100%;height:100%;position:relative;">
+              <iframe id="tvFrame_GBPUSD" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:block;" src="https://s.tradingview.com/widgetembed/?symbol=FX%3AGBPUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
+              <iframe id="tvFrame_XAUUSD" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=OANDA%3AXAUUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
+              <iframe id="tvFrame_EURUSD" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
+              <iframe id="tvFrame_USDJPY" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FX%3AUSDJPY&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
+              <iframe id="tvFrame_NAS100" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FOREXCOM%3ANSXUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
+              <iframe id="tvFrame_US500" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FOREXCOM%3ASPXUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
+              <iframe id="tvFrame_VOL75" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
+              <iframe id="tvFrame_VOL100" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FX%3AGBPUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
             </div>
           </div>
 
@@ -2416,14 +2424,12 @@ html_content = r'''<!DOCTYPE html>
       }
     }
 
-    // Update TradingView Live Terminal Frame
+    // Instant Multi-Asset TradingView Switcher (Zero Lag)
     function updateTradingViewFrame() {
-      const container = document.getElementById('tv_chart_container');
-      const tvFrame = document.getElementById('tvLiveFrame');
       const m = DATA[curKey];
       const h = m ? m.horizons[curHorizon] : null;
       const tvSym = TV_MAP[curKey] || 'FX:GBPUSD';
-      
+
       let tfVal = '15';
       if (h) {
         if (h.tf.includes('M1')) tfVal = '1';
@@ -2432,26 +2438,38 @@ html_content = r'''<!DOCTYPE html>
         else if (h.tf.includes('H4')) tfVal = '240';
       }
 
-      const q = new URLSearchParams({
-        frameElementId: 'tv_frame_flux',
-        symbol: tvSym,
-        interval: tfVal,
-        hidesidetoolbar: '0',
-        symboledit: '1',
-        saveimage: '0',
-        theme: 'dark',
-        style: '1',
-        timezone: 'America/New_York',
-        withdateranges: '1',
-        locale: 'en'
-      });
+      // Hide all frames, show target frame instantly
+      const allFrames = document.querySelectorAll('.tv-iframe');
+      if (allFrames && allFrames.length) {
+        allFrames.forEach(f => { f.style.display = 'none'; });
+      }
 
-      const newSrc = `https://s.tradingview.com/widgetembed/?${q.toString()}`;
-
-      if (tvFrame) {
-        tvFrame.src = newSrc;
-      } else if (container) {
-        container.innerHTML = `<iframe id="tvLiveFrame" style="width:100%;height:100%;border:none;background:#050608;" src="${newSrc}" allowfullscreen></iframe>`;
+      const targetFrame = document.getElementById(`tvFrame_${curKey}`);
+      if (targetFrame) {
+        if (targetFrame.dataset && targetFrame.dataset.src) {
+          if (!targetFrame.src || targetFrame.src === '' || targetFrame.src.indexOf('about:blank') !== -1) {
+            targetFrame.src = targetFrame.dataset.src;
+          }
+        }
+        targetFrame.style.display = 'block';
+      } else {
+        // Fallback for custom symbols
+        const container = document.getElementById('tv_chart_container');
+        if (container) {
+          const q = new URLSearchParams({
+            symbol: tvSym,
+            interval: tfVal,
+            hidesidetoolbar: '0',
+            symboledit: '1',
+            saveimage: '0',
+            theme: 'dark',
+            style: '1',
+            timezone: 'America/New_York',
+            withdateranges: '1',
+            locale: 'en'
+          });
+          container.innerHTML = `<iframe class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:block;" src="https://s.tradingview.com/widgetembed/?${q.toString()}" allowfullscreen></iframe>`;
+        }
       }
 
       const extLink = document.getElementById('btnTvExt');
@@ -2463,7 +2481,8 @@ html_content = r'''<!DOCTYPE html>
     function onSelectInstrument(key) {
       curKey = key;
       updateDesk();
-      updateTradingViewFrame();
+      updateLiveHud(); // Instant price synchronization at the exact moment of switching!
+      updateTradingViewFrame(); // Instant zero-lag chart switch!
     }
 
     function setHorizon(hz, btn) {
@@ -3056,7 +3075,9 @@ html_content = r'''<!DOCTYPE html>
 </html>
 '''
 
+final_html = html_content.replace('REAL_TRADES_JSON', json.dumps(REAL_TRADES_JSON, separators=(',', ':')))
+
 with open("index.html", "w", encoding="utf-8") as f:
-    f.write(html_content)
+    f.write(final_html)
 
 print("Successfully compiled unified index.html with Real TradingView Chart + Real Data Backtest Lab!")

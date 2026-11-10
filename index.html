@@ -640,7 +640,220 @@
       border-color: var(--line-gold);
     }
 
-    /* Horizons Bar */
+    
+    /* ======================================================== */
+    /* THE SIMPLEST VERSION OF ICTFLUX: CLEAN ACTION CARD STYLES */
+    /* ======================================================== */
+    .action-card-hero {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.25s ease;
+    }
+    .action-card-hero.pending {
+      background: rgba(240, 185, 75, 0.06);
+      border-color: rgba(240, 185, 75, 0.35);
+      box-shadow: 0 0 16px rgba(240, 185, 75, 0.08);
+    }
+    .action-card-hero.in-profit {
+      background: rgba(43, 212, 125, 0.08);
+      border-color: rgba(43, 212, 125, 0.40);
+      box-shadow: 0 0 16px rgba(43, 212, 125, 0.12);
+    }
+    .action-card-hero.target-hit {
+      background: rgba(43, 212, 125, 0.14);
+      border-color: var(--bull);
+      box-shadow: 0 0 20px rgba(43, 212, 125, 0.20);
+    }
+    .action-card-hero.invalidated {
+      background: rgba(255, 92, 108, 0.08);
+      border-color: rgba(255, 92, 108, 0.45);
+      box-shadow: 0 0 16px rgba(255, 92, 108, 0.10);
+    }
+    .action-card-hero.standaside {
+      background: rgba(245, 158, 11, 0.08);
+      border-color: rgba(245, 158, 11, 0.35);
+    }
+    .hero-status-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: var(--mono);
+    }
+    .hero-status-tag {
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      color: var(--text);
+    }
+    .hero-dist-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--surface-3);
+      color: var(--accent);
+      border: 1px solid var(--line);
+    }
+    .hero-headline {
+      font-family: var(--mono);
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .action-card-hero.pending .hero-headline { color: var(--accent); }
+    .action-card-hero.in-profit .hero-headline { color: var(--bull); }
+    .action-card-hero.target-hit .hero-headline { color: var(--bull); }
+    .action-card-hero.invalidated .hero-headline { color: var(--bear); }
+    .action-card-hero.standaside .hero-headline { color: var(--warn); }
+    .hero-subtext {
+      font-size: 11.5px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .hero-action-bar {
+      margin-top: 4px;
+      display: flex;
+      gap: 6px;
+    }
+    .recalibrate-btn {
+      background: var(--surface-3);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s;
+    }
+    .recalibrate-btn:hover {
+      background: var(--accent);
+      color: #07080B;
+    }
+
+    /* Surgical Level Triad Card */
+    .surgical-levels-card {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .level-box {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 10px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      text-align: center;
+    }
+    .level-box-label {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 700;
+      color: var(--faint);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .level-box-val {
+      font-family: var(--mono);
+      font-size: 14.5px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+    }
+    .level-box.entry-box .level-box-val { color: var(--accent); }
+    .level-box.stop-box .level-box-val { color: var(--bear); }
+    .level-box.target-box .level-box-val { color: var(--bull); }
+    .level-box-sub {
+      font-family: var(--mono);
+      font-size: 9px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* Execution Protocol Card */
+    .execution-protocol-card {
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .protocol-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .protocol-icon {
+      font-size: 14px;
+      line-height: 1.3;
+      flex-shrink: 0;
+    }
+    .protocol-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .protocol-title {
+      font-family: var(--mono);
+      font-size: 9.5px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .protocol-do .protocol-title { color: var(--bull); }
+    .protocol-dont .protocol-title { color: var(--bear); }
+    .protocol-governor .protocol-title { color: var(--cyan); }
+    .protocol-text {
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .protocol-text strong {
+      color: var(--text);
+      font-family: var(--mono);
+    }
+
+    /* Lot Risk Bar */
+    .lot-risk-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--surface-3);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 8px 12px;
+      font-family: var(--mono);
+      font-size: 10.5px;
+      color: var(--muted);
+    }
+    .lot-risk-bar b {
+      color: var(--text);
+    }
+
+    /* Action Buttons Row */
+    .action-btn-row {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 8px;
+    }
+
+/* Horizons Bar */
     .horizon-bar {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -1452,17 +1665,10 @@
             <button class="ib-close" onclick="closeTradeInspection()">✕ Dismiss</button>
           </div>
 
-          <!-- Instant Multi-Asset TradingView Stage with Live ICT Markups & Trade Replay -->
+          <!-- High-Performance Single Dynamic TradingView Stage (Zero Lag) -->
           <div class="chart-stage" id="chartStage">
             <div id="tv_chart_container" style="width:100%;height:100%;position:relative;">
-              <iframe id="tvFrame_GBPUSD" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:block;" src="https://s.tradingview.com/widgetembed/?symbol=FX%3AGBPUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
-              <iframe id="tvFrame_XAUUSD" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=OANDA%3AXAUUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
-              <iframe id="tvFrame_EURUSD" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
-              <iframe id="tvFrame_USDJPY" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FX%3AUSDJPY&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
-              <iframe id="tvFrame_NAS100" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FOREXCOM%3ANSXUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
-              <iframe id="tvFrame_US500" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FOREXCOM%3ASPXUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
-              <iframe id="tvFrame_VOL75" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FX%3AEURUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
-              <iframe id="tvFrame_VOL100" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:none;" data-src="https://s.tradingview.com/widgetembed/?symbol=FX%3AGBPUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
+              <iframe id="mainTvFrame" class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:block;" src="https://s.tradingview.com/widgetembed/?symbol=FX%3AGBPUSD&interval=15&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en" allowfullscreen></iframe>
             </div>
           </div>
 
@@ -1480,13 +1686,13 @@
           <div class="resizer-grip"></div>
         </div>
 
-        <!-- RIGHT: GOD'S EYE ACTION DIRECTIVE DESK -->
+        <!-- RIGHT: GOD'S EYE ACTION CARD (The Simplest Version of ICTflux) -->
         <div class="desk-panel" id="deskPanel">
           
           <div class="desk-top-controls">
             <div class="desk-panel-title">
               <span>🎯 GOD'S EYE ACTION CARD</span>
-              <span style="font-size:9px;color:var(--faint)">[DISCIPLINE ENGINE]</span>
+              <span style="font-size:9px;color:var(--faint)">[EXECUTION ENGINE]</span>
             </div>
             <button class="enlarge-btn" id="btnEnlarge" onclick="toggleEnlargeDesk()">
               <span id="enlargeIcon">⤢</span>
@@ -1494,6 +1700,7 @@
             </button>
           </div>
 
+          <!-- Timeframe Horizon Switcher -->
           <div class="horizon-bar">
             <button class="hz-btn" onclick="setHorizon('scalp', this)">
               <span>⚡ SCALP</span>
@@ -1505,175 +1712,80 @@
             </button>
             <button class="hz-btn" onclick="setHorizon('swing', this)">
               <span>🌊 SWING</span>
-              <span class="hz-sub">1-3d • 30-60 Pips</span>
+              <span class="hz-sub">1-3d • 30-80 Pips</span>
             </button>
           </div>
 
-          <div class="stand-aside-banner" id="standAsideBanner">
-            <div class="sab-top">
-              <span>🛑 STAND ASIDE • CAPITAL PRESERVATION</span>
+          <!-- 1. HERO EXECUTION STATUS BANNER (Dynamic & High-Contrast) -->
+          <div class="action-card-hero pending" id="actionHero">
+            <div class="hero-status-row">
+              <div style="display:flex;align-items:center;gap:6px;">
+                <span class="pulse-dot gold" id="heroDot"></span>
+                <span class="hero-status-tag" id="heroStatusTag">⏳ PENDING LIMIT RETRACEMENT</span>
+              </div>
+              <span class="hero-dist-badge" id="heroDistBadge">2.4 Pips Away</span>
             </div>
-            <div class="sab-desc" id="standAsideDesc">
-              Price is currently compressing within mid-range equilibrium. No active institutional liquidity raid detected. Strictly preserve powder until a clean sweep forms.
-            </div>
-          </div>
-
-          <!-- Real-Time Live Price & Signal State HUD -->
-          <div class="live-price-hud" id="livePriceHud">
-            <div class="lph-left">
-              <span class="lph-label" id="lphSymbolLabel">LIVE MARKET QUOTE</span>
-              <span class="lph-price" id="lphLivePrice">
-                <span id="lphPriceVal">1.33550</span>
-                <span id="lphTickArrow" style="font-size:10px">▲</span>
-              </span>
-            </div>
-            <div class="lph-right">
-              <span class="lph-dist" id="lphDist">📍 4.5 Pips to Limit</span>
-              <span class="lph-state" id="lphState">PENDING ORDER FILL</span>
+            <div class="hero-headline" id="heroHeadline">BUY LIMIT @ 1.34500</div>
+            <div class="hero-subtext" id="heroSubtext">Wait for candle tap into 50% CE level. Limit order ready.</div>
+            <div class="hero-action-bar" id="heroActionBar" style="display:none;">
+              <button class="recalibrate-btn" onclick="regenerateLiveSetupForCurrentPrice()">⚡ Recalibrate Fresh Setup</button>
             </div>
           </div>
 
-          <!-- Signal Confluence Meter -->
-          <div class="confluence-bar">
-            <span class="conf-score">⚡ 96% A+ SETUP</span>
-            <div class="conf-tags">
-              <span class="conf-tag on">KILLZONE ✓</span>
-              <span class="conf-tag on">LIQ SWEPT ✓</span>
-              <span class="conf-tag on">FVG 50% CE ✓</span>
-              <span class="conf-tag on">DISPLACEMENT ✓</span>
+          <!-- 2. SURGICAL LEVEL TRIAD -->
+          <div class="surgical-levels-card">
+            <div class="level-box entry-box">
+              <span class="level-box-label">ENTRY LEVEL</span>
+              <div class="level-box-val" id="lvlEntry">1.34500</div>
+              <span class="level-box-sub" id="pillEntry">50% FVG CE</span>
+            </div>
+            <div class="level-box stop-box">
+              <span class="level-box-label">SURGICAL STOP</span>
+              <div class="level-box-val" id="lvlStop">1.34430</div>
+              <span class="level-box-sub" id="pillStop">7.0 Pips Risk</span>
+            </div>
+            <div class="level-box target-box">
+              <span class="level-box-label">DRAW ON LIQUIDITY</span>
+              <div class="level-box-val" id="lvlTarget">1.34800</div>
+              <span class="level-box-sub" id="pillTarget">35.0 Pips • 1:5.00R</span>
             </div>
           </div>
 
-          <!-- LIVE FLOW STATUS RIBBON (Pulsing Reactive State Indicator) -->
-          <div class="state-ribbon pending" id="dirStateRibbon">
-            <div style="display:flex;align-items:center;">
-              <span class="pulse-dot gold" id="stateRibbonDot"></span>
-              <span id="stateRibbonText">⏳ PENDING LIMIT RETRACEMENT • 2.8 Pips Away</span>
-            </div>
-            <span id="stateRibbonSub" style="font-size:9.5px;color:var(--muted);font-weight:700;">LIMIT READY</span>
-          </div>
-
-          <div class="directive-card" id="dirCard">
-            <div class="directive-header" style="flex-wrap:wrap;gap:8px;">
-              <span class="directive-headline buy" id="dirHeadline">BUY LIMIT @ 1.33890</span>
-              <div style="display:flex;gap:6px;align-items:center;">
-                <span class="status-badge active" id="dirHorizonBadge">DAY TRADE</span>
-                <button class="btn sm" id="btnScanFreshSetup" onclick="regenerateLiveSetupForCurrentPrice()" style="background:var(--surface-3);border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;cursor:pointer;display:inline-flex;align-items:center;gap:4px;" title="Scan live order flow & regenerate fresh setup for current market price">
-                  ⚡ SCAN FRESH SETUP
-                </button>
+          <!-- 3. ICT EXECUTION PROTOCOL -->
+          <div class="execution-protocol-card">
+            <div class="protocol-row protocol-do">
+              <div class="protocol-icon">🎯</div>
+              <div class="protocol-body">
+                <span class="protocol-title">WHAT TO DO</span>
+                <span class="protocol-text" id="guideDo">Wait for candle tap into 50% CE. Enter strictly on limit order.</span>
               </div>
             </div>
-            <div class="directive-archetype" id="dirArchetype">LONDON KZ DISPLACEMENT • 2022 MODEL</div>
-            <div class="directive-order">
-              <span style="color:var(--muted)">Best Entry Point:</span>
-              <b id="dirOrder">Limit @ FVG 50% CE (1.33890)</b>
+            <div class="protocol-row protocol-dont">
+              <div class="protocol-icon">🛑</div>
+              <div class="protocol-body">
+                <span class="protocol-title">WHEN TO STAND ASIDE</span>
+                <span class="protocol-text" id="guideDont">Do NOT market chase past Entry. Cut immediately if surgical stop is breached.</span>
+              </div>
             </div>
-          </div>
-
-          <!-- SURGICAL INVALIDATION CHOKEPOINT RADAR -->
-          <div class="invalidation-radar-box" id="invalidationRadarBox">
-            <div style="display:flex;justify-content:space-between;align-items:center;">
-              <span style="color:var(--muted);font-weight:700;font-size:9.5px;text-transform:uppercase;">🛡️ Invalidation Chokepoint:</span>
-              <span id="radarDistanceTag" style="color:var(--bull);font-weight:800;font-size:10px;">🟢 SAFE BUFFER (+6.8 Pips)</span>
-            </div>
-            <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;">
-              <span>Surgical Stop Cutoff: <strong id="radarStopVal" style="color:var(--bear);">1.33810</strong></span>
-              <span id="radarBreachState" style="color:var(--accent);">Trade Is Valid</span>
-            </div>
-            <!-- Quick State Simulator for Instant Visual Verification -->
-            <div style="display:flex;gap:6px;margin-top:4px;padding-top:6px;border-top:1px solid var(--line);align-items:center;justify-content:space-between;">
-              <span style="font-size:9px;color:var(--muted)">FLOW SIMULATOR:</span>
-              <div style="display:flex;gap:4px;">
-                <button class="btn sm" onclick="simulateCardState('breached')" style="font-size:9px;padding:1px 6px;cursor:pointer;background:rgba(255,92,108,0.2);color:#ff5c6c;border-color:rgba(255,92,108,0.4);" title="Test how card reacts when stop is breached">Test Invalidation</button>
-                <button class="btn sm" onclick="simulateCardState('profit')" style="font-size:9px;padding:1px 6px;cursor:pointer;background:rgba(43,212,125,0.2);color:#2bd47d;border-color:rgba(43,212,125,0.4);" title="Test in-profit running state">+0.80R BE Lock</button>
-                <button class="btn sm" onclick="simulateCardState('live')" style="font-size:9px;padding:1px 6px;cursor:pointer;" title="Restore live market feed">Live Feed</button>
+            <div class="protocol-row protocol-governor">
+              <div class="protocol-icon">🛡️</div>
+              <div class="protocol-body">
+                <span class="protocol-title">RISK GOVERNOR</span>
+                <span class="protocol-text" id="govRule">Move Stop to Breakeven at <strong id="govBe">+0.80R</strong>. Harvest 70% volume at <strong id="govTp1">+1.50R</strong>. Target <strong id="govTp2">+4.00R</strong>.</span>
               </div>
             </div>
           </div>
 
-          <!-- Institutional Dealing Range Meter (Discount vs Premium) -->
-          <div class="dealing-range-card">
-            <div class="dr-labels">
-              <span style="color:var(--bull);">🟢 DEEP DISCOUNT (BUY ZONE)</span>
-              <span id="drPctLabel" style="color:var(--accent);">DISCOUNT 32%</span>
-              <span style="color:var(--bear);">🔴 PREMIUM (SELL ZONE)</span>
-            </div>
-            <div class="dr-bar-wrap">
-              <div class="dr-pointer" id="drPointer" style="left: 32%;"></div>
-            </div>
-            <div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:9.5px;color:var(--muted);">
-              <span>Nearest SSL: <strong id="cardNearSsl" style="color:var(--bear);">1.33850</strong></span>
-              <span>Nearest BSL: <strong id="cardNearBsl" style="color:var(--bull);">1.34120</strong></span>
-            </div>
+          <!-- Lot Sizing & Risk Metric -->
+          <div class="lot-risk-bar">
+            <span>Risk $50: <b id="calc50">0.71 Lots</b></span>
+            <span>Risk $100: <b id="calc100">1.42 Lots</b></span>
+            <span>R:R: <b id="calcRr" style="color:var(--accent)">1 : 5.00 R</b></span>
           </div>
 
-          <!-- Clean Action Directives (Less Text, Pure Actions) -->
-          <div class="guidance-box" style="margin-top:10px;">
-            <div class="guide-row">
-              <span class="guide-badge do">EXECUTION DIRECTIVE</span>
-              <span class="guide-text" id="guideDo">Wait for candle tap into the 50% CE of the Fair Value Gap. Enter strictly on limit order.</span>
-            </div>
-            <div class="guide-row">
-              <span class="guide-badge dont">INVALIDATION RULE</span>
-              <span class="guide-text" id="guideDont">Do NOT market chase past Entry. Cut immediately if surgical stop is breached.</span>
-            </div>
-            <div class="guide-row" id="guideWhenRow">
-              <span class="guide-badge do" style="background:rgba(245,186,65,0.15);color:var(--accent);border:1px solid rgba(245,186,65,0.3);">TIME / KILLZONE</span>
-              <span class="guide-text" id="guideWhen">Peak execution window: 02:45 to 04:15 NY London Open Killzone.</span>
-            </div>
-          </div>
-
-          <!-- Surgical Levels Matrix -->
-          <div class="levels-matrix">
-            <div class="lvl-col">
-              <span class="lvl-label">Entry Level</span>
-              <span class="lvl-val entry" id="lvlEntry">1.33890</span>
-              <span class="lvl-pill" id="pillEntry">FVG 50% CE</span>
-            </div>
-            <div class="lvl-col">
-              <span class="lvl-label">Surgical Stop</span>
-              <span class="lvl-val stop" id="lvlStop">1.33810</span>
-              <span class="lvl-pill" id="pillStop">8.0 Pips</span>
-            </div>
-            <div class="lvl-col">
-              <span class="lvl-label">Take Profit</span>
-              <span class="lvl-val target" id="lvlTarget">1.34290</span>
-              <span class="lvl-pill" id="pillTarget">40.0 Pips</span>
-            </div>
-          </div>
-
-          <!-- Loss Avoidance Governor Box -->
-          <div class="governor-box">
-            <div class="gov-title">🛡️ Loss Avoidance Governor</div>
-            <div class="gov-desc" id="labDesc">
-              Breakeven rule: As soon as price reaches +0.80R, move Stop Loss directly to Entry (Risk = 0). Harvest 70% of volume at +1.50R; trail the remaining 30% runner.
-            </div>
-            <div class="gov-pills">
-              <div class="gov-pill">
-                <span>BE Lock Trigger</span>
-                <b id="govBe">+0.80R (1.33954)</b>
-              </div>
-              <div class="gov-pill">
-                <span>TP1 Harvest (70%)</span>
-                <b id="govTp1">+1.50R (1.34010)</b>
-              </div>
-              <div class="gov-pill">
-                <span>TP2 Runner (30%)</span>
-                <b id="govTp2">+5.00R (1.34290)</b>
-              </div>
-            </div>
-          </div>
-
-          <div class="calc-panel">
-            <div class="lot-recommendation">
-              <span>Risk $50: <b id="calc50">0.62 Lots</b></span>
-              <span>Risk $100: <b id="calc100">1.25 Lots</b></span>
-              <span>R:R: <b style="color:var(--accent)" id="calcRr">1 : 5.00 R</b></span>
-            </div>
-          </div>
-
-          <div class="action-row">
-            <button class="btn" onclick="copyPlan()">📋 Copy Tweet</button>
+          <!-- Execution Action Buttons -->
+          <div class="action-btn-row">
+            <button class="btn" onclick="copyPlan()">📋 Copy Setup</button>
             <button class="btn primary" id="btnExecute" onclick="executeTrade()">⚡ Execute on MT5</button>
           </div>
 
@@ -1985,7 +2097,7 @@
           scalp: {
             status: 'ACTIVE',
             tf: 'M1/M5',
-            headline: 'BUY LIMIT @ 1.33520',
+            headline: 'BUY LIMIT @ 1.34480',
             headlineClass: 'buy',
             archetype: 'London Open Liquidity Sweep (Asian Low Run)',
             badge: 'SCALP INTERCEPT',
@@ -1993,23 +2105,23 @@
             doText: 'Wait for M1 rejection of Asian low. Enter strictly on the return to the Order Block / FVG CE.',
             dontText: 'Do not chase price past 1.33560. Do not hold trade past the 05:00 NY London close.',
             whenText: 'Peak execution window: 02:45 to 04:15 NY London Open Killzone.',
-            entry: '1.33520',
-            stop: '1.33475',
-            target: '1.33700',
+            entry: '1.34480',
+            stop: '1.34435',
+            target: '1.34660',
             pillEntry: 'M1 FVG CE',
             pillStop: '4.5 Pips',
             pillTarget: '18.0 Pips',
             calcRr: '1 : 4.00 R',
             calc50: '1.11 Lots',
             calc100: '2.22 Lots',
-            govBe: '+0.80R (1.33556)',
-            govTp1: '+1.50R (1.33588)',
-            govTp2: '+4.00R (1.33700)'
+            govBe: '+0.80R (1.34516)',
+            govTp1: '+1.50R (1.34548)',
+            govTp2: '+4.00R (1.34660)'
           },
           day: {
             status: 'ACTIVE',
             tf: 'M5/M15',
-            headline: 'BUY LIMIT @ 1.33480',
+            headline: 'BUY LIMIT @ 1.34380',
             headlineClass: 'buy',
             archetype: 'London KZ Displacement (ICT 2022 Model)',
             badge: 'DAY TRADE CHOKEPOINT',
@@ -2017,18 +2129,18 @@
             doText: 'Wait for institutional tap into M15 discount array following morning expansion.',
             dontText: 'Do not market buy into premium equilibrium. Strict invalidation below 1.33400.',
             whenText: 'Primary delivery window: 08:30 to 11:00 AM NY AM Killzone.',
-            entry: '1.33480',
-            stop: '1.33400',
-            target: '1.33800',
+            entry: '1.34380',
+            stop: '1.34300',
+            target: '1.34780',
             pillEntry: 'M15 OB CE',
             pillStop: '8.0 Pips',
             pillTarget: '32.0 Pips',
             calcRr: '1 : 4.00 R',
             calc50: '0.62 Lots',
             calc100: '1.25 Lots',
-            govBe: '+0.80R (1.33544)',
-            govTp1: '+1.50R (1.33600)',
-            govTp2: '+4.00R (1.33800)'
+            govBe: '+0.80R (1.34444)',
+            govTp1: '+1.50R (1.34500)',
+            govTp2: '+4.00R (1.34780)'
           },
           swing: {
             status: 'ACTIVE',
@@ -2058,33 +2170,33 @@
       },
       XAUUSD: {
         label: 'XAU/USD (Gold)',
-        price: '$4,037.50',
+        price: '$4,118.00',
         spread: '1.8 pips',
         pipScale: 0.1,
         horizons: {
           scalp: {
             status: 'ACTIVE',
             tf: 'M1/M5',
-            headline: 'BUY LIMIT @ 4,032.50',
+            headline: 'BUY LIMIT @ 4,114.50',
             headlineClass: 'buy',
             archetype: 'NY AM Silver Bullet Hour (10:00-11:00 NY)',
             badge: 'SCALP SURGE',
-            order: 'Limit @ 1M FVG 50% CE (4,032.50)',
+            order: 'Limit @ 1M FVG 50% CE (4,114.50)',
             doText: 'Tap into M1 imbalance after liquidity raid. Target immediate Buy-side draw at $4,060.50.',
             dontText: 'Do NOT trade if gold is floating in mid-range equilibrium without displacement.',
             whenText: 'High-velocity window: 10:00 to 11:00 AM NY Silver Bullet hour.',
-            entry: '4,032.50',
-            stop: '4,025.50',
-            target: '4,060.50',
+            entry: '4,114.50',
+            stop: '4,107.50',
+            target: '4,142.50',
             pillEntry: '1M FVG CE',
             pillStop: '7.0 Pips ($7.00)',
             pillTarget: '28.0 Pips ($28.00)',
             calcRr: '1 : 4.00 R',
             calc50: '0.71 Lots',
             calc100: '1.42 Lots',
-            govBe: '+0.80R (4,038.10)',
-            govTp1: '+1.50R (4,043.00)',
-            govTp2: '+4.00R (4,060.50)'
+            govBe: '+0.80R (4,120.10)',
+            govTp1: '+1.50R (4,125.00)',
+            govTp2: '+4.00R (4,142.50)'
           },
           day: {
             status: 'STAND_ASIDE',
@@ -2094,7 +2206,7 @@
             archetype: 'Post-Expansion Equilibrium ($4,037 Mid-Point)',
             badge: 'STAND ASIDE (NO CHOP)',
             order: 'No Active Limit Order (Mid-Range Trap)',
-            doText: 'Gold rallied from $4,015.00 to $4,055.00 and is currently in equilibrium consolidation around $4,037. Stand aside.',
+            doText: 'Gold rallied from $4,080.00 to $4,135.00 and is currently in equilibrium consolidation around $4,118. Stand aside.',
             dontText: 'DO NOT enter market orders here. Forcing trades inside this equilibrium causes severe drawdowns.',
             whenText: 'Next valid setup forms only after a clean sweep of either $4,055.00 or $4,015.00.',
             entry: '---',
@@ -2145,7 +2257,7 @@
           scalp: {
             status: 'ACTIVE',
             tf: 'M1/M5',
-            headline: 'BUY LIMIT @ 1.11410',
+            headline: 'BUY LIMIT @ 1.34480',
             headlineClass: 'buy',
             archetype: 'London Morning Retracement (M1 FVG 50% CE)',
             badge: 'SCALP PULSE',
@@ -2169,7 +2281,7 @@
           day: {
             status: 'ACTIVE',
             tf: 'M5/M15',
-            headline: 'BUY LIMIT @ 1.11380',
+            headline: 'BUY LIMIT @ 1.34380',
             headlineClass: 'buy',
             archetype: 'NY AM Session Intercept (Discount Array)',
             badge: 'DAY DISPLACEMENT',
@@ -2225,7 +2337,7 @@
           scalp: {
             status: 'ACTIVE',
             tf: 'M1/M5',
-            headline: 'BUY LIMIT @ 158.220',
+            headline: 'BUY LIMIT @ 1.34480',
             headlineClass: 'buy',
             archetype: 'Asian Low Liquidity Raid (Tokyo Killzone)',
             badge: 'SCALP PULSE',
@@ -2249,7 +2361,7 @@
           day: {
             status: 'ACTIVE',
             tf: 'M5/M15',
-            headline: 'BUY LIMIT @ 158.100',
+            headline: 'BUY LIMIT @ 1.34380',
             headlineClass: 'buy',
             archetype: 'London/NY Session Continuation',
             badge: 'DAY TREND',
@@ -2305,7 +2417,7 @@
           scalp: {
             status: 'ACTIVE',
             tf: 'M1/M5',
-            headline: 'BUY LIMIT @ 26,920.0',
+            headline: 'BUY LIMIT @ 1.34480',
             headlineClass: 'buy',
             archetype: 'NY Open Silver Bullet (09:30-10:30 NY)',
             badge: 'INDEX VELOCITY',
@@ -2329,7 +2441,7 @@
           day: {
             status: 'ACTIVE',
             tf: 'M5/M15',
-            headline: 'BUY LIMIT @ 26,850.0',
+            headline: 'BUY LIMIT @ 1.34380',
             headlineClass: 'buy',
             archetype: 'NY AM Session Trend Delivery',
             badge: 'DAY TREND',
@@ -2385,7 +2497,7 @@
           scalp: {
             status: 'ACTIVE',
             tf: 'M1/M5',
-            headline: 'BUY LIMIT @ 7,366.50',
+            headline: 'BUY LIMIT @ 1.34480',
             headlineClass: 'buy',
             archetype: 'Cash Open Macro Window (09:50-10:10 NY)',
             badge: 'MACRO INTERCEPT',
@@ -2409,7 +2521,7 @@
           day: {
             status: 'ACTIVE',
             tf: 'M5/M15',
-            headline: 'BUY LIMIT @ 7,350.00',
+            headline: 'BUY LIMIT @ 1.34380',
             headlineClass: 'buy',
             archetype: 'Institutional Delivery Array (M15 Discount)',
             badge: 'DAY TREND',
@@ -2465,7 +2577,7 @@
           scalp: {
             status: 'ACTIVE',
             tf: 'M1/M5',
-            headline: 'BUY LIMIT @ 36,580.0',
+            headline: 'BUY LIMIT @ 1.34480',
             headlineClass: 'buy',
             archetype: 'Algorithmic Liquidity Inversion',
             badge: 'ALGO PULSE',
@@ -2489,7 +2601,7 @@
           day: {
             status: 'ACTIVE',
             tf: 'M5/M15',
-            headline: 'BUY LIMIT @ 36,400.0',
+            headline: 'BUY LIMIT @ 1.34380',
             headlineClass: 'buy',
             archetype: 'Algorithmic Value Delivery',
             badge: 'ALGO DAY',
@@ -2545,7 +2657,7 @@
           scalp: {
             status: 'ACTIVE',
             tf: 'M1/M5',
-            headline: 'BUY LIMIT @ 551.80',
+            headline: 'BUY LIMIT @ 1.34480',
             headlineClass: 'buy',
             archetype: 'Algorithmic Imbalance Fill',
             badge: 'ALGO PULSE',
@@ -2569,7 +2681,7 @@
           day: {
             status: 'ACTIVE',
             tf: 'M5/M15',
-            headline: 'BUY LIMIT @ 549.50',
+            headline: 'BUY LIMIT @ 1.34380',
             headlineClass: 'buy',
             archetype: 'Algorithmic Institutional Order Block',
             badge: 'ALGO DAY',
@@ -2640,7 +2752,7 @@
       }
     }
 
-    // Instant Multi-Asset TradingView Switcher (Zero Lag)
+    // Unified Single High-Performance TradingView Frame (Zero Lag, Instant Refresh)
     function updateTradingViewFrame() {
       const m = DATA[curKey];
       const h = m ? m.horizons[curHorizon] : null;
@@ -2654,26 +2766,13 @@
         else if (h.tf.includes('H4')) tfVal = '240';
       }
 
-      // Hide all frames, show target frame instantly
-      const allFrames = document.querySelectorAll('.tv-iframe');
-      if (allFrames && allFrames.length) {
-        allFrames.forEach(f => { f.style.display = 'none'; });
-      }
-
-      const targetFrame = document.getElementById(`tvFrame_${curKey}`);
+      const frame = document.getElementById('mainTvFrame');
       const targetSrc = `https://s.tradingview.com/widgetembed/?symbol=${encodeURIComponent(tvSym)}&interval=${tfVal}&hidesidetoolbar=0&symboledit=1&saveimage=0&theme=dark&style=1&timezone=America%2FNew_York&withdateranges=1&locale=en`;
 
-      if (targetFrame) {
-        if (!targetFrame.src || targetFrame.src === '' || targetFrame.src.indexOf('about:blank') !== -1 || targetFrame.dataset.loadedTf !== tfVal) {
-          targetFrame.src = targetSrc;
-          targetFrame.dataset.loadedTf = tfVal;
-        }
-        targetFrame.style.display = 'block';
-      } else {
-        const container = document.getElementById('tv_chart_container');
-        if (container) {
-          container.innerHTML = `<iframe class="tv-iframe" style="width:100%;height:100%;border:none;background:#050608;display:block;" src="${targetSrc}" allowfullscreen></iframe>`;
-        }
+      if (frame && (frame.dataset.loadedSym !== tvSym || frame.dataset.loadedTf !== tfVal)) {
+        frame.src = targetSrc;
+        frame.dataset.loadedSym = tvSym;
+        frame.dataset.loadedTf = tfVal;
       }
 
       const extLink = document.getElementById('btnTvExt');
@@ -2684,9 +2783,11 @@
 
     function onSelectInstrument(key) {
       curKey = key;
+      const sel = document.getElementById('instrumentSelect');
+      if (sel && sel.value !== key) sel.value = key;
       try { updateDesk(); } catch (e) { console.error('Error in updateDesk:', e); }
-      try { updateLiveHud(); } catch (e) { console.error('Error in updateLiveHud:', e); }
       try { updateTradingViewFrame(); } catch (e) { console.error('Error in updateTradingViewFrame:', e); }
+      try { updateLiveHud(); } catch (e) { console.error('Error in updateLiveHud:', e); }
       if (typeof subscribeToActiveSymbol === 'function') {
         try { subscribeToActiveSymbol(); } catch (e) {}
       }
@@ -2857,190 +2958,52 @@
       showToast(`⚡ Recalibrated Fresh Setup for ${m.label} (${newHeadline})`);
     }
 
-    
-    // State for ICT Chart Markup Overlay
-    let markupSettings = {
-      rr: true,
-      asia: true,
-      fvg: true
-    };
-    let currentReplayIndex = -1;
-
-    function toggleMarkupElement(type) {
-      markupSettings[type] = !markupSettings[type];
-      const btn = document.getElementById('btnToggle' + type.charAt(0).toUpperCase() + type.slice(1));
-      if (btn) btn.classList.toggle('active', markupSettings[type]);
-
-      if (type === 'rr') {
-        const el = document.getElementById('rrBoxStage');
-        if (el) el.style.display = markupSettings.rr ? 'flex' : 'none';
-      } else if (type === 'asia') {
-        const el = document.getElementById('asianBoxMarkup');
-        if (el) el.style.display = markupSettings.asia ? 'flex' : 'none';
-      }
-    }
-
-    // Synchronize Card Dealing Range Meter & Nearest BSL/SSL
-    function updateChartMarkupOverlay() {
-      const m = DATA[curKey];
-      const h = m ? m.horizons[curHorizon] : null;
-      const obj = LIVE_PRICES[curKey];
-      if (!m || !h || !obj) return;
-
-      // Update Dealing Range Meter & Nearest BSL/SSL
-      const entryNum = parseFloat(String(h.entry).replace(/,/g, ''));
-      const stopNum = parseFloat(String(h.stop).replace(/,/g, ''));
-      const targetNum = parseFloat(String(h.target).replace(/,/g, ''));
-      const curPrice = obj.cur;
-
-      const bslEl = document.getElementById('cardNearBsl');
-      const sslEl = document.getElementById('cardNearSsl');
-      const drPointer = document.getElementById('drPointer');
-      const drLabel = document.getElementById('drPctLabel');
-
-      if (isNaN(entryNum) || isNaN(stopNum) || isNaN(targetNum)) {
-        if (drPointer) drPointer.style.left = '50%';
-        if (drLabel) drLabel.textContent = 'EQUILIBRIUM 50% (CONSOLIDATION)';
-        if (bslEl) bslEl.textContent = (curPrice + (15 * obj.pipScale)).toFixed(obj.decimals);
-        if (sslEl) sslEl.textContent = (curPrice - (15 * obj.pipScale)).toFixed(obj.decimals);
-        return;
-      }
-
-      const highRef = Math.max(entryNum, targetNum, curPrice);
-      const lowRef = Math.min(entryNum, stopNum, curPrice);
-      const span = (highRef - lowRef) || 1;
-      const pct = Math.min(Math.max(((curPrice - lowRef) / span) * 100, 5), 95);
-
-      if (drPointer) drPointer.style.left = `${pct.toFixed(0)}%`;
-      if (drLabel) {
-        if (pct < 40) drLabel.textContent = `DISCOUNT ${pct.toFixed(0)}% (BUY ZONE)`;
-        else if (pct > 60) drLabel.textContent = `PREMIUM ${pct.toFixed(0)}% (SELL ZONE)`;
-        else drLabel.textContent = `EQUILIBRIUM ${pct.toFixed(0)}%`;
-      }
-      if (bslEl) bslEl.textContent = (highRef + (10 * obj.pipScale)).toFixed(obj.decimals);
-      if (sslEl) sslEl.textContent = (lowRef - (10 * obj.pipScale)).toFixed(obj.decimals);
-    }
-
-    // Weekly Trade Replay on the Chart
-    function replayPreviousTrade() {
-      const tradesForAsset = REAL_BACKTEST_TRADES.filter(t => t.symbol === curKey);
-      if (!tradesForAsset.length) return;
-
-      currentReplayIndex = (currentReplayIndex - 1 + tradesForAsset.length) % tradesForAsset.length;
-      applyTradeReplayToChart(tradesForAsset[currentReplayIndex]);
-    }
-
-    function replayNextTrade() {
-      const tradesForAsset = REAL_BACKTEST_TRADES.filter(t => t.symbol === curKey);
-      if (!tradesForAsset.length) return;
-
-      currentReplayIndex = (currentReplayIndex + 1) % tradesForAsset.length;
-      applyTradeReplayToChart(tradesForAsset[currentReplayIndex]);
-    }
-
-    function applyTradeReplayToChart(t) {
-      if (!t) return;
-      const lbl = document.getElementById('replayTradeLabel');
-      if (lbl) {
-        const sign = t.r_multiple >= 0 ? '+' : '';
-        lbl.textContent = `${t.ticket} (${sign}${t.r_multiple.toFixed(1)}R)`;
-        lbl.style.color = t.r_multiple >= 0 ? 'var(--bull)' : 'var(--bear)';
-      }
-
-      // Snap the Risk/Reward Box on the chart to this trade's exact coordinates!
-      const rrTpVal = document.getElementById('rrTpVal');
-      const rrTpPips = document.getElementById('rrTpPips');
-      const rrSlVal = document.getElementById('rrSlVal');
-      const rrSlPips = document.getElementById('rrSlPips');
-      const rrRatioBadge = document.getElementById('rrRatioBadge');
-
-      if (rrTpVal) rrTpVal.textContent = t.target;
-      if (rrTpPips) rrTpPips.textContent = `+${t.tp_pips}`;
-      if (rrSlVal) rrSlVal.textContent = t.stop;
-      if (rrSlPips) rrSlPips.textContent = `-${t.sl_pips}`;
-      if (rrRatioBadge) rrRatioBadge.textContent = `${t.rr} (${t.outcome})`;
-
-      showToast(`Replaying Trade ${t.ticket} on Chart (${t.time} • ${t.model})`);
+    function formatPrice(key, price) {
+      const obj = LIVE_PRICES[key];
+      if (!obj) return String(price);
+      const prefix = obj.prefix || '';
+      return prefix + Number(price).toLocaleString(undefined, {
+        minimumFractionDigits: obj.decimals,
+        maximumFractionDigits: obj.decimals
+      });
     }
 
     function updateDesk() {
-      updateChartMarkupOverlay();
       const m = DATA[curKey];
       const h = m.horizons[curHorizon];
       const isStandAside = h.status === 'STAND_ASIDE';
 
       // 1. Header Toolbar
-      document.getElementById('pairSpread').textContent = `Spread: ${m.spread}`;
+      const sp = document.getElementById('pairSpread');
+      if (sp) sp.textContent = `Spread: ${m.spread}`;
       const badge = document.getElementById('pairStatusBadge');
-      badge.textContent = isStandAside ? 'STAND ASIDE • NO CHOP' : 'ACTIVE INTERCEPT';
-      badge.className = 'status-badge ' + (isStandAside ? 'standaside' : 'active');
-
-      // 2. Stand Aside Banner
-      const saBanner = document.getElementById('standAsideBanner');
-      const dirCard = document.getElementById('dirCard');
-      const btnExec = document.getElementById('btnExecute');
-
-      if (isStandAside) {
-        saBanner.classList.add('visible');
-        document.getElementById('standAsideDesc').innerHTML = h.doText;
-        dirCard.classList.add('standaside');
-        btnExec.classList.add('disabled');
-        btnExec.textContent = '🛑 Stand Aside (No Active Trigger)';
-      } else {
-        saBanner.classList.remove('visible');
-        dirCard.classList.remove('standaside');
-        btnExec.classList.remove('disabled');
-        btnExec.textContent = '⚡ Execute on MT5';
+      if (badge) {
+        badge.textContent = isStandAside ? 'STAND ASIDE • NO CHOP' : 'ACTIVE INTERCEPT';
+        badge.className = 'status-badge ' + (isStandAside ? 'standaside' : 'active');
       }
 
-      // 3. Directive Card
-      const hl = document.getElementById('dirHeadline');
-      hl.textContent = h.headline;
-      hl.className = 'directive-headline ' + h.headlineClass;
-      document.getElementById('dirArchetype').textContent = h.archetype;
-      document.getElementById('dirHorizonBadge').textContent = h.badge;
-      document.getElementById('dirOrder').textContent = h.order;
-
-      // 4. Guidance Triad
-      const gd = document.getElementById('guideDo'); if (gd) gd.innerHTML = h.doText;
-      const gdn = document.getElementById('guideDont'); if (gdn) gdn.innerHTML = h.dontText;
-      const gw = document.getElementById('guideWhen'); if (gw && h.whenText) gw.innerHTML = h.whenText;
-
-      // 5. Surgical Levels
-      document.getElementById('lvlEntry').textContent = isStandAside ? '---' : h.entry;
-      document.getElementById('lvlStop').textContent = isStandAside ? '---' : h.stop;
-      document.getElementById('lvlTarget').textContent = isStandAside ? '---' : h.target;
-
-      document.getElementById('pillEntry').textContent = h.pillEntry;
-      document.getElementById('pillStop').textContent = h.pillStop;
-      document.getElementById('pillTarget').textContent = h.pillTarget;
-
-      // 6. Governor
-      document.getElementById('govBe').textContent = h.govBe;
-      document.getElementById('govTp1').textContent = h.govTp1;
-      document.getElementById('govTp2').textContent = h.govTp2;
-
-      document.getElementById('calc50').textContent = h.calc50;
-      document.getElementById('calc100').textContent = h.calc100;
-      document.getElementById('calcRr').textContent = h.calcRr;
-
-      // 7. Benchmark Bar Below Chart
-      document.getElementById('bmModelLabel').textContent = `${m.label} • ${h.tf} • ${h.archetype.toUpperCase()}`;
+      // 2. Benchmark Bar Below Chart
+      const bmLabel = document.getElementById('bmModelLabel');
+      if (bmLabel) bmLabel.textContent = `${m.label} • ${h.tf} • ${h.archetype.toUpperCase()}`;
       const pillsContainer = document.getElementById('bmPills');
-      if (isStandAside) {
-        pillsContainer.innerHTML = `
-          <span class="bm-tag red">STAND ASIDE (DISCIPLINE)</span>
-          <span class="bm-tag gray">LIVE: ${(curKey === 'XAUUSD' ? '$' : '') + (LIVE_PRICES[curKey] ? LIVE_PRICES[curKey].cur.toLocaleString(undefined, { minimumFractionDigits: LIVE_PRICES[curKey].decimals }) : m.price)}</span>
-          <span class="bm-tag gray">CAPITAL PRESERVATION</span>
-        `;
-      } else {
-        pillsContainer.innerHTML = `
-          <span class="bm-tag gold">ENTRY: ${h.entry}</span>
-          <span class="bm-tag red">SL: ${h.stop} (${h.pillStop})</span>
-          <span class="bm-tag green">TP: ${h.target} (${h.pillTarget})</span>
-          <span class="bm-tag gray">R:R ${h.calcRr}</span>
-        `;
+      if (pillsContainer) {
+        if (isStandAside) {
+          pillsContainer.innerHTML = `
+            <span class="bm-tag red">STAND ASIDE (DISCIPLINE)</span>
+            <span class="bm-tag gray">LIVE: ${formatPrice(curKey, LIVE_PRICES[curKey] ? LIVE_PRICES[curKey].cur : m.price)}</span>
+            <span class="bm-tag gray">CAPITAL PRESERVATION</span>
+          `;
+        } else {
+          pillsContainer.innerHTML = `
+            <span class="bm-tag gold">ENTRY: ${h.entry}</span>
+            <span class="bm-tag red">SL: ${h.stop} (${h.pillStop})</span>
+            <span class="bm-tag green">TP: ${h.target} (${h.pillTarget})</span>
+            <span class="bm-tag gray">R:R ${h.calcRr}</span>
+          `;
+        }
       }
+
+      updateLiveHud();
     }
 
     // ========================================================
@@ -3647,16 +3610,16 @@
       if (elSession) elSession.textContent = session;
     }
 
-    // Real-Time Live Ticker Engine (Connected to Genuine Interbank WebSocket)
+    // Real-Time Live Ticker Engine (Connected to Genuine Interbank WebSocket & TradingView Scanner)
     const LIVE_PRICES = {
-      GBPUSD: { base: 1.33550, cur: 1.33550, decimals: 5, spread: '0.8 pips', pipScale: 0.0001 },
-      EURUSD: { base: 1.11440, cur: 1.11440, decimals: 5, spread: '0.6 pips', pipScale: 0.0001 },
-      USDJPY: { base: 158.330, cur: 158.330, decimals: 3, spread: '0.9 pips', pipScale: 0.01 },
-      XAUUSD: { base: 4037.50, cur: 4037.50, decimals: 2, spread: '1.8 pips', pipScale: 0.1 },
-      NAS100: { base: 26960.0, cur: 26960.0, decimals: 1, spread: '1.2 pts', pipScale: 1.0 },
-      US500: { base: 7374.50, cur: 7374.50, decimals: 2, spread: '0.3 pts', pipScale: 0.25 },
-      VOL75: { base: 36660.0, cur: 36660.0, decimals: 1, spread: '25 pts', pipScale: 1.0 },
-      VOL100: { base: 553.00, cur: 553.00, decimals: 2, spread: '1.2 pts', pipScale: 0.1 }
+      GBPUSD: { base: 1.34530, cur: 1.34530, decimals: 5, spread: '0.8 pips', pipScale: 0.0001, prefix: '' },
+      EURUSD: { base: 1.12500, cur: 1.12500, decimals: 5, spread: '0.6 pips', pipScale: 0.0001, prefix: '' },
+      USDJPY: { base: 157.920, cur: 157.920, decimals: 3, spread: '0.9 pips', pipScale: 0.01, prefix: '' },
+      XAUUSD: { base: 4118.00, cur: 4118.00, decimals: 2, spread: '1.8 pips', pipScale: 0.1, prefix: '$' },
+      NAS100: { base: 26960.0, cur: 26960.0, decimals: 1, spread: '1.2 pts', pipScale: 1.0, prefix: '' },
+      US500: { base: 7374.50, cur: 7374.50, decimals: 2, spread: '0.3 pts', pipScale: 0.25, prefix: '' },
+      VOL75: { base: 36660.0, cur: 36660.0, decimals: 1, spread: '25 pts', pipScale: 1.0, prefix: '' },
+      VOL100: { base: 553.00, cur: 553.00, decimals: 2, spread: '1.2 pts', pipScale: 0.1, prefix: '' }
     };
 
     let derivSocket = null;
@@ -3677,11 +3640,8 @@
 
         derivSocket.onopen = () => {
           console.log('[Live Feed] Connected to Real Market WebSocket (api.derivws.com)');
-          // Subscribe to all 8 instruments simultaneously so all quotes and dropdowns are live
           for (const sym of Object.values(DERIV_SYMBOL_MAP)) {
-            try {
-              derivSocket.send(JSON.stringify({ ticks: sym }));
-            } catch (e) {}
+            try { derivSocket.send(JSON.stringify({ ticks: sym })); } catch (e) {}
           }
         };
 
@@ -3710,7 +3670,6 @@
         };
 
         derivSocket.onclose = () => {
-          console.log('[Live Feed] WebSocket closed, auto-reconnecting in 2s...');
           setTimeout(connectLiveDerivFeed, 2000);
         };
       } catch (e) {
@@ -3722,13 +3681,11 @@
       if (!derivSocket || derivSocket.readyState !== WebSocket.OPEN) return;
       const dSym = DERIV_SYMBOL_MAP[curKey];
       if (dSym) {
-        try {
-          derivSocket.send(JSON.stringify({ ticks: dSym }));
-        } catch (e) {}
+        try { derivSocket.send(JSON.stringify({ ticks: dSym })); } catch (e) {}
       }
     }
 
-    // Direct Synchronization Engine Tethered to TradingView's Chart Feed
+    // Direct Synchronization Engine Tethered to TradingView Data Servers
     const TV_SCANNER_MAP = {
       GBPUSD: 'FX:GBPUSD',
       EURUSD: 'FX:EURUSD',
@@ -3752,7 +3709,6 @@
           json.data.forEach(item => {
             const symKey = Object.keys(TV_SCANNER_MAP).find(k => TV_SCANNER_MAP[k] === item.s);
             if (symKey && LIVE_PRICES[symKey]) {
-              // item.d[0] is the exact candle close / last traded quote on TradingView
               const rawPrice = parseFloat(item.d[0]);
               const oldP = LIVE_PRICES[symKey].cur;
               LIVE_PRICES[symKey].cur = rawPrice;
@@ -3765,85 +3721,25 @@
             }
           });
         }
-      } catch (e) {
-        // Fallback silently to Deriv WebSocket if network is offline
-      }
+      } catch (e) {}
     }
 
     function startLiveTicker() {
-      // 1. Direct live synchronization with TradingView's own data servers (Every 1.2 seconds)
       syncWithTradingViewPrices();
-      setInterval(syncWithTradingViewPrices, 1200);
-
-      // 2. Connect to genuine live market WebSocket for sub-second tick interpolation & synthetics
+      setInterval(syncWithTradingViewPrices, 2200);
       connectLiveDerivFeed();
-
-      // Only perform micro-smoothing for assets that have NOT received real ticks yet
-      setInterval(() => {
-        let changed = false;
-        for (const [key, obj] of Object.entries(LIVE_PRICES)) {
-          if (!obj.hasLiveFeed) {
-            const drift = (obj.base - obj.cur) * 0.10;
-            const jitter = (Math.random() - 0.49) * (obj.pipScale * 0.2);
-            const oldP = obj.cur;
-            obj.cur = parseFloat((obj.cur + drift + jitter).toFixed(obj.decimals));
-            obj.isUp = obj.cur >= oldP;
-            changed = true;
-          }
-        }
-        if (changed) {
-          updateLiveHud();
-        }
-      }, 1000);
     }
 
+    // THE SIMPLEST VERSION OF ICTFLUX: ULTRA-RESPONSIVE DYNAMIC ACTION CARD
     function updateLiveHud() {
       const obj = LIVE_PRICES[curKey];
       const m = DATA[curKey];
       const h = m ? m.horizons[curHorizon] : null;
       if (!obj || !m || !h) return;
 
-      const pVal = document.getElementById('lphPriceVal');
-      const arrow = document.getElementById('lphTickArrow');
-      const lphEl = document.getElementById('lphLivePrice');
-      const distEl = document.getElementById('lphDist');
-      const stateEl = document.getElementById('lphState');
-      const symLabel = document.getElementById('lphSymbolLabel');
+      const formatted = formatPrice(curKey, obj.cur);
 
-      if (symLabel) symLabel.textContent = `${m.label} • SPREAD: ${obj.spread}`;
-
-      const formatted = (curKey === 'XAUUSD' ? '$' : '') + obj.cur.toLocaleString(undefined, { minimumFractionDigits: obj.decimals });
-      
-      if (pVal) {
-        pVal.textContent = formatted;
-      }
-
-      // Dynamically update dropdown option labels in real-time so selector button and options tick live
-      const instSelect = document.getElementById('instrumentSelect');
-      if (instSelect) {
-        const INSTRUMENT_BASE_LABELS = {
-          XAUUSD: 'XAU/USD (Gold)',
-          GBPUSD: 'GBP/USD',
-          EURUSD: 'EUR/USD',
-          USDJPY: 'USD/JPY',
-          NAS100: 'NAS100 (Nasdaq)',
-          US500: 'US500 (S&P 500)',
-          VOL75: 'Volatility 75 (Deriv)',
-          VOL100: 'Volatility 100 (Deriv)'
-        };
-        for (let i = 0; i < instSelect.options.length; i++) {
-          const opt = instSelect.options[i];
-          const k = opt.value;
-          const liveData = LIVE_PRICES[k];
-          const baseLbl = INSTRUMENT_BASE_LABELS[k] || opt.value;
-          if (liveData) {
-            const pText = (k === 'XAUUSD' ? '$' : '') + liveData.cur.toLocaleString(undefined, { minimumFractionDigits: liveData.decimals });
-            opt.textContent = `${baseLbl} • ${pText}`;
-          }
-        }
-      }
-
-      // Update Toolbar Selection Bar Live Price
+      // 1. Unified Toolbar Live Price
       const tlbVal = document.getElementById('tlbPriceVal');
       const tlbArr = document.getElementById('tlbArrow');
       if (tlbVal) {
@@ -3855,249 +3751,161 @@
         tlbArr.style.color = obj.isUp ? 'var(--bull)' : 'var(--bear)';
       }
 
+      // 2. Action Card Dynamic Elements
+      const hero = document.getElementById('actionHero');
+      const heroDot = document.getElementById('heroDot');
+      const heroTag = document.getElementById('heroStatusTag');
+      const heroDist = document.getElementById('heroDistBadge');
+      const heroHl = document.getElementById('heroHeadline');
+      const heroSub = document.getElementById('heroSubtext');
+      const heroActionBar = document.getElementById('heroActionBar');
+
+      const lvlEntry = document.getElementById('lvlEntry');
+      const lvlStop = document.getElementById('lvlStop');
+      const lvlTarget = document.getElementById('lvlTarget');
+      const pillEntry = document.getElementById('pillEntry');
+      const pillStop = document.getElementById('pillStop');
+      const pillTarget = document.getElementById('pillTarget');
+
+      const guideDo = document.getElementById('guideDo');
+      const guideDont = document.getElementById('guideDont');
+      const govBe = document.getElementById('govBe');
+      const govTp1 = document.getElementById('govTp1');
+      const govTp2 = document.getElementById('govTp2');
+
+      const calc50 = document.getElementById('calc50');
+      const calc100 = document.getElementById('calc100');
+      const calcRr = document.getElementById('calcRr');
+      const btnExec = document.getElementById('btnExecute');
+
+      // Populate base metrics
+      if (lvlEntry) lvlEntry.textContent = h.entry;
+      if (lvlStop) lvlStop.textContent = h.stop;
+      if (lvlTarget) lvlTarget.textContent = h.target;
+      if (pillEntry) pillEntry.textContent = h.pillEntry;
+      if (pillStop) pillStop.textContent = h.pillStop;
+      if (pillTarget) pillTarget.textContent = h.pillTarget;
+
+      if (guideDo) guideDo.innerHTML = h.doText;
+      if (guideDont) guideDont.innerHTML = h.dontText;
+      if (govBe) govBe.textContent = h.govBe;
+      if (govTp1) govTp1.textContent = h.govTp1;
+      if (govTp2) govTp2.textContent = h.govTp2;
+
+      if (calc50) calc50.textContent = h.calc50;
+      if (calc100) calc100.textContent = h.calc100;
+      if (calcRr) calcRr.textContent = h.calcRr;
+
+      // 3. Dynamic States
+      if (h.status === 'STAND_ASIDE') {
+        if (hero) hero.className = 'action-card-hero standaside';
+        if (heroDot) heroDot.className = 'pulse-dot red';
+        if (heroTag) heroTag.textContent = '⏸️ CONSOLIDATION CHOP';
+        if (heroDist) heroDist.textContent = 'CAPITAL PRESERVATION';
+        if (heroHl) heroHl.textContent = 'STAND ASIDE • NO ACTIVE TRIGGER';
+        if (heroSub) heroSub.textContent = `${m.label} is currently compressing in mid-range equilibrium. Strictly preserve capital until a clean liquidity sweep occurs.`;
+        if (heroActionBar) heroActionBar.style.display = 'none';
+
+        if (lvlEntry) lvlEntry.textContent = '---';
+        if (lvlStop) lvlStop.textContent = '---';
+        if (lvlTarget) lvlTarget.textContent = '---';
+
+        if (btnExec) {
+          btnExec.className = 'btn disabled';
+          btnExec.textContent = '🛑 Stand Aside (No Active Trigger)';
+          btnExec.onclick = null;
+        }
+        return;
+      }
+
+      // Check Numerical Trigger State
       const entryNum = parseFloat(String(h.entry).replace(/,/g, ''));
       const stopNum = parseFloat(String(h.stop).replace(/,/g, ''));
       const targetNum = parseFloat(String(h.target).replace(/,/g, ''));
-      const isBuy = h.headline.includes('BUY') || (targetNum > entryNum);
 
-      const dirCard = document.getElementById('dirCard');
-      const dirHl = document.getElementById('dirHeadline');
-      const guideDo = document.getElementById('guideDo');
-      const badge = document.getElementById('pairStatusBadge');
-      const dirBadge = document.getElementById('dirHorizonBadge');
-      const btnExec = document.getElementById('btnExecute');
-
-      const ribbon = document.getElementById('dirStateRibbon');
-      const ribbonDot = document.getElementById('stateRibbonDot');
-      const ribbonTxt = document.getElementById('stateRibbonText');
-      const ribbonSub = document.getElementById('stateRibbonSub');
-
-      const radarBox = document.getElementById('invalidationRadarBox');
-      const radarDist = document.getElementById('radarDistanceTag');
-      const radarStop = document.getElementById('radarStopVal');
-      const radarState = document.getElementById('radarBreachState');
-
-      if (h.status === 'STAND_ASIDE') {
-        if (distEl) {
-          distEl.textContent = '🛑 STAND ASIDE (NO CHOP)';
-          distEl.style.color = 'var(--warn)';
-        }
-        if (stateEl) {
-          stateEl.textContent = 'CAPITAL PRESERVATION LOCK';
-          stateEl.style.color = 'var(--warn)';
-        }
-        if (ribbon) ribbon.className = 'state-ribbon standaside';
-        if (ribbonDot) ribbonDot.className = 'pulse-dot red';
-        if (ribbonTxt) ribbonTxt.textContent = '🛑 CONSOLIDATION TRAP • PRESERVE CAPITAL';
-        if (ribbonSub) ribbonSub.textContent = 'STAND ASIDE';
-
-        if (radarBox) radarBox.className = 'invalidation-radar-box';
-        if (radarDist) {
-          radarDist.textContent = 'EQUILIBRIUM CHOP';
-          radarDist.style.color = 'var(--warn)';
-        }
-        if (radarStop) radarStop.textContent = '---';
-        if (radarState) {
-          radarState.textContent = 'No trade until range expansion / liquidity sweep';
-          radarState.style.color = 'var(--warn)';
-        }
-        return;
-      } else if (!isNaN(entryNum) && !isNaN(stopNum) && !isNaN(targetNum)) {
+      if (!isNaN(entryNum) && !isNaN(stopNum) && !isNaN(targetNum)) {
         const curPrice = obj.cur;
+        const isBuy = h.headline.includes('BUY') || (targetNum > entryNum);
         const isStopBreached = isBuy ? (curPrice <= stopNum) : (curPrice >= stopNum);
         const isTargetReached = isBuy ? (curPrice >= targetNum) : (curPrice <= targetNum);
         const isFilled = isBuy ? (curPrice <= entryNum) : (curPrice >= entryNum);
         const isInProfit = isFilled && !isStopBreached && (isBuy ? (curPrice > entryNum) : (curPrice < entryNum));
 
-        const ribbon = document.getElementById('dirStateRibbon');
-        const ribbonDot = document.getElementById('stateRibbonDot');
-        const ribbonTxt = document.getElementById('stateRibbonText');
-        const ribbonSub = document.getElementById('stateRibbonSub');
-
-        const radarBox = document.getElementById('invalidationRadarBox');
-        const radarDist = document.getElementById('radarDistanceTag');
-        const radarStop = document.getElementById('radarStopVal');
-        const radarState = document.getElementById('radarBreachState');
-
-        const stopDistPips = Math.abs(curPrice - stopNum) / obj.pipScale;
-        if (radarStop) radarStop.textContent = h.stop;
-
         if (isStopBreached) {
-          // LIVE STATE 1: SETUP SWEPT & INVALIDATED
-          if (dirCard) dirCard.classList.remove('standaside');
-          if (ribbon) {
-            ribbon.className = 'state-ribbon invalidated';
-            if (ribbonDot) ribbonDot.className = 'pulse-dot red';
-            if (ribbonTxt) ribbonTxt.textContent = `🛑 SURGICAL STOP SWEPT @ ${h.stop} • TRADE INVALIDATED`;
-            if (ribbonSub) ribbonSub.textContent = 'STOPPED OUT';
-          }
-          if (radarBox) radarBox.className = 'invalidation-radar-box';
-          if (radarDist) {
-            radarDist.textContent = `🛑 STOP SWEPT (${h.stop})`;
-            radarDist.style.color = 'var(--bear)';
-          }
-          if (radarState) {
-            radarState.textContent = 'Trade Terminated (Discipline)';
-            radarState.style.color = 'var(--bear)';
-          }
-          if (dirHl) {
-            dirHl.textContent = `🛑 SETUP SWEPT @ ${h.stop} (PRESERVE CAPITAL)`;
-            dirHl.className = 'directive-headline standaside';
-          }
-          if (stateEl) {
-            stateEl.textContent = '🛑 STOPPED OUT • AWAITING RESET';
-            stateEl.style.color = 'var(--bear)';
-          }
-          if (distEl) {
-            distEl.textContent = `📍 Live Price: ${curPrice.toFixed(obj.decimals)}`;
-            distEl.style.color = 'var(--text-muted)';
-          }
-          if (badge) {
-            badge.textContent = 'STOPPED OUT (DISCIPLINE)';
-            badge.className = 'status-badge standaside';
-          }
-          if (dirBadge) {
-            dirBadge.textContent = 'INVALIDATED';
-            dirBadge.className = 'status-badge standaside';
-          }
-          if (guideDo) {
-            guideDo.innerHTML = `<strong style="color:var(--bear)">Stop Swept:</strong> Surgical stop at <b>${h.stop}</b> was taken out by institutional liquidity. Do not revenge trade. The market order flow is resetting. Click <b>⚡ RECALIBRATE FRESH SETUP</b> below to lock onto current live market liquidity.`;
-          }
+          // STATE 1: SETUP SWEPT & INVALIDATED
+          if (hero) hero.className = 'action-card-hero invalidated';
+          if (heroDot) heroDot.className = 'pulse-dot red';
+          if (heroTag) heroTag.textContent = '🛑 SETUP INVALIDATED';
+          if (heroDist) heroDist.textContent = 'STOPPED OUT';
+          if (heroHl) heroHl.textContent = `🛑 STOP SWEPT @ ${h.stop}`;
+          if (heroSub) heroSub.textContent = `Surgical stop at ${h.stop} was swept by institutional liquidity. Do not revenge trade. Market order flow is resetting for the next killzone opportunity.`;
+          if (heroActionBar) heroActionBar.style.display = 'flex';
+
+          if (guideDo) guideDo.innerHTML = `<strong style="color:var(--bear)">Order Flow Reset:</strong> Previous setup invalidated. Click <b>⚡ Recalibrate Fresh Setup</b> to recalculate levels from live market liquidity.`;
+          if (guideDont) guideDont.innerHTML = `Never hold losing trades past surgical invalidation chokepoints. Strict discipline keeps account drawdowns minimal.`;
+
           if (btnExec) {
-            btnExec.classList.remove('disabled');
-            btnExec.textContent = `⚡ Recalibrate Fresh Setup @ ${curPrice.toFixed(obj.decimals)}`;
-            btnExec.onclick = () => {
-              regenerateLiveSetupForCurrentPrice();
-            };
+            btnExec.className = 'btn primary';
+            btnExec.textContent = `⚡ Recalibrate Fresh Setup @ ${formatted}`;
+            btnExec.onclick = () => regenerateLiveSetupForCurrentPrice();
           }
         } else if (isTargetReached) {
-          // LIVE STATE 2: TARGET ACHIEVED
-          if (dirCard) dirCard.classList.remove('standaside');
-          if (ribbon) {
-            ribbon.className = 'state-ribbon target-hit';
-            if (ribbonDot) ribbonDot.className = 'pulse-dot green';
-            if (ribbonTxt) ribbonTxt.textContent = '🎯 TARGET SWEPT • +4.00R EXHAUSTION';
-            if (ribbonSub) ribbonSub.textContent = 'PROFITS LOCKED';
-          }
-          if (radarBox) radarBox.className = 'invalidation-radar-box';
-          if (radarDist) {
-            radarDist.textContent = '✅ DRAW COMPLETE';
-            radarDist.style.color = 'var(--bull)';
-          }
-          if (radarState) {
-            radarState.textContent = 'Target Exhausted';
-            radarState.style.color = 'var(--bull)';
-          }
-          // LIVE STATE 2: TARGET ACHIEVED
-          if (dirHl) {
-            dirHl.textContent = '🎯 TARGET ACHIEVED (DRAW COMPLETE)';
-            dirHl.className = 'directive-headline buy';
-          }
-          if (stateEl) {
-            stateEl.textContent = '🎯 TARGET HIT • +4.00R SECURED';
-            stateEl.style.color = 'var(--bull)';
-          }
-          if (distEl) {
-            distEl.textContent = '✅ DRAW EXHAUSTED (+4.00R)';
-            distEl.style.color = 'var(--bull)';
-          }
-          if (dirBadge) {
-            dirBadge.textContent = 'PROFIT SECURED';
-            dirBadge.className = 'status-badge active';
-          }
-          if (guideDo) {
-            guideDo.innerHTML = `<strong style="color:var(--bull)">Target Swept:</strong> Terminal Draw on Liquidity (${h.target}) fully hit. 100% of tranches closed. Stand aside to prevent giving back profits.`;
-          }
+          // STATE 2: TARGET HIT
+          if (hero) hero.className = 'action-card-hero target-hit';
+          if (heroDot) heroDot.className = 'pulse-dot green';
+          if (heroTag) heroTag.textContent = '🏆 TARGET ACHIEVED';
+          if (heroDist) heroDist.textContent = '+4.00R EXHAUSTION';
+          if (heroHl) heroHl.textContent = `🎯 TARGET SWEPT @ ${h.target}`;
+          if (heroSub) heroSub.textContent = `Terminal liquidity pool fully swept. 100% of tranches closed. Stand aside to lock in profits.`;
+          if (heroActionBar) heroActionBar.style.display = 'none';
+
           if (btnExec) {
-            btnExec.classList.add('disabled');
-            btnExec.textContent = '🎯 Target Achieved (Profits Locked)';
+            btnExec.className = 'btn disabled';
+            btnExec.textContent = '🏆 Target Achieved (Profits Locked)';
+            btnExec.onclick = null;
           }
         } else if (isInProfit) {
-          // LIVE STATE 3: TRADE ACTIVE & IN PROFIT
+          // STATE 3: RUNNING IN PROFIT
           const gainPips = isBuy ? (curPrice - entryNum) / obj.pipScale : (entryNum - curPrice) / obj.pipScale;
           const riskPips = Math.abs(entryNum - stopNum) / obj.pipScale;
           const rMultiple = gainPips / (riskPips || 1);
 
-          if (dirCard) dirCard.classList.remove('standaside');
-          if (ribbon) {
-            ribbon.className = 'state-ribbon in-profit';
-            if (ribbonDot) ribbonDot.className = 'pulse-dot green';
-            if (ribbonTxt) ribbonTxt.textContent = `⚡ RUNNING IN PROFIT (+${gainPips.toFixed(1)} Pips • +${rMultiple.toFixed(2)}R)`;
-            if (ribbonSub) ribbonSub.textContent = rMultiple >= 0.80 ? '🛡️ BE LOCKED' : 'RUNNING';
-          }
-          if (radarBox) radarBox.className = 'invalidation-radar-box';
-          if (radarDist) {
-            radarDist.textContent = `🛡️ BUFFER +${stopDistPips.toFixed(1)} Pips`;
-            radarDist.style.color = 'var(--bull)';
-          }
-          if (radarState) {
-            radarState.textContent = rMultiple >= 0.80 ? 'Breakeven Active (0 Risk)' : 'Stop at Entry Buffer';
-            radarState.style.color = 'var(--bull)';
-          }
+          if (hero) hero.className = 'action-card-hero in-profit';
+          if (heroDot) heroDot.className = 'pulse-dot green';
+          if (heroTag) heroTag.textContent = rMultiple >= 0.80 ? '🛡️ BREAKEVEN SHIELD LOCKED' : '⚡ RUNNING IN PROFIT';
+          if (heroDist) heroDist.textContent = `+${gainPips.toFixed(1)} Pips (+${rMultiple.toFixed(2)}R)`;
+          if (heroHl) heroHl.textContent = `${isBuy ? 'BUY' : 'SELL'} ORDER ACTIVE • +${rMultiple.toFixed(2)}R`;
+          if (heroSub) heroSub.textContent = rMultiple >= 0.80 ? `Price crossed +0.80R threshold. Stop moved to Entry (${h.entry}). Trade is 100% risk-free.` : `Displacement active. Running toward +0.80R Breakeven lock.`;
+          if (heroActionBar) heroActionBar.style.display = 'none';
 
-          if (dirHl) {
-            dirHl.textContent = `${h.headline} • IN PROFIT (+${gainPips.toFixed(1)} Pips)`;
-            dirHl.className = isBuy ? 'directive-headline buy' : 'directive-headline sell';
-          }
-          if (rMultiple >= 0.80) {
-            if (stateEl) {
-              stateEl.textContent = '🛡️ BREAKEVEN SHIELD LOCKED (+0.80R)';
-              stateEl.style.color = 'var(--bull)';
-            }
-            if (distEl) {
-              distEl.textContent = `🛡️ Risk-Free (+${rMultiple.toFixed(2)}R Gain)`;
-              distEl.style.color = 'var(--bull)';
-            }
-            if (guideDo) {
-              guideDo.innerHTML = `<strong style="color:var(--bull)">Breakeven Shield Active:</strong> Price crossed +0.80R threshold. Stop loss moved to Entry (${h.entry}). Position is 100% risk-free. Tranche 1 (+1.50R) harvested.`;
-            }
-          } else {
-            if (stateEl) {
-              stateEl.textContent = `⚡ IN PROFIT (+${gainPips.toFixed(1)} Pips)`;
-              stateEl.style.color = 'var(--accent)';
-            }
-            if (distEl) {
-              distEl.textContent = `Running +${gainPips.toFixed(1)} Pips to TP`;
-              distEl.style.color = 'var(--accent)';
-            }
+          if (btnExec) {
+            btnExec.className = 'btn primary';
+            btnExec.textContent = rMultiple >= 0.80 ? `🛡️ Breakeven Locked (+${rMultiple.toFixed(2)}R)` : `⚡ In Profit (+${gainPips.toFixed(1)}p)`;
+            btnExec.onclick = () => executeTrade();
           }
         } else {
-          // LIVE STATE 4: PENDING ORDER FILL
+          // STATE 4: PENDING RETRACEMENT
           const distPips = Math.abs(curPrice - entryNum) / obj.pipScale;
-          if (dirCard) dirCard.classList.remove('standaside');
-          if (ribbon) {
-            ribbon.className = 'state-ribbon pending';
-            if (ribbonDot) ribbonDot.className = 'pulse-dot gold';
-            if (ribbonTxt) ribbonTxt.textContent = `⏳ PENDING RETRACEMENT • ${distPips.toFixed(1)} Pips to FVG Touch`;
-            if (ribbonSub) ribbonSub.textContent = distPips < 3.5 ? '🔥 IMMINENT FILL' : 'LIMIT READY';
-          }
-          if (radarBox) radarBox.className = stopDistPips < 4.0 ? 'invalidation-radar-box danger' : 'invalidation-radar-box';
-          if (radarDist) {
-            radarDist.textContent = stopDistPips < 4.0 ? `⚠️ NARROW BUFFER (+${stopDistPips.toFixed(1)}p)` : `🟢 SAFE BUFFER (+${stopDistPips.toFixed(1)} Pips)`;
-            radarDist.style.color = stopDistPips < 4.0 ? 'var(--warn)' : 'var(--bull)';
-          }
-          if (radarState) {
-            radarState.textContent = 'Trade Setup Is Valid';
-            radarState.style.color = 'var(--accent)';
-          }
+          if (hero) hero.className = 'action-card-hero pending';
+          if (heroDot) heroDot.className = 'pulse-dot gold';
+          if (heroTag) heroTag.textContent = distPips < 3.5 ? '🔥 IMMINENT FILL ZONE' : '⏳ PENDING RETRACEMENT';
+          if (heroDist) heroDist.textContent = `${distPips.toFixed(1)} Pips Away`;
+          if (heroHl) heroHl.textContent = h.headline;
+          if (heroSub) heroSub.textContent = `Wait for price to retrace into the 50% CE level at ${h.entry}. Limit order ready.`;
+          if (heroActionBar) heroActionBar.style.display = 'none';
 
-          if (distEl) {
-            distEl.textContent = `📍 ${distPips.toFixed(1)} Pips to Limit`;
-            distEl.style.color = 'var(--accent)';
-          }
-          if (stateEl) {
-            stateEl.textContent = distPips < 4 ? '🔥 IMMINENT FILL ZONE' : '⏳ PENDING ORDER FILL';
-            stateEl.style.color = 'var(--text)';
-          }
-          if (btnExec && !btnExec.textContent.includes('Execute')) {
-            btnExec.classList.remove('disabled');
+          if (btnExec) {
+            btnExec.className = 'btn primary';
             btnExec.textContent = '⚡ Execute on MT5';
+            btnExec.onclick = () => executeTrade();
           }
         }
       }
     }
 
     window.addEventListener('DOMContentLoaded', () => {
+      const sel = document.getElementById('instrumentSelect');
+      if (sel) sel.value = curKey;
       try { setupResizer(); } catch (e) { console.error(e); }
       try { updateDesk(); } catch (e) { console.error(e); }
       try { updateTradingViewFrame(); } catch (e) { console.error(e); }
